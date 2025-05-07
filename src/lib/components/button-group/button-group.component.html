@@ -1,0 +1,22 @@
+<mat-button-toggle-group
+	[hideSingleSelectionIndicator]="true"
+	[formControl]="buttonGroup"
+>
+	@if (privateOptionsArray) {
+		@if (privateOptionsArray.length > 0) {
+			@for (option of privateOptionsArray; track option.value) {
+				@if (option.icon) {
+					<mat-button-toggle [value]="option.value">
+						<lib-icon
+							[color]="buttonGroup.value === option.value ? '307D2B' : '307D2B'"
+							[icon]="option.icon"
+							[size]="{ width: '30px', height: '30px' }"
+						></lib-icon>
+					</mat-button-toggle>
+				} @else {
+					<mat-button-toggle [value]="option.value">{{ option.value | titlecase }}</mat-button-toggle>
+				}
+			}
+		}
+	}
+</mat-button-toggle-group>

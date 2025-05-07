@@ -1,0 +1,11 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 280px;
+}
+
+
+.chart {
+  min-height: 300px;
+}

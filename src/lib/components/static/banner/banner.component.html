@@ -1,0 +1,16 @@
+<div class="banner">
+  <p class="banner-title">
+    <ng-content select="[banner-title]">
+    </ng-content>
+  </p>
+  <p class="banner-description">
+    <ng-content select="[banner-description]"></ng-content>
+  </p>
+  @if(!hideButton) {
+    <lib-button [hidden]="hideButton" [type]="ButtonType.Primary" [label]="buttonLabel"[disabled]="disabled" ></lib-button>
+  }
+
+  <div>
+    <ng-content select="[banner-info-svg]"></ng-content>
+  </div>
+</div>

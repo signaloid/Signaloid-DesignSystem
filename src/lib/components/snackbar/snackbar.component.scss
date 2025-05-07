@@ -1,0 +1,70 @@
+@use "@angular/material" as mat;
+
+::ng-deep .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  background-color: inherit !important;
+  border-radius: inherit !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+.snackbar-container {
+  display: flex;
+  width: 343px;
+  min-width: 343px;
+  padding: var(--space-sgnl-space-16, 16px);
+  align-items: flex-start;
+  gap: var(--space-sgnl-space-16, 16px);
+  flex-shrink: 0;
+  border-radius: var(--radius-sgnl-border-radius-6, 6px);
+  border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #BABCC2);
+  background: var(--defaults-primary-background-mono, #FFF);
+	justify-content: flex-start;
+
+  .icon-segment {
+    display: flex;
+    padding: var(--space-sgnl-space-8, 8px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sgnl-border-radius-6, 6px);
+    background: var(--brand-default-background-brand, #307D2B);
+  }
+
+  .text-segment {
+    display: flex;
+    min-height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--space-sgnl-space-8, 8px);
+    flex: 1 0 0;
+    width: 100%;
+    h3 {
+      color: var(--defaults-primary-text-primary, #3E4249);
+
+      /* text/Medium/p M Medium */
+      font-family: var(--family-text, "IBM Plex Sans");
+      font-size: var(--size-sgnl-paragraph-m, 16px);
+      font-style: normal;
+      font-weight: 500;
+      margin: 0;
+      line-height: var(--line-height-sgnl-font-line-height-paragraph-m, 24px); /* 150% */
+      letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+    }
+
+    p {
+      color: var(--defaults-secondary-text-secondary, #636873);
+      margin: 0;
+      /* text/Regular/p S Regular */
+      font-family: var(--family-text, "IBM Plex Sans");
+      font-size: var(--size-sgnl-paragraph-s, 14px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px); /* 142.857% */
+      letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+    }
+  }
+}
+
+::ng-deep .testing-class {
+  box-shadow: none !important;
+}

@@ -1,0 +1,12 @@
+<div class="figure-container">
+  <p class="figure-title">
+    <ng-content select="[figure-title]"></ng-content>
+  </p>
+
+  <lib-distribution-plot style="width: 22rem;" [uxValue]="uxString"></lib-distribution-plot>
+
+  <p class="figure-description">
+    <ng-content select="[figure-description]"></ng-content>
+  </p>
+
+</div>

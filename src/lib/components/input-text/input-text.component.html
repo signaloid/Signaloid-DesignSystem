@@ -1,0 +1,67 @@
+<div class="form-group">
+	@if (label) {
+		<label
+			class="field-label"
+			[class]="{
+				'field-label-disabled': disabled,
+			}"
+		>
+			{{ label }}
+		</label>
+	}
+
+	<div
+		class="input-wrapper"
+		[style.height]="inputSizeValues.height + 'px'"
+
+		[class]="{
+			'input-wrapper-focus': isFocused,
+			'input-wrapper-error': ngControl && ngControl.invalid && (ngControl.touched || ngControl.dirty),
+			'input-wrapper-disabled': disabled,
+			'text-input-S': size === InputTextSize.S,
+			'text-input-M': size === InputTextSize.M,
+			'text-input-L': size === InputTextSize.L,
+			'text-input-XL': size === InputTextSize.XL,
+		}"
+	>
+		@if (leftIcon) {
+			<lib-icon
+				[icon]="leftIcon"
+				[color]="disabled ? disabledIconColor : normalColor"
+			></lib-icon>
+		}
+
+		<input
+			(focus)="onFocus()"
+			(blur)="onBlur()"
+			[placeholder]="placeholder"
+			[value]="value"
+			(input)="onInput($event)"
+			[style.font-size]="inputSizeValues.fontSize + 'px'"
+			[disabled]="disabled"
+			class="text-input"
+			[type]="type"
+		/>
+		@if (rightIcon) {
+			<lib-icon [icon]="rightIcon"></lib-icon>
+		}
+	</div>
+
+	@if (hint && !hasErrors) {
+		<span
+			class="hint-text"
+			[class]="{ 'hint-disabled': disabled }"
+			>{{ hint }}</span
+		>
+	}
+	@if (hasErrors && !disabled) {
+		<div
+			class="error-messages"
+
+		>
+			@for (error of errorMessages; track error) {
+				<div>{{ error }}</div>
+			}
+		</div>
+	}
+</div>

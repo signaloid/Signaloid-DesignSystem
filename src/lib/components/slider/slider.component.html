@@ -1,0 +1,43 @@
+<!-- Single Value Slider -->
+<mat-slider
+  *ngIf="!multiple"
+  class="slider"
+  [discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
+  [class]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP }"
+  [max]="max"
+  [min]="min"
+  [step]="step"
+  [disabled]="disabled"
+  (blur)="onBlur()"
+>
+  <input
+    matSliderThumb
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange($event)"
+    (dragEnd)="onUpdate(value)"
+  />
+</mat-slider>
+
+<!-- Range (Multiple Thumbs) Slider -->
+<mat-slider
+  *ngIf="multiple"
+  class="slider"
+  [max]="max"
+  [min]="min"
+  [step]="step"
+  [disabled]="disabled"
+  [discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
+  [class]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP }"
+  (blur)="onBlur()"
+>
+  <input
+    matSliderStartThumb
+    [(ngModel)]="multipleMinValue"
+    (ngModelChange)="onRangeChange($event, multipleMaxValue)"
+  />
+  <input
+    matSliderEndThumb
+    [(ngModel)]="multipleMaxValue"
+    (ngModelChange)="onRangeChange(multipleMinValue, $event)"
+  />
+</mat-slider>

@@ -1,0 +1,400 @@
+<div
+	class="DistributionSlider"
+	[style.height]="svgHeight"
+>
+	<svg
+		#svgRef
+		[attr.width]="svgWidth"
+		[attr.height]="svgHeight"
+		[style.opacity]="graphOpacity"
+		class="graph"
+		(mousemove)="onMouseMove($event)"
+		(mouseup)="onMouseUp()"
+		(mouseleave)="onMouseUp()"
+		(touchmove)="onTouchMove($event)"
+		(touchend)="onTouchEnd()"
+		(touchcancel)="onTouchEnd()"
+	>
+		<defs>
+			<linearGradient
+				id="graph-fill-gradient"
+				x1="0"
+				x2="0"
+				y1="0"
+				y2="1"
+			></linearGradient>
+		</defs>
+
+		<!-- Grid lines -->
+		<ng-container *ngFor="let line of gridLines">
+			<svg>
+				<text
+					class="text-caption graph-legend"
+					[attr.x]="line.x1 - 54"
+					[attr.y]="line.y1 + 4"
+				>
+					{{ line.value }}
+				</text>
+				<line
+					[attr.x1]="line.x1"
+					[attr.y1]="line.y1"
+					[attr.x2]="line.x2"
+					[attr.y2]="line.y2"
+					class="graph-grid-line"
+					[class.collapsed]="collapsed"
+				></line>
+			</svg>
+		</ng-container>
+
+		<!-- Y-axis bottom label -->
+		<text
+			class="text-caption graph-legend"
+			text-anchor="end"
+			[attr.x]="safeArea.bottomLeft.x - 43"
+			[attr.y]="safeArea.bottomLeft.y + 4"
+			[class.collapsed]="collapsed"
+		>
+			0
+		</text>
+
+		<svg
+
+			[attr.x]="safeArea.bottomLeft.x - 60"
+			[attr.y]="safeArea.bottomLeft.y + 19"
+			style="display:none;cursor: pointer; z-index: 99"
+			(click)="toggleLocked()"
+		>
+			<circle
+				cx="15"
+				cy="15"
+				r="15"
+				fill="transparent"
+			></circle>
+		</svg>
+		<svg
+      style="display: none;"
+			[attr.x]="safeArea.bottomLeft.x - 55"
+			[attr.y]="safeArea.bottomLeft.y + 25"
+			width="40px"
+			height="40px"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			@if (!updatingMinMaxStepValues) {
+				<g id="Locked">
+					<path
+						d="M12 7H11V4C11 3.20435 10.6839 2.44129 10.1213 1.87868C9.55871 1.31607 8.79565 1 8 1C7.20435 1 6.44129 1.31607 5.87868 1.87868C5.31607 2.44129 5 3.20435 5 4V7H4C3.73478 7 3.48043 7.10536 3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V14C3 14.2652 3.10536 14.5196 3.29289 14.7071C3.48043 14.8946 3.73478 15 4 15H12C12.2652 15 12.5196 14.8946 12.7071 14.7071C12.8946 14.5196 13 14.2652 13 14V8C13 7.73478 12.8946 7.48043 12.7071 7.29289C12.5196 7.10536 12.2652 7 12 7ZM6 4C6 3.46957 6.21071 2.96086 6.58579 2.58579C6.96086 2.21071 7.46957 2 8 2C8.53043 2 9.03914 2.21071 9.41421 2.58579C9.78929 2.96086 10 3.46957 10 4V7H6V4ZM12 14H4V8H12V14Z"
+						fill="#6C727E"
+					/>
+				</g>
+			} @else {
+				<g id="Unlocked">
+					<path
+						d="M12 7H6V4C6 3.46957 6.21071 2.96086 6.58579 2.58579C6.96086 2.21071 7.46957 2 8 2C8.53043 2 9.03914 2.21071 9.41421 2.58579C9.78929 2.96086 10 3.46957 10 4H11C11 3.20435 10.6839 2.44129 10.1213 1.87868C9.55871 1.31607 8.79565 1 8 1C7.20435 1 6.44129 1.31607 5.87868 1.87868C5.31607 2.44129 5 3.20435 5 4V7H4C3.73478 7 3.48043 7.10536 3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V14C3 14.2652 3.10536 14.5196 3.29289 14.7071C3.48043 14.8946 3.73478 15 4 15H12C12.2652 15 12.5196 14.8946 12.7071 14.7071C12.8946 14.5196 13 14.2652 13 14V8C13 7.73478 12.8946 7.48043 12.7071 7.29289C12.5196 7.10536 12.2652 7 12 7ZM12 14H4V8H12V14Z"
+						fill="#636873"
+					/>
+				</g>
+			}
+		</svg>
+
+		<!-- Y-axis label -->
+		<text
+			*ngIf="!collapsed"
+			class="text-caption graph-legend"
+			text-anchor="middle"
+			dominant-baseline="central"
+			[attr.x]="20"
+			[attr.y]="safeArea.topLeft.y + safeArea.height / 2"
+			[attr.transform]="'rotate(-90, ' + 20 + ', ' + (safeArea.topLeft.y + safeArea.height / 2) + ')'"
+			[class.collapsed]="collapsed"
+		>
+			{{ yAxisLabel }}
+		</text>
+
+		<!-- X-axis label -->
+		<text
+			*ngIf="xAxisLabel && !updatingMinMaxStepValues"
+			class="text-caption graph-legend"
+			text-anchor="middle"
+			[attr.x]="safeArea.bottomLeft.x + safeArea.width / 2"
+			[attr.y]="
+				collapsed ? safeArea.topLeft.y + safeArea.height / 3 : safeArea.bottomLeft.y + (safeArea.height * 2) / 5
+			"
+		>
+			{{ xAxisLabel }}
+		</text>
+
+		<!-- Filled area path (backdrop) -->
+		<path
+			[attr.d]="
+				'M ' +
+				safeArea.bottomLeft.x +
+				' ' +
+				safeArea.bottomLeft.y +
+				' L ' +
+				pointPath +
+				' L ' +
+				safeArea.bottomRight.x +
+				' ' +
+				safeArea.bottomRight.y +
+				' Z'
+			"
+			[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+			[attr.transform]="collapsed ? 'scale(1, 0)' : ''"
+			class="graph-backdrop"
+			fill="url(#graph-fill-gradient)"
+		></path>
+
+		<!-- Vertical struts for each distribution point (from top to each point) -->
+		<ng-container *ngFor="let pt of pointList; let i = index">
+
+
+			<rect
+        class="sliders"
+        [attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + safeArea.bottomLeft.y"
+				[attr.x]="pt.x - 10"
+				[attr.y]="pt.y"
+				[attr.width]="20"
+				[attr.height]="safeArea.bottomLeft.y - pt.y"
+				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+				[attr.transform]="collapsed ? 'scale(1, 0)' : ''"
+
+			></rect>
+			<!-- Secondary strut (dashed) going upwards for UI effect -->
+			<path
+				[attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + (safeArea.topLeft.y - 18)"
+				class="graph-strut-secondary"
+				stroke-dasharray="4"
+				[class.active]="selectedPoint === i"
+			></path>
+		</ng-container>
+
+		<!-- Main path stroke for distribution curve -->
+		<path
+			[attr.d]="'M ' + pointPath"
+			fill="none"
+			[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+			[attr.transform]="collapsed ? 'scale(1, 0)' : ''"
+			class="graph-path"
+		></path>
+
+		<!-- Baseline track -->
+		<path
+			[attr.d]="
+				'M ' +
+				safeArea.bottomLeft.x +
+				' ' +
+				safeArea.bottomLeft.y +
+				' L ' +
+				safeArea.bottomRight.x +
+				' ' +
+				safeArea.bottomRight.y
+			"
+			[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+			[attr.transform]="collapsed ? 'translate(1, ' + -safeArea.height + ')' : ''"
+			class="graph-track"
+			[class.collapsed]="collapsed"
+		></path>
+
+		<!-- Circles for each distribution point -->
+		<ng-container *ngFor="let pt of pointList; let i = index; trackBy: pointTracking">
+			<svg
+				class="svg-thumb-vertical"
+				(mousedown)="onPointMouseDown($event, i)"
+				(touchstart)="onPointMouseDown($event, i)"
+				[class.thump-dragged]="selectedPoint === i"
+			>
+        <rect
+          [attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + safeArea.bottomLeft.y"
+          [attr.x]="pt.x - 12"
+          [attr.y]="pt.y"
+          [attr.width]="26"
+          [attr.height]="safeArea.bottomLeft.y - pt.y"
+          [attr.fill]="i === selectedPoint ? '#307D2B' : 'transparent'"
+          style="display: block; pointer-events: visiblePainted !important;"
+          (mouseenter)="hoverOnSlider(i)"
+          (mouseleave)="hoverOffSlider()"
+          [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+        ></rect>
+				<svg
+					width="16"
+					height="20"
+					viewBox="0 0 16 20"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+          [style.opacity]="i === hoveredElementIndex ? 1 : 0"
+					class="graph-thumb"
+					[attr.x]="pt.x - 7"
+					[attr.y]="pt.y - 10"
+          (mouseenter)="hoverOnSlider(i)"
+          (mouseleave)="hoverOffSlider()"
+					[style.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+					[style.transform]="collapsed ? 'scale(1, 0)' : ''"
+					[class.graph-center-thumb]="getPointClass(i)"
+					[class.collapsed]="collapsed"
+				>
+					<path
+						d="M8 0.5C12.1421 0.5 15.5 3.85786 15.5 8L15.5 12C15.5 16.1421 12.1421 19.5 8 19.5C3.85786 19.5 0.499997 16.1421 0.499998 12L0.499998 8C0.499998 3.85786 3.85786 0.499999 8 0.5Z"
+						fill="white"
+					></path>
+					<path
+						d="M8 0.5C12.1421 0.5 15.5 3.85786 15.5 8L15.5 12C15.5 16.1421 12.1421 19.5 8 19.5C3.85786 19.5 0.499997 16.1421 0.499998 12L0.499998 8C0.499998 3.85786 3.85786 0.499999 8 0.5Z"
+						stroke="white"
+					></path>
+					<path
+						d="M8 5.5L10.625 8.125L10.0963 8.65375L8 6.56125L5.90375 8.65375L5.375 8.125L8 5.5Z"
+						fill="white"
+					></path>
+					<path
+						d="M8 14.5L5.375 11.875L5.90375 11.3462L8 13.4387L10.0963 11.3463L10.625 11.875L8 14.5Z"
+						fill="white"
+					></path>
+				</svg>
+			</svg>
+
+			<!-- Label above each point (the distribution weight) -->
+			<text
+				class="text-caption graph-label"
+				[class.active]="selectedPoint === i"
+				text-anchor="middle"
+				[attr.x]="pt.x"
+				[attr.y]="pt.y - 10"
+			>
+				{{ points[i][1] * 100 | number: "1.0-0" }}
+			</text>
+      <!-- Center point "thumb" line from baseline up to the circle -->
+      @if (!updatingMinMaxStepValues) {
+        <path
+          [attr.d]="
+					'M ' +
+					centerPoint.x +
+					' ' +
+					safeArea.bottomLeft.y +
+					' L ' +
+					centerPoint.x +
+					' ' +
+					(safeArea.bottomLeft.y + 10)
+				"
+          [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+          [attr.transform]="collapsed ? 'scale(1, 0)' : ''"
+          class="graph-center-thumb-strut"
+        ></path>
+      }
+			<!-- Secondary label near top of chart (the domain value) -->
+			<text
+				class="text-caption graph-label-secondary"
+				[class.active]="selectedPoint === i"
+				text-anchor="middle"
+				[attr.x]="pt.x"
+				[attr.y]="safeArea.topLeft.y - 22"
+			>
+				<!-- You can customize the display as needed -->
+				{{ points[i][0] }}
+			</text>
+		</ng-container>
+
+    <!-- Center point label -->
+    @if (!updatingMinMaxStepValues) {
+      <text
+        text-anchor="middle"
+        [attr.x]="centerPoint.x"
+        [attr.y]="safeArea.bottomLeft.y + 35"
+        [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+        [attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
+        class="text-body-2 graph-tooltip"
+        [attr.style]="
+					'font-family: var(--family-display); font-size: 13px; font-weight: semi-bold; fill: #636363;'
+				"
+      >
+
+        {{ valueState }}
+      </text>
+    }
+
+		<!-- Center "thumb" circle for controlling the entire distribution horizontally -->
+		@if (!updatingMinMaxStepValues) {
+			<svg
+				width="21"
+				height="16"
+				viewBox="0 0 21 16"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+				style="cursor: ew-resize"
+				class="graph-center-thumb"
+				[attr.x]="centerPoint.x - 10.5"
+        [attr.y]="safeArea.bottomLeft.y + 15 - 8"
+
+        [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+				[attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
+        (mouseenter)="hoverOnSlider(centerPointIndex)"
+        (mouseleave)="hoverOffSlider()"
+				(mousedown)="onCenterPointMouseDown($event)"
+				(touchstart)="onCenterPointMouseDown($event)"
+			>
+				<path
+					d="M1.26465 8C1.26465 3.85786 4.62251 0.5 8.76465 0.5H12.7646C16.9068 0.5 20.2646 3.85786 20.2646 8C20.2646 12.1421 16.9068 15.5 12.7646 15.5H8.76465C4.62251 15.5 1.26465 12.1421 1.26465 8Z"
+					fill="#6C727E"
+				></path>
+				<path
+					d="M1.26465 8C1.26465 3.85786 4.62251 0.5 8.76465 0.5H12.7646C16.9068 0.5 20.2646 3.85786 20.2646 8C20.2646 12.1421 16.9068 15.5 12.7646 15.5H8.76465C4.62251 15.5 1.26465 12.1421 1.26465 8Z"
+					stroke="white"
+				></path>
+				<path
+					d="M6.26465 8L8.88965 5.375L9.4184 5.90375L7.3259 8L9.4184 10.0962L8.88965 10.625L6.26465 8Z"
+					fill="white"
+				></path>
+				<path
+					d="M15.2646 8L12.6396 10.625L12.1109 10.0962L14.2034 8L12.1109 5.90375L12.6396 5.375L15.2646 8Z"
+					fill="white"
+				></path>
+			</svg>
+		}
+
+		<!-- Extra secondary x-axis ticks/labels (rotated) -->
+		<ng-container *ngFor="let pt of pointList; let i = index">
+			@if (!updatingMinMaxStepValues) {
+				<text
+					class="text-caption graph-tooltip-secondary"
+					text-anchor="middle"
+					[attr.x]="pt.x"
+					[attr.y]="safeArea.bottomLeft.y + 22"
+					[attr.transform]="'rotate(-45 ' + pt.x + ' ' + (safeArea.bottomLeft.y + 20) + ')'"
+				>
+					<!-- Hide the label if it is the center value; otherwise show -->
+          {{ points[i][0] !== valueState ? points[i][0] : "" }}
+				</text>
+			}
+		</ng-container>
+	</svg>
+
+	@if (updatingMinMaxStepValues) {
+		<div class="update-values-container">
+			<form
+				class="update-values-form"
+				[formGroup]="valuesFormGroup"
+			>
+				<lib-input-text
+					placeholder="Minimum value"
+					formControlName="min"
+					[size]="InputTextSize.S"
+				/>
+				<lib-input-text
+					placeholder="Maximum value"
+					formControlName="max"
+					[size]="InputTextSize.S"
+				/>
+				<lib-input-text
+					placeholder="Interval"
+					formControlName="step"
+					[size]="InputTextSize.S"
+				/>
+				<lib-button
+					[disabled]="!valuesFormGroup.valid"
+					[size]="ButtonSize.S"
+					label="Update"
+					(onClick)="updateDistributionValues($event)"
+				></lib-button>
+			</form>
+		</div>
+	}
+</div>
