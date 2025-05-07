@@ -1,6 +1,7 @@
 # DesignSystem
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.0.
+This submodule was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.0.
+
 
 ## Code scaffolding
 
@@ -40,24 +41,14 @@ Once the project is built, you can publish your library by following these steps
    npm publish
    ```
 
-## Running unit tests
+### Submodule
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+To add this library as a submodule you need to run and update the list below to keep track of repos using it. 
 
 ```bash
-ng e2e
+git submodule add git@github.com:signaloid/project-kea-design-system.git
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Repositories using this submodule
+1. project-kea-web-v2
+2. project-kea-application-status-page
