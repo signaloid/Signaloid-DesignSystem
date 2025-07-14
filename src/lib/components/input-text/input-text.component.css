@@ -48,12 +48,21 @@
 	font-size: 1rem;
   height: 100%;
   border-radius: var(--radius-sgnl-border-radius-6, 6px);
-  background-color: var(--defaults-primary-background-mono);
+  background-color: var(--defaults-primary-background-mono) !important;
   width: 100%;
-  color:var(--defaults-secondary-text-secondary)
+  color:var(--defaults-secondary-text-secondary) !important;
 }
 
-.text-input:disabled::placeholder {
+::ng-deep input:-webkit-autofill {
+  background-color: var(--defaults-primary-background-mono) !important;
+  color:var(--defaults-secondary-text-secondary) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--defaults-primary-background-mono) inset !important;
+  -webkit-text-fill-color: var(--defaults-secondary-text-secondary) !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+  .text-input:disabled::placeholder {
   color: var(--defaults-disabled-text-disabled, #C4C6C9);
   /* text/Regular/p M Regular */
   font-family: var(--family-text, "IBM Plex Sans");

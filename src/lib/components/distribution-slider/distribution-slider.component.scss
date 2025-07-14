@@ -142,7 +142,18 @@ $backdropColourTransparency: 1;
 		opacity: 0;
 	}
 }
-
+.axis-label {
+  fill: var(--defaults-secondary-text-secondary, #636873);
+  text-align: center;
+  margin: 0;
+  /* text/Medium/p S Medium */
+  font-family: var(--family-text);
+  font-size: var(--size-sgnl-paragraph-s, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-height-sgnl-font-line-height-paragraph-s); /* 142.857% */
+  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
+}
 .graph-tooltip {
 	fill: $base;
 	user-select: none;

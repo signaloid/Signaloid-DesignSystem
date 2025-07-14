@@ -63,3 +63,22 @@
     }
   }
 }
+.label-below {
+  color: var(--defaults-secondary-text-secondary);
+  text-align: center;
+  margin: 12px 0 0 0;
+
+  /* text/Medium/p S Medium */
+  font-family: var(--family-text);
+  font-size: var(--size-sgnl-paragraph-s, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-height-sgnl-font-line-height-paragraph-s); /* 142.857% */
+  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
+}
+
+
+.mat-slider.show-value .mdc-slider__thumb-label {
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}

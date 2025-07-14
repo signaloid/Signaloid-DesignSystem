@@ -7,5 +7,19 @@
 
 
 .chart {
-  min-height: 300px;
+  min-height: 230px;
+  aspect-ratio: 10 / 6;
+}
+
+.plot-span {
+  color: var(--defaults-secondary-text-secondary);
+  /*margin-top: 15px;*/
+  margin-bottom: 15px;
+
+  /* text/Regular/caption Regular */
+  font-family: var(--family-text);
+  font-size: var(--size-sgnl-paragraph-m);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-height-sgnl-font-line-height-caption); /* 133.333% */
 }

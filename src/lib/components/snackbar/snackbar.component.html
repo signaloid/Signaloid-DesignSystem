@@ -2,18 +2,26 @@
 	class="snackbar-container"
 	[class]="data.type"
 >
-	@if (data.icon && data.icon !== '') {
-		<div class="icon-segment">
-			<lib-icon [icon]="data.icon"></lib-icon>
+	@if (data.icon && data.icon !== "") {
+		<div
+			class="icon-segment"
+			[style]="{ background: data.iconBackgroundColor }"
+		>
+			<lib-icon
+				[icon]="data.icon"
+				[color]="data.iconColor"
+			></lib-icon>
 		</div>
 	}
 	<div class="text-segment">
 		<h3>{{ data.header }}</h3>
 		<p>{{ data.description }}</p>
-		<lib-button
-			[type]="ButtonType.Secondary"
-			[label]="data.actionLabel"
-		></lib-button>
+		@if (data.actionLabel) {
+			<lib-button
+				[type]="ButtonType.Secondary"
+				[label]="data.actionLabel"
+			></lib-button>
+		}
 	</div>
 
 	<div

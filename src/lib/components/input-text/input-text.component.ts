@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
 import { CarbonIconComponent } from '../icon/icon.component';
 import { NgControl } from '@angular/forms';
 import { InputTextSize, InputTextSizes } from './input-text.models';
@@ -23,6 +23,7 @@ export class InputTextComponent implements OnInit {
 	@Input() rightIcon?: any;
 	@Input() size: InputTextSize = InputTextSize.M;
 	@Input() type: string = 'text';
+  @Input() autocomplete: string = 'on';
 	disabled: boolean = false;
 	value: string = '';
 	disabledIconColor = 'var(--neutral-b-gray-200)';
@@ -31,6 +32,8 @@ export class InputTextComponent implements OnInit {
 	private onTouched = () => {};
 	protected isFocused = false;
 	protected inputSizeValues = InputTextSizes[this.size];
+  @Output() focus = new EventEmitter<any>();
+  @Output() blur = new EventEmitter<any>();
 	constructor(@Self() @Optional() public ngControl: NgControl) {
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
@@ -64,10 +67,12 @@ export class InputTextComponent implements OnInit {
 
 	onFocus() {
 		this.isFocused = true;
+    this.focus.emit();
 	}
 	onBlur() {
 		this.isFocused = false;
 		this.onTouched();
+    this.blur.emit();
 	}
 
 	get errorMessages(): string[] {

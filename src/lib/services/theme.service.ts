@@ -7,6 +7,8 @@ export class ThemeService {
 	private currentTheme: 'light' | 'dark' = 'light'; // default
 	private LIGHT_URL = 'public/static/styles/colors/colors.light.css';
 	private DARK_URL = 'design-system/styles/colors/colors.dark.css';
+  private device: 'desktop' | 'mobile' = 'desktop';
+  private DEVICE_URL = 'public/static/styles/typography/';
 	private themes = {
 		light: this.LIGHT_URL,
 		dark: this.DARK_URL,
@@ -15,6 +17,7 @@ export class ThemeService {
 		// Optionally, load user preference from localStorage
 		this.addThemeLink();
 		const themeFromLocalStorage = localStorage.getItem('theme') as 'light' | 'dark';
+    this.setDevice(this.device);
 		this.setTheme(themeFromLocalStorage ? themeFromLocalStorage : this.currentTheme);
 	}
 
@@ -30,6 +33,14 @@ export class ThemeService {
 			console.warn('theme element already exists');
 		}
 	}
+
+  private setDevice(device: 'desktop' | 'mobile') {
+    this.device = device;
+    const linkEl = this.document.getElementById('device-css') as HTMLLinkElement;
+    if (linkEl) {
+      linkEl.href = `${this.DEVICE_URL}desktop.css`;
+    }
+  }
 
 	setTheme(theme: 'light' | 'dark'): void {
 		this.currentTheme = theme;

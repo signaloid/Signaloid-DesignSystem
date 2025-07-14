@@ -15,13 +15,21 @@
 		(click)="onClick.emit($event)"
 	>
 		<div class="btn-inner">
+      @if(leftSvgIcon) {
+        <div [innerHTML]="leftSvgIcon | safeHtml">
+
+        </div>
+      }
 			@if (leftIcon) {
 				<lib-icon [color]="'var(--defaults-primary-icon-primary_inverse)'" [icon]="leftIcon"> </lib-icon>
 			}
 			<span [style.font-size]="buttonSize.fontSize + 'px'">{{ label }}</span>
-			@if (rightIcon) {
+			@if (rightIcon && !loading) {
 				<lib-icon [color]="'var(--defaults-primary-icon-primary_inverse)'" [icon]="rightIcon"> </lib-icon>
 			}
+      @if(loading) {
+        <mat-progress-spinner diameter="20" color="primary" mode="indeterminate"></mat-progress-spinner>
+      }
 		</div>
 	</button>
 } @else {
@@ -41,13 +49,22 @@
 	>
 
 		<div class="btn-inner">
+      @if(leftSvgIcon) {
+        <div [innerHTML]="leftSvgIcon | safeHtml">
+
+        </div>
+      }
 			@if (leftIcon) {
 				<lib-icon  [icon]="leftIcon"> </lib-icon>
 			}
 			<span [style.font-size]="buttonSize.fontSize + 'px'">{{ label }}</span>
-			@if (rightIcon) {
-				<lib-icon  [icon]="rightIcon"> </lib-icon>
-			}
+      @if (rightIcon && !loading) {
+        <lib-icon [icon]="rightIcon"> </lib-icon>
+      }
+      @if(loading) {
+        <mat-progress-spinner diameter="20" color="secondary" mode="indeterminate"></mat-progress-spinner>
+      }
+
 		</div>
 	</button>
 }

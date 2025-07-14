@@ -1,9 +1,10 @@
 <!-- Single Value Slider -->
 <mat-slider
   *ngIf="!multiple"
+
   class="slider"
-  [discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
-  [class]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP }"
+  [discrete]="true"
+  [ngClass]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP,'show-value': alwaysShowValue }"
   [max]="max"
   [min]="min"
   [step]="step"
@@ -27,7 +28,7 @@
   [step]="step"
   [disabled]="disabled"
   [discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
-  [class]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP }"
+  [ngClass]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP,'show-value': alwaysShowValue }"
   (blur)="onBlur()"
 >
   <input
@@ -41,3 +42,4 @@
     (ngModelChange)="onRangeChange(multipleMinValue, $event)"
   />
 </mat-slider>
+<p class="label-below" *ngIf="labelBelow">{{ labelBelow }}</p>
