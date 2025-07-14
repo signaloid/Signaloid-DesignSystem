@@ -1,7 +1,7 @@
 <div class="distribution-plot-container" [style.width]="graphWidth+ 'px'" >
 	<div class="container-title">
 		<h6 class="container-title-text">
-			{{ title }}
+      <p [innerHTML]="title"></p>
 			<svg
 				class="tooltip-icon"
 				xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +28,7 @@
 		</h6>
 		<div style="display: flex; gap: 8px; align-items: center">
 			<lib-button-group
+        [disabled]="disabled"
 				[defaultValue]="inputOptionsDefaultValue"
 				(valueChange)="onChangeView($event)"
 				[optionsArray]="inputOptions"
@@ -46,19 +47,6 @@
 				<ng-content select="[tooltip-body]"> </ng-content>
 			</div>
 
-			<svg
-				class="tooltip-arrow"
-				xmlns="http://www.w3.org/2000/svg"
-				width="12"
-				height="6"
-				viewBox="0 0 12 6"
-				fill="none"
-			>
-				<path
-					d="M6 6L12 0L0 0L6 6Z"
-					fill="white"
-				/>
-			</svg>
 		</div>
 	</div>
 	<div class="plot-description">
@@ -71,6 +59,7 @@
 		[step]="step"
 		[initialValue]="distributionCenterValue"
 		[initialDistribution]="initialDistribution"
+    [disabled]="disabled"
 		[gridSteps]="gridSteps"
 		[graphHeight]="graphHeight"
 		[graphWidth]="calculateGraphWidth"
@@ -84,6 +73,9 @@
 	<lib-slider
 		[hidden]="inputOptionValue === 'distribution'"
 		[value]="distributionCenterValue"
+    [disabled]="disabled"
+    [labelBelow]="xAxisLabel"
+    [alwaysShowValue]="true"
 		style="margin-bottom: 25px"
 		[min]="min"
 		[max]="max"

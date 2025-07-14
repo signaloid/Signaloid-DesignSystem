@@ -20,6 +20,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { ButtonComponent } from '../button/button.component';
 import { ButtonSize } from '../button/button.types';
 import { Subscription } from 'rxjs';
+import { BigNumbersPipe } from '../../pipes';
 
 interface DistributionPoint {
 	x: number;
@@ -29,7 +30,7 @@ interface DistributionPoint {
 @Component({
 	selector: 'lib-distribution-slider',
 	templateUrl: './distribution-slider.component.html',
-	imports: [NgForOf, NgIf, DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent],
+	imports: [NgForOf, NgIf, DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent, BigNumbersPipe],
 	standalone: true,
 	styleUrls: ['./distribution-slider.component.scss'],
 })
@@ -48,6 +49,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	@Input() collapsed: boolean = false;
 	@Input() xAxisLabel?: string;
 	@Input() yAxisLabel?: string;
+	@Input() disabled: boolean = false;
 	@Output() distributionChange = new EventEmitter<{
 		distribution: [number, number][];
 		value: number;
@@ -56,7 +58,6 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	@Output() valueChange = new EventEmitter<number>();
 	@Output() collapse = new EventEmitter<void>();
 	hoveredElementIndex = -1;
-	pointWidth = 20;
 	graphOpacity = 1;
 	maximumSliders = 25;
 	minimumSliders = 8;
@@ -107,9 +108,6 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	ngAfterViewInit(): void {
 		// After the View is initialized, we can measure the SVG
 		this.updateMeasurements();
-		// @ts-ignore
-		this.pointWidth = this.svgRef.nativeElement['width'].baseVal.value / this.points.length;
-		this.pointWidth = this.pointWidth - 4;
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -149,7 +147,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	get svgHeight(): number {
-		return this.graphHeightProp + 20;
+		return this.graphHeightProp + 55;
 	}
 
 	get svgWidth(): number {
@@ -208,7 +206,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	/** Returns an array of (x,y) coordinates for each point in the chart */
 	get pointList(): DistributionPoint[] {
 		if (this.points.length <= 1) return [];
-		const spacing = this.safeArea.width / (this.points.length - 1);
+		const spacing = this.safeArea.width / this.points.length;
 
 		return this.points.map(([_, weight], index) => {
 			return {
@@ -249,15 +247,18 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 	onPointMouseDown(event: MouseEvent | TouchEvent, index: number) {
 		event.preventDefault();
+		if (this.disabled) return;
 		this.selectedPoint = index;
 	}
 
 	onCenterPointMouseDown(event: MouseEvent | TouchEvent) {
 		event.preventDefault();
+		if (this.disabled) return;
 		this.selectedCenterPoint = true;
 	}
 
 	onMouseMove(event: MouseEvent) {
+		if (this.disabled) return;
 		this.movePoint(event.offsetY);
 		this.moveCenterPoint(event.offsetX);
 	}
@@ -354,6 +355,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 	/** Called when the user drags the center point horizontally */
 	moveCenterPoint(offsetX: number, manual = false, changedFromSlider = false) {
+		if (this.disabled) return;
 		if (!changedFromSlider) {
 			if (!this.selectedCenterPoint && !manual) {
 				return;
@@ -499,9 +501,6 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	public clear() {
 		// Set all distribution values to zero
 		this.distributionState = this.points.map(([x, _]) => [x, 0]);
-		// @ts-ignore
-		this.pointWidth = this.svgRef.nativeElement['width'].baseVal.value / this.points.length;
-		this.pointWidth = this.pointWidth - 4;
 		this.moveCenterPoint(335, true);
 	}
 
@@ -513,4 +512,5 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 	protected readonly InputTextSize = InputTextSize;
 	protected readonly ButtonSize = ButtonSize;
+	protected readonly Math = Math;
 }

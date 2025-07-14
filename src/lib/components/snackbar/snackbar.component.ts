@@ -5,6 +5,7 @@ import { ButtonComponent } from '../button/button.component';
 import { ButtonType } from '../button/button.types';
 // @ts-ignore
 import close from '@carbon/icons/es/close/32';
+import { SnackbarData } from './snackbar.model';
 
 @Component({
 	selector: 'lib-snackbar',
@@ -18,12 +19,3 @@ export class SnackbarComponent {
 	protected readonly ButtonType = ButtonType;
 	protected readonly close = close;
 }
-
-export interface SnackbarData {
-	header: string;
-	actionLabel: string;
-	type: SnackbarType;
-	description?: string;
-	icon?: unknown;
-}
-export type SnackbarType = 'primary' | 'neutral' | 'error' | 'success' | 'warning';

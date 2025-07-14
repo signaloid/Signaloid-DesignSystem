@@ -30,7 +30,7 @@
 			<svg>
 				<text
 					class="text-caption graph-legend"
-					[attr.x]="line.x1 - 54"
+					[attr.x]="line.x1 - 24"
 					[attr.y]="line.y1 + 4"
 				>
 					{{ line.value }}
@@ -50,7 +50,7 @@
 		<text
 			class="text-caption graph-legend"
 			text-anchor="end"
-			[attr.x]="safeArea.bottomLeft.x - 43"
+			[attr.x]="safeArea.bottomLeft.x - 15"
 			[attr.y]="safeArea.bottomLeft.y + 4"
 			[class.collapsed]="collapsed"
 		>
@@ -99,13 +99,12 @@
 
 		<!-- Y-axis label -->
 		<text
-			*ngIf="!collapsed"
-			class="text-caption graph-legend"
+			class="axis-label"
 			text-anchor="middle"
 			dominant-baseline="central"
-			[attr.x]="20"
+			[attr.x]="0"
 			[attr.y]="safeArea.topLeft.y + safeArea.height / 2"
-			[attr.transform]="'rotate(-90, ' + 20 + ', ' + (safeArea.topLeft.y + safeArea.height / 2) + ')'"
+			[attr.transform]="'rotate(-90, ' + 20 + ', ' + (safeArea.topLeft.y + safeArea.height / 2) +')'"
 			[class.collapsed]="collapsed"
 		>
 			{{ yAxisLabel }}
@@ -114,11 +113,11 @@
 		<!-- X-axis label -->
 		<text
 			*ngIf="xAxisLabel && !updatingMinMaxStepValues"
-			class="text-caption graph-legend"
+			class="axis-label"
 			text-anchor="middle"
-			[attr.x]="safeArea.bottomLeft.x + safeArea.width / 2"
+			[attr.x]="safeArea.bottomLeft.x + (safeArea.width / 2)"
 			[attr.y]="
-				collapsed ? safeArea.topLeft.y + safeArea.height / 3 : safeArea.bottomLeft.y + (safeArea.height * 2) / 5
+				collapsed ? safeArea.topLeft.y + safeArea.height / 3 : safeArea.bottomLeft.y + 15 + (safeArea.height * 2) / 5 + 5
 			"
 		>
 			{{ xAxisLabel }}
@@ -144,21 +143,18 @@
 			class="graph-backdrop"
 			fill="url(#graph-fill-gradient)"
 		></path>
-
+      @let rectWidth = (svgWidth)/(pointList.length + 3);
 		<!-- Vertical struts for each distribution point (from top to each point) -->
 		<ng-container *ngFor="let pt of pointList; let i = index">
 
-
 			<rect
         class="sliders"
-        [attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + safeArea.bottomLeft.y"
-				[attr.x]="pt.x - 10"
+				[attr.x]="pt.x"
 				[attr.y]="pt.y"
-				[attr.width]="20"
+        [attr.width]="Math.abs(pointList[i+1]?.x ? pointList[i+1]?.x - pt.x : rectWidth)"
 				[attr.height]="safeArea.bottomLeft.y - pt.y"
 				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
 				[attr.transform]="collapsed ? 'scale(1, 0)' : ''"
-
 			></rect>
 			<!-- Secondary strut (dashed) going upwards for UI effect -->
 			<path
@@ -206,9 +202,9 @@
 			>
         <rect
           [attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + safeArea.bottomLeft.y"
-          [attr.x]="pt.x - 12"
+          [attr.x]="pt.x"
           [attr.y]="pt.y"
-          [attr.width]="26"
+          [attr.width]="Math.abs(pointList[i+1]?.x ? pointList[i+1]?.x - pt.x : rectWidth)"
           [attr.height]="safeArea.bottomLeft.y - pt.y"
           [attr.fill]="i === selectedPoint ? '#307D2B' : 'transparent'"
           style="display: block; pointer-events: visiblePainted !important;"
@@ -224,7 +220,7 @@
 					xmlns="http://www.w3.org/2000/svg"
           [style.opacity]="i === hoveredElementIndex ? 1 : 0"
 					class="graph-thumb"
-					[attr.x]="pt.x - 7"
+					[attr.x]="pt.x + rectWidth/2 - 7"
 					[attr.y]="pt.y - 10"
           (mouseenter)="hoverOnSlider(i)"
           (mouseleave)="hoverOffSlider()"
@@ -262,24 +258,7 @@
 			>
 				{{ points[i][1] * 100 | number: "1.0-0" }}
 			</text>
-      <!-- Center point "thumb" line from baseline up to the circle -->
-      @if (!updatingMinMaxStepValues) {
-        <path
-          [attr.d]="
-					'M ' +
-					centerPoint.x +
-					' ' +
-					safeArea.bottomLeft.y +
-					' L ' +
-					centerPoint.x +
-					' ' +
-					(safeArea.bottomLeft.y + 10)
-				"
-          [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
-          [attr.transform]="collapsed ? 'scale(1, 0)' : ''"
-          class="graph-center-thumb-strut"
-        ></path>
-      }
+
 			<!-- Secondary label near top of chart (the domain value) -->
 			<text
 				class="text-caption graph-label-secondary"
@@ -288,7 +267,6 @@
 				[attr.x]="pt.x"
 				[attr.y]="safeArea.topLeft.y - 22"
 			>
-				<!-- You can customize the display as needed -->
 				{{ points[i][0] }}
 			</text>
 		</ng-container>
@@ -307,7 +285,7 @@
 				"
       >
 
-        {{ valueState }}
+        {{ valueState | bignumbers}}
       </text>
     }
 
@@ -322,7 +300,7 @@
 				style="cursor: ew-resize"
 				class="graph-center-thumb"
 				[attr.x]="centerPoint.x - 10.5"
-        [attr.y]="safeArea.bottomLeft.y + 15 - 8"
+        [attr.y]="safeArea.bottomLeft.y - 8"
 
         [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
 				[attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
@@ -352,16 +330,17 @@
 
 		<!-- Extra secondary x-axis ticks/labels (rotated) -->
 		<ng-container *ngFor="let pt of pointList; let i = index">
-			@if (!updatingMinMaxStepValues) {
+			@if (!updatingMinMaxStepValues && points[i][0] % 1 === 0) {
 				<text
 					class="text-caption graph-tooltip-secondary"
 					text-anchor="middle"
+
 					[attr.x]="pt.x"
 					[attr.y]="safeArea.bottomLeft.y + 22"
 					[attr.transform]="'rotate(-45 ' + pt.x + ' ' + (safeArea.bottomLeft.y + 20) + ')'"
 				>
 					<!-- Hide the label if it is the center value; otherwise show -->
-          {{ points[i][0] !== valueState ? points[i][0] : "" }}
+          {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
 				</text>
 			}
 		</ng-container>

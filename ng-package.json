@@ -7,13 +7,18 @@
   "assets": [
     {
       "glob": "**/*.css",
-      "input": "src/lib/styles",
+      "input": "./src/lib/styles",
       "output": "styles"
     },
     {
       "glob": "**/*.scss",
-      "input": "src/lib/styles",
+      "input": "./src/lib/styles",
       "output": "styles"
+    },
+    {
+      "glob": "**/*.json",
+      "input": "./src/lib/components/code-editor/models/editor-themes",
+      "output": "/public/editor-themes"
     }
   ]
 }

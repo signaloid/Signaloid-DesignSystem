@@ -8,7 +8,7 @@
 		justify-content: space-between;
 		align-items: center;
 
-    .container-title-text {
+    .container-title-text, .container-title-text>p  {
       display: flex;
       align-items: center;
       margin: 0;
@@ -64,8 +64,9 @@
 
 	.tooltip {
     position: absolute;
-    top: -180px;
+    top: 0px;
     left: 120px;
+    z-index: 10;
     display: flex;
     width: 343px;
     min-width: 172px;
@@ -103,10 +104,6 @@
       font-weight: 400;
       line-height: var(--line-height-sgnl-font-line-height-caption, 16px); /* 133.333% */
     }
-    .tooltip-arrow {
-      position: absolute;
-      top: 100%;
-      left: 5%;
-    }
+
 	}
 }

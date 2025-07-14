@@ -3,12 +3,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlider, MatSliderRangeThumb, MatSliderThumb } from '@angular/material/slider';
 import { SliderTypes } from './slider.types';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
 	selector: 'lib-slider',
 	standalone: true,
-	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf],
+	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf, NgClass],
 	templateUrl: './slider.component.html',
 	styleUrls: ['./slider.component.scss'],
 	providers: [
@@ -29,7 +29,8 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	@Input() multipleMinValue = 0;
 	@Input() multipleMaxValue = 50;
 	@Input() type: SliderTypes = SliderTypes.NUMERIC;
-
+	@Input() labelBelow: string | undefined;
+  @Input() alwaysShowValue = false;
 	// Use these `EventEmitter`s if you need separate outputs
 	@Output() valueChange = new EventEmitter<number>();
 	@Output() rangeChange = new EventEmitter<{ min: number; max: number }>();

@@ -1,0 +1,9 @@
+<mat-tab-group>
+  @for(output of outputs | keyvalue; track output.key) {
+    {{output.key}}
+    <mat-tab label="{{output.key}}">
+      <div style="max-width: 400px; ">{{output.value | async}}</div>
+    </mat-tab>
+  }
+</mat-tab-group>
+

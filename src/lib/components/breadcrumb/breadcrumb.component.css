@@ -1,0 +1,43 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) 0px;
+}
+
+.breadcrumb-item.clickable {
+  cursor: pointer;
+  display: flex;
+  padding: var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) 0px;
+  align-items: center;
+  gap: var(--space-sgnl-space-8, 8px);
+  color: var(--defaults-secondary-text-secondary, #636873);
+  /* text/Medium/p S Medium */
+  font-family: var(--family-text, "IBM Plex Sans");
+  font-size: var(--size-sgnl-paragraph-s, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px); /* 142.857% */
+  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+}
+
+.breadcrumb-item {
+  margin: 0;
+  color: var(--brand-default-text-brand, #307D2B);
+
+  /* text/Medium/p S Medium */
+  font-family: var(--family-text, "IBM Plex Sans");
+  font-size: var(--size-sgnl-paragraph-s, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px); /* 142.857% */
+  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+  display: flex;
+  padding: var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-8, 8px) 0px;
+  align-items: center;
+  gap: var(--space-sgnl-space-8, 8px);
+}
+
+.separator {
+  margin: 0 6px;
+  color: #aaa;
+}
