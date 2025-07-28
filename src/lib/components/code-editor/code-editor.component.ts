@@ -11,7 +11,6 @@ import {
 	NgZone,
 } from '@angular/core';
 import * as monaco from 'monaco-editor';
-import 'monaco-editor/min/vs/basic-languages/cpp/cpp';
 import { uxhw_definitions } from './models/uxhw_definitions';
 import { EditorTheme, themes as themeList } from './models/themes.models';
 
