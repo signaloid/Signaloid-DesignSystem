@@ -20,7 +20,7 @@ export interface LoaderStep {
 	selector: 'lib-vertical-loader',
 	templateUrl: './vertical-loader.component.html',
 	styleUrls: ['./vertical-loader.component.css'],
-	imports: [MatIcon, MatProgressSpinner, NgIf, MatButton, CarbonIconComponent],
+	imports: [ MatProgressSpinner, NgIf, CarbonIconComponent],
 })
 export class VerticalLoaderComponent {
 	/**
