@@ -13,7 +13,7 @@ import { UserAvatar } from '@carbon/icons/lib/user--avatar/16.js';
 
 @Component({
 	selector: 'lib-profile-dropdown',
-	imports: [MatMenuTrigger, MatMenu, CarbonIconComponent, UpperCasePipe, MatMenuItem, MatDivider],
+	imports: [MatMenuTrigger, MatMenu, CarbonIconComponent, UpperCasePipe],
 	templateUrl: './profile-dropdown.component.html',
 	styleUrl: './profile-dropdown.component.css',
 })

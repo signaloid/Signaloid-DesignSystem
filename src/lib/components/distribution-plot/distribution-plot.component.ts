@@ -41,7 +41,7 @@ const ARIA_CONFIG = {
 	selector: 'lib-distribution-plot',
 	templateUrl: './distribution-plot.component.html',
 	styleUrls: ['./distribution-plot.component.css'],
-	imports: [NgxEchartsDirective, BigNumbersPipe, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
+	imports: [NgxEchartsDirective, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
 	standalone: true,
 	providers: [
 		{

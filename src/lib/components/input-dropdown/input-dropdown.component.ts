@@ -5,7 +5,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
 	selector: 'lib-input-dropdown',
-	imports: [MatFormField, MatSelect, MatOption, MatLabel, MatHint],
+	imports: [MatFormField, MatSelect, MatOption, MatHint],
 	templateUrl: './input-dropdown.component.html',
 	styleUrl: './input-dropdown.component.scss',
 	providers: [

@@ -14,7 +14,7 @@ interface Breadcrumb {
 @Component({
 	selector: 'lib-breadcrumb',
 	templateUrl: './breadcrumb.component.html',
-	imports: [JsonPipe, CarbonIconComponent],
+	imports: [CarbonIconComponent],
 	styleUrls: ['./breadcrumb.component.css'],
 })
 export class BreadcrumbComponent implements OnInit {
