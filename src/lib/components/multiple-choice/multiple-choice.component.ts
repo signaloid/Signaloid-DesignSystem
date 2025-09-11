@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
@@ -16,12 +16,20 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
     }
   ]
 })
-export class MultipleChoiceComponent implements ControlValueAccessor {
+export class MultipleChoiceComponent implements ControlValueAccessor, OnInit {
   @Input() options: { name: string, value: string }[] | undefined = [];
+  @Input() defaultValue: string | undefined;
+  @Input() disabled = false;
+  @Output() valueUpdate = new EventEmitter<string>();
   value: string | undefined;
-  disabled = false;
-  onChange: (value: string) => void = () => {
+  ngOnInit() {
+    this.value = this.defaultValue;
+  }
+
+  onChange: (value: string) => void = (value: string) => {
+    this.valueUpdate.emit(value);
   };
+
   onTouched: () => void = () => {
   };
 

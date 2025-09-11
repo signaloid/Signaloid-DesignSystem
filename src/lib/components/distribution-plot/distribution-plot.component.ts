@@ -58,7 +58,9 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() suffix = '';
 	@Input() prefix = '';
 	protected particleValue: number | null = null;
-	chartOptions: EChartsOption = {};
+  private normValueAtRisk = 5;
+
+  chartOptions: EChartsOption = {};
 
 	ngOnInit(): void {
 		this.updateChartData();
@@ -104,6 +106,20 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			aria: ARIA_CONFIG,
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
+      graphic: {
+        elements: [
+          {
+            type: 'text',
+            left: '50%',
+            top: '40%',
+            style: {
+              text: '95% confidence',
+              font: '14px sans-serif',
+              fill: 'rgba(0, 0, 0, 0.8)'
+            }
+          }
+        ]
+      },
 			yAxis: [
 				{
 					...AXIS_STYLE,
@@ -144,8 +160,13 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				{
 					type: 'custom',
 					data: [normMean],
+
 					renderItem: (params, api) => ({
 						type: 'polyline',
+            areaStyle: {
+              color: '#000',
+              opacity: 0.5
+            },
 						shape: {
 							points: [api.coord([api.value(0), 0]), api.coord([api.value(0), 1])],
 						},
@@ -176,6 +197,9 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const minXExp = Math.min(...bp.map(this.getExponent));
 		const minYExp = Math.min(...bh.map(this.getExponent));
 
+    const valueAtRisk = 0.05;
+    const normValueAtRisk = this.normalize(valueAtRisk, minXExp);
+
 		const normBP = bp.map((v) => this.normalize(v, minXExp));
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
 
@@ -188,7 +212,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			aria: ARIA_CONFIG,
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			yAxis: this.getHistogramYAxes(minYExp),
-			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean),
+			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean, normValueAtRisk),
 		};
 	}
 
@@ -198,7 +222,8 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			type: 'value' as const,
 			z: 10,
 			scale: true,
-			min,
+      splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
+      min,
 			max,
 			// Suggest 4 grid lines, which encourages "nicer" tick intervals
 			splitNumber: 4,
@@ -293,6 +318,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		normBW: number[],
 		minXExp: number,
 		normMean: number,
+    normValueAtRisk: number
 	): EChartsOption['series'] {
 		const dataPoints = normBP.map((val, i) => ({
 			value: [val, normBP[i + 1], normBH[i], normBW[i] * normBH[i]],
@@ -338,9 +364,49 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 								formatter: '{b}',
 							},
 						},
+            {
+              name: 'VaR',
+              xAxis: normValueAtRisk,
+              lineStyle: { color: 'black', width: 2 },
+              label: {
+                show: true,
+                position: 'insideStartTop',
+                formatter: '{b}'
+              }
+            },
 					],
+
 					lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
 				},
+        markArea: {
+          itemStyle: {
+            opacity: 0.25
+          },
+          data: [
+            // Red area (Loss region)
+            [
+              {
+
+                xAxis: 'min', // from the start of the axis
+                itemStyle: { color: '#d9534f' }
+              },
+              {
+                xAxis: 0
+              }
+            ],
+            // Green area (Confidence region)
+            [
+              {
+                name: '95% Confidence',
+                xAxis: normValueAtRisk,
+                itemStyle: { color: '#91cc75' }
+              },
+              {
+                xAxis: 'max' // to the end of the axis
+              }
+            ]
+          ]
+        },
 				tooltip: {
 					formatter: (params: any) => `Probability Mass<br/>${params.data.value[3]}`,
 				},
