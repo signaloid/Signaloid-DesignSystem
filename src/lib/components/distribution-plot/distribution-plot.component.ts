@@ -70,6 +70,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes?.['uxValue']) {
+			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
+			this.updateChartData();
+		}
+		else if (changes?.['percentageOfValueAtRisk']) {
+			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 			this.updateChartData();
 		}
 	}

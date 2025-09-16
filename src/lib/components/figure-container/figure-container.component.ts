@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import { DistributionPlotComponent } from '../distribution-plot/distribution-plot.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -10,7 +10,7 @@ import {NgClass} from '@angular/common';
 	styleUrl: './figure-container.component.css',
 	imports: [DistributionPlotComponent, MatProgressSpinner, NgClass],
 })
-export class FigureContainerComponent {
+export class FigureContainerComponent{
 	@Input() imageSource: string = '';
 	@Input() uxString: string = '';
 	@Input() xAxisLabel: string = '';
