@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {ChangeDetectorRef, Component, Input} from '@angular/core';
 
 import { DistributionPlotComponent } from '../distribution-plot/distribution-plot.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -19,9 +19,11 @@ export class FigureContainerComponent {
 	@Input() prefix: string = '';
   @Input() percentageOfValueAtRisk: number | undefined;
 	singleValue = false;
-
+  constructor(private cd: ChangeDetectorRef) {
+  }
 	applyStylesIfSingleValue(value: boolean) {
 		this.singleValue = value;
+    this.cd.detectChanges();
 	}
 }
 
