@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
 
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 import { DistributionalValue } from '../../../project-kea-ux-data/distributionalValue';
-import { BigNumbersPipe } from '../../pipes';
 import { YAXisOption } from 'echarts/types/dist/shared';
-import {CurrencyPipe, NgClass} from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 
 const AXIS_STYLE = {
 	axisLine: { show: true, onZero: false, lineStyle: { type: 'solid' as const, width: 1.5, color: '#000' } },
@@ -57,13 +56,15 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() xAxisLabel = 'Distribution Support';
 	@Input() suffix = '';
 	@Input() prefix = '';
+	@Input() percentageOfValueAtRisk: number | undefined;
 	@Output() hasSingleValueChange = new EventEmitter<boolean>();
 	protected particleValue: number | null = null;
-	private normValueAtRisk = 5;
+	private hasColoring = false;
 	hasSingleValue = false;
 	chartOptions: EChartsOption = {};
 
 	ngOnInit(): void {
+		this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 		this.updateChartData();
 	}
 
@@ -78,7 +79,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			this.distValue = new DistributionalValue();
 			this.distValue.parseHex(this.uxValue);
 			this.particleValue = this.distValue.particleValue; // Set the particleValue for the template
-			console.warn(this.distValue);
 			this.buildChartOptions();
 		} catch (error) {
 			console.error('Failed to parse or build chart:', error);
@@ -105,7 +105,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.floor(Math.abs(normMean * 0.2 || 1));
 		const xAxisMin = normMean - range;
 		const xAxisMax = normMean + range;
-
 		return {
 			aria: ARIA_CONFIG,
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
@@ -201,22 +200,21 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const minXExp = Math.min(...bp.map(this.getExponent));
 		const minYExp = Math.min(...bh.map(this.getExponent));
 
-		const valueAtRisk = 0.05;
-		const normValueAtRisk = this.normalize(valueAtRisk, minXExp);
-
 		const normBP = bp.map((v) => this.normalize(v, minXExp));
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
 
 		const range = Math.abs(normBP[normBP.length - 1] - normBP[0]);
-		const xAxisMin = normBP[0] - range * 0.1;
-		const xAxisMax = normBP[normBP.length - 1] + range * 0.1;
+		const xAxisMin = Math.min(...normBP);
+		const xAxisMax = Math.max(...normBP);
+
+		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : 0;
 
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			yAxis: this.getHistogramYAxes(minYExp),
-			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean, normValueAtRisk),
+			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean, valueAtRisk),
 		};
 	}
 
@@ -382,34 +380,36 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 
 					lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
 				},
-				markArea: {
-					itemStyle: {
-						opacity: 0.25,
-					},
-					data: [
-						// Red area (Loss region)
-						[
-							{
-								xAxis: 'min', // from the start of the axis
-								itemStyle: { color: '#d9534f' },
+				markArea: this.hasColoring
+					? {
+							itemStyle: {
+								opacity: 0.25,
 							},
-							{
-								xAxis: 0,
-							},
-						],
-						// Green area (Confidence region)
-						[
-							{
-								name: '95% Confidence',
-								xAxis: normValueAtRisk,
-								itemStyle: { color: '#91cc75' },
-							},
-							{
-								xAxis: 'max', // to the end of the axis
-							},
-						],
-					],
-				},
+							data: [
+								// Red area (Loss region)
+								[
+									{
+										xAxis: 'min', // from the start of the axis
+										itemStyle: { color: '#d9534f' },
+									},
+									{
+										xAxis: normValueAtRisk,
+									},
+								],
+								// Green area (Confidence region)
+								[
+									{
+										name: `${(1 - Number(this.percentageOfValueAtRisk)) * 100} % Confidence`,
+										xAxis: normValueAtRisk,
+										itemStyle: { color: '#91cc75' },
+									},
+									{
+										xAxis: 'max', // to the end of the axis
+									},
+								],
+							],
+						}
+					: {},
 				tooltip: {
 					formatter: (params: any) => `Probability Mass<br/>${params.data.value[3]}`,
 				},
