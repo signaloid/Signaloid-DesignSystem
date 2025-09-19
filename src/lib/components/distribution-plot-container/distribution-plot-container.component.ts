@@ -21,7 +21,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	@Input() max!: number;
 	@Input() step!: number;
 	@Input() initialValue!: number;
-  @Input() disabled: boolean = false;
+	@Input() disabled: boolean = false;
 	@Input() initialDistribution!: [number, number][] | number[][]; // weight in [0..100]
 	@Input() gridSteps!: number;
 	@Input() graphHeight!: number;
@@ -31,8 +31,8 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	@Input() xAxisLabel?: string;
 	@Input() yAxisLabel?: string;
 	@Input() adjustWidthToSlidersCount: boolean = false;
-  @Input() showBottomTitle = true;
-  @Output() switchedMode = new EventEmitter<'distribution' | 'slider'>();
+	@Input() showBottomTitle = true;
+	@Output() switchedMode = new EventEmitter<'distribution' | 'slider'>();
 	@Output() distributionChangeInner = new EventEmitter<{
 		distribution: [number, number][];
 		value: number;
@@ -52,7 +52,6 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	inputOptionsDefaultValue = 'distribution';
 	inputOptionValue = this.inputOptionsDefaultValue;
 	showingTooltip = false;
-
 
 	ngOnInit() {
 		this.distributionCenterValue = this.initialValue;
@@ -81,7 +80,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 		this.showingTooltip = false;
 	}
 	onChangeView(value: string) {
-    this.switchedMode.emit(value as 'distribution' | 'slider');
+		this.switchedMode.emit(value as 'distribution' | 'slider');
 		this.inputOptionValue = value;
 	}
 	onLockedChange(isLocked: boolean) {

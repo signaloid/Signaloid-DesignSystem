@@ -1,12 +1,11 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
 
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 import { DistributionalValue } from '../../../project-kea-ux-data/distributionalValue';
-import { BigNumbersPipe } from '../../pipes';
 import { YAXisOption } from 'echarts/types/dist/shared';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 
 const AXIS_STYLE = {
 	axisLine: { show: true, onZero: false, lineStyle: { type: 'solid' as const, width: 1.5, color: '#000' } },
@@ -41,7 +40,7 @@ const ARIA_CONFIG = {
 	selector: 'lib-distribution-plot',
 	templateUrl: './distribution-plot.component.html',
 	styleUrls: ['./distribution-plot.component.css'],
-	imports: [NgxEchartsDirective, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
+	imports: [NgxEchartsDirective, CurrencyPipe, NgClass], // Ensure NgxEchartsDirective and your pipe are imported
 	standalone: true,
 	providers: [
 		{
@@ -57,15 +56,25 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() xAxisLabel = 'Distribution Support';
 	@Input() suffix = '';
 	@Input() prefix = '';
+	@Input() percentageOfValueAtRisk: number | undefined;
+	@Output() hasSingleValueChange = new EventEmitter<boolean>();
 	protected particleValue: number | null = null;
+	private hasColoring = false;
+	hasSingleValue = false;
 	chartOptions: EChartsOption = {};
 
 	ngOnInit(): void {
+		this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 		this.updateChartData();
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes?.['uxValue']) {
+			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
+			this.updateChartData();
+		}
+		else if (changes?.['percentageOfValueAtRisk']) {
+			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 			this.updateChartData();
 		}
 	}
@@ -85,6 +94,8 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	private buildChartOptions(): void {
 		if (this.distValue.diracDeltaCount === 1) {
 			this.chartOptions = this.buildDiracArrowOptions();
+			this.hasSingleValue = true;
+			this.hasSingleValueChange.emit(true);
 		} else {
 			this.chartOptions = this.buildHistogramOptions();
 		}
@@ -99,11 +110,24 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.floor(Math.abs(normMean * 0.2 || 1));
 		const xAxisMin = normMean - range;
 		const xAxisMax = normMean + range;
-
 		return {
 			aria: ARIA_CONFIG,
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
+			graphic: {
+				elements: [
+					{
+						type: 'text',
+						left: '50%',
+						top: '40%',
+						style: {
+							text: '95% confidence',
+							font: '14px sans-serif',
+							fill: 'rgba(0, 0, 0, 0.8)',
+						},
+					},
+				],
+			},
 			yAxis: [
 				{
 					...AXIS_STYLE,
@@ -144,8 +168,13 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				{
 					type: 'custom',
 					data: [normMean],
+
 					renderItem: (params, api) => ({
 						type: 'polyline',
+						areaStyle: {
+							color: '#000',
+							opacity: 0.5,
+						},
 						shape: {
 							points: [api.coord([api.value(0), 0]), api.coord([api.value(0), 1])],
 						},
@@ -180,15 +209,17 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
 
 		const range = Math.abs(normBP[normBP.length - 1] - normBP[0]);
-		const xAxisMin = normBP[0] - range * 0.1;
-		const xAxisMax = normBP[normBP.length - 1] + range * 0.1;
+		const xAxisMin = Math.min(...normBP);
+		const xAxisMax = Math.max(...normBP);
+
+		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : 0;
 
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			yAxis: this.getHistogramYAxes(minYExp),
-			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean),
+			series: this.getHistogramSeries(normBP, bh, bw, minXExp, normMean, valueAtRisk),
 		};
 	}
 
@@ -198,6 +229,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			type: 'value' as const,
 			z: 10,
 			scale: true,
+			splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
 			min,
 			max,
 			// Suggest 4 grid lines, which encourages "nicer" tick intervals
@@ -293,6 +325,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		normBW: number[],
 		minXExp: number,
 		normMean: number,
+		normValueAtRisk: number,
 	): EChartsOption['series'] {
 		const dataPoints = normBP.map((val, i) => ({
 			value: [val, normBP[i + 1], normBH[i], normBW[i] * normBH[i]],
@@ -338,9 +371,50 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 								formatter: '{b}',
 							},
 						},
+						{
+							name: 'VaR',
+							xAxis: normValueAtRisk,
+							lineStyle: { color: 'black', width: 2 },
+							label: {
+								show: true,
+								position: 'insideStartTop',
+								formatter: '{b}',
+							},
+						},
 					],
+
 					lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
 				},
+				markArea: this.hasColoring
+					? {
+							itemStyle: {
+								opacity: 0.25,
+							},
+							data: [
+								// Red area (Loss region)
+								[
+									{
+										xAxis: 'min', // from the start of the axis
+										itemStyle: { color: '#d9534f' },
+									},
+									{
+										xAxis: normValueAtRisk,
+									},
+								],
+								// Green area (Confidence region)
+								[
+									{
+										name: `${(1 - Number(this.percentageOfValueAtRisk)) * 100} % Confidence`,
+										xAxis: normValueAtRisk,
+										itemStyle: { color: '#91cc75' },
+									},
+									{
+										xAxis: 'max', // to the end of the axis
+									},
+								],
+							],
+						}
+					: {},
 				tooltip: {
 					formatter: (params: any) => `Probability Mass<br/>${params.data.value[3]}`,
 				},

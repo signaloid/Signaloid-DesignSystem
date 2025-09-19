@@ -1,4 +1,4 @@
-<div class="figure-container">
+<div [ngClass]="{'single-value-container' : singleValue, 'figure-container': !singleValue}">
 	<p class="figure-title">
 		<ng-content select="[figure-title]"></ng-content>
 		@if (loading) {
@@ -15,6 +15,8 @@
     [prefix]="prefix"
 		style="width: 22rem"
 		[uxValue]="uxString"
+    [percentageOfValueAtRisk]="percentageOfValueAtRisk"
+    (hasSingleValueChange)="applyStylesIfSingleValue($event)"
 	></lib-distribution-plot>
 	<p class="figure-description">
 		<ng-content select="[figure-description]"></ng-content>

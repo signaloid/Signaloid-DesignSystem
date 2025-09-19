@@ -24,16 +24,18 @@ export class InputTextComponent implements OnInit {
 	@Input() size: InputTextSize = InputTextSize.M;
 	@Input() type: string = 'text';
   @Input() autocomplete: string = 'on';
-	disabled: boolean = false;
-	value: string = '';
+  @Input() defaultValue: string | undefined;
+	@Input() disabled: boolean = false;
+	value: string | undefined = '';
 	disabledIconColor = 'var(--neutral-b-gray-200)';
 	normalColor = 'var(--neutral-b-gray-700)';
-	private onChange = (value: any) => {};
+	private onChange = (value: string) => { this.valueUpdate.emit(value); };
 	private onTouched = () => {};
 	protected isFocused = false;
 	protected inputSizeValues = InputTextSizes[this.size];
   @Output() focus = new EventEmitter<any>();
   @Output() blur = new EventEmitter<any>();
+  @Output() valueUpdate = new EventEmitter<string>();
 	constructor(@Self() @Optional() public ngControl: NgControl) {
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
@@ -41,6 +43,7 @@ export class InputTextComponent implements OnInit {
 	}
 
 	ngOnInit() {
+    this.value = this.defaultValue;
 		this.inputSizeValues = InputTextSizes[this.size];
 	}
 
