@@ -297,21 +297,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				},
 			},
 		];
-
-		// This part, which adds the multiplier, remains the same.
-		if (minYExp !== 0) {
-			axes.push({
-				type: 'value' as const,
-				position: 'left' as const,
-				name: `1e${minYExp}`,
-				nameLocation: 'end' as const,
-				nameGap: 10,
-				nameTextStyle: { color: '#000' },
-				scale: false,
-				axisTick: { show: false },
-				axisLabel: { show: false },
-			});
-		}
+    
 
 		return axes;
 	}
