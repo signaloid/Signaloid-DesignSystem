@@ -282,7 +282,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				nameTextStyle: AXIS_NAME_STYLE,
 				scale: true,
 				splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
-				axisLine: { show: false },
 				axisLabel: {
 					color: '#000',
 					// This formatter uses minYExp to calculate the correct label value.
