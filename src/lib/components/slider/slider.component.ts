@@ -32,6 +32,7 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	@Input() labelBelow: string | undefined;
   @Input() alwaysShowValue = false;
   @Input() hasBigNumbers = true;
+  @Input() showPercentageFromFloatingPoint = false;
 	// Use these `EventEmitter`s if you need separate outputs
 	@Output() valueChange = new EventEmitter<number>();
 	@Output() rangeChange = new EventEmitter<{ min: number; max: number }>();
@@ -136,5 +137,9 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
     }
 
     return `${parseFloat(valueNumber.toFixed(1))}${units[unitIndex]}`;
+  }
+
+  percentage(value: number ) {
+    return `${(value * 100).toFixed(0)}%`;
   }
 }

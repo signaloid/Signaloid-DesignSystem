@@ -10,7 +10,7 @@
   [step]="step"
   [disabled]="disabled"
   (blur)="onBlur()"
-  [displayWith]="formatLabel"
+  [displayWith]=" showPercentageFromFloatingPoint ? percentage : formatLabel"
 >
   <input
 
