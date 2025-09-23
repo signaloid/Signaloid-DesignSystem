@@ -46,7 +46,6 @@ export class SnackbarService {
 		options.icon = this.typeToIcons[options.type];
     options.iconColor = this.typeToColor[options.type];
     options.iconBackgroundColor = this.typeToBackgroundColor[options.type];
-    console.log(options)
 		this.snackbar.openFromComponent(SnackbarComponent, {
 			data: options,
 			panelClass: 'testing-class',
