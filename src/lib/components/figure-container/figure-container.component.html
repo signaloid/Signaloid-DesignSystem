@@ -1,24 +1,51 @@
-<div [ngClass]="{'single-value-container' : singleValue, 'figure-container': !singleValue}">
+<div [ngClass]="{ 'single-value-container': singleValue, 'figure-container': !singleValue }">
 	<p class="figure-title">
 		<ng-content select="[figure-title]"></ng-content>
 		@if (loading) {
-			<mat-progress-spinner
+      <div [ngClass]="{ 'loader-single-value': singleValue }">
+      <mat-progress-spinner
 				diameter="16"
-				color="primary"
 				mode="indeterminate"
 			></mat-progress-spinner>
+      </div>
 		}
 	</p>
-	<lib-distribution-plot
-    [xAxisLabel]="xAxisLabel"
-    [suffix]="suffix"
-    [prefix]="prefix"
-		style="width: 22rem"
-		[uxValue]="uxString"
-    [percentageOfValueAtRisk]="percentageOfValueAtRisk"
-    [hasSingleValue]="singleValue"
-	></lib-distribution-plot>
-	<p class="figure-description">
-		<ng-content select="[figure-description]"></ng-content>
-	</p>
+	@if (loading && !singleValue) {
+		<div class="loading-container" >
+      <p-skeleton
+        height="24px"
+        width="88px"
+        borderRadius="6px"
+        styleClass="mb-2"
+      />
+			<p-skeleton
+
+				height="240px"
+			>
+			</p-skeleton>
+		</div>
+	} @else if (loading && singleValue) {
+		<div style="width: 100%">
+			<p-skeleton
+				height="24px"
+        width="88px"
+        borderRadius="6px"
+        styleClass="mb-2"
+			/>
+		</div>
+	} @else {
+		<lib-distribution-plot
+			[xAxisLabel]="xAxisLabel"
+			[suffix]="suffix"
+			[prefix]="prefix"
+			[uxValue]="uxString"
+			[percentageOfValueAtRisk]="percentageOfValueAtRisk"
+			[hasSingleValue]="singleValue"
+		></lib-distribution-plot>
+	}
+	@if (!singleValue) {
+		<p class="figure-description">
+			<ng-content select="[figure-description]"></ng-content>
+		</p>
+	}
 </div>
