@@ -279,6 +279,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				name: this.yAxisLabel,
 				nameLocation: 'middle' as const,
 				nameGap: 35,
+        min: 0,
 				nameTextStyle: AXIS_NAME_STYLE,
 				scale: true,
 				splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
@@ -297,7 +298,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				},
 			},
 		];
-    
+
 
 		return axes;
 	}

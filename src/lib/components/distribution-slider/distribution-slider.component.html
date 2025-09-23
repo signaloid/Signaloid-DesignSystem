@@ -276,7 +276,7 @@
       <text
         text-anchor="middle"
         [attr.x]="centerPoint.x"
-        [attr.y]="safeArea.bottomLeft.y + 35"
+        [attr.y]="safeArea.bottomLeft.y + 40"
         [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
         [attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
         class="text-body-2 graph-tooltip"
@@ -339,8 +339,14 @@
 					[attr.y]="safeArea.bottomLeft.y + 22"
 					[attr.transform]="'rotate(-45 ' + pt.x + ' ' + (safeArea.bottomLeft.y + 20) + ')'"
 				>
-					<!-- Hide the label if it is the center value; otherwise show -->
-          {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
+          @if(pointList.length > 15) {
+            @if(i % 2 === 0) {
+              {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
+            }
+          }@else {
+            {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
+          }
+
 				</text>
 			}
 		</ng-container>
