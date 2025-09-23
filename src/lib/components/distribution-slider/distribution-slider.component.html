@@ -330,7 +330,7 @@
 
 		<!-- Extra secondary x-axis ticks/labels (rotated) -->
 		<ng-container *ngFor="let pt of pointList; let i = index">
-			@if (!updatingMinMaxStepValues && points[i][0] % 1 === 0) {
+			@if (!updatingMinMaxStepValues) {
 				<text
 					class="text-caption graph-tooltip-secondary"
 					text-anchor="middle"
@@ -345,6 +345,7 @@
             }
           }@else {
             {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
+
           }
 
 				</text>

@@ -10,8 +10,10 @@
   [step]="step"
   [disabled]="disabled"
   (blur)="onBlur()"
+  [displayWith]="formatLabel"
 >
   <input
+
     matSliderThumb
     [(ngModel)]="value"
     (ngModelChange)="onValueChange($event)"

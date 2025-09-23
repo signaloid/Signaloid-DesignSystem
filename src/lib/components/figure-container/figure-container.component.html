@@ -16,7 +16,7 @@
 		style="width: 22rem"
 		[uxValue]="uxString"
     [percentageOfValueAtRisk]="percentageOfValueAtRisk"
-    (hasSingleValueChange)="applyStylesIfSingleValue($event)"
+    [hasSingleValue]="singleValue"
 	></lib-distribution-plot>
 	<p class="figure-description">
 		<ng-content select="[figure-description]"></ng-content>

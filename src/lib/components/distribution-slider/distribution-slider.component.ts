@@ -208,12 +208,13 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 		if (this.points.length <= 1) return [];
 		const spacing = this.safeArea.width / this.points.length;
 
-		return this.points.map(([_, weight], index) => {
+		const points = this.points.map(([_, weight], index) => {
 			return {
 				x: this.safeArea.topLeft.x + index * spacing,
 				y: this.safeArea.topLeft.y + (this.safeArea.height - weight * this.safeArea.height),
 			};
 		});
+    return points;
 	}
 
 	/** The path string used in `<path d="M ... L ... Z">` for the distribution area */

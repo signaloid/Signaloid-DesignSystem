@@ -57,10 +57,9 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() suffix = '';
 	@Input() prefix = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
-	@Output() hasSingleValueChange = new EventEmitter<boolean>();
+	@Input() hasSingleValue = false;
 	protected particleValue: number | null = null;
 	private hasColoring = false;
-	hasSingleValue = false;
 	chartOptions: EChartsOption = {};
 
 	ngOnInit(): void {
@@ -71,6 +70,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes?.['uxValue']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
+      console.log(this.hasColoring);
 			this.updateChartData();
 		}
 		else if (changes?.['percentageOfValueAtRisk']) {
@@ -86,7 +86,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			this.particleValue = this.distValue.particleValue; // Set the particleValue for the template
 			this.buildChartOptions();
 		} catch (error) {
-			console.error('Failed to parse or build chart:', error);
 			this.chartOptions = {}; // Clear chart on error
 		}
 	}
@@ -94,8 +93,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	private buildChartOptions(): void {
 		if (this.distValue.diracDeltaCount === 1) {
 			this.chartOptions = this.buildDiracArrowOptions();
-			this.hasSingleValue = true;
-			this.hasSingleValueChange.emit(true);
 		} else {
 			this.chartOptions = this.buildHistogramOptions();
 		}
@@ -116,7 +113,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			graphic: {
-				elements: [
+				elements:  this.hasColoring ? [
 					{
 						type: 'text',
 						left: '50%',
@@ -127,7 +124,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 							fill: 'rgba(0, 0, 0, 0.8)',
 						},
 					},
-				],
+				] : [],
 			},
 			yAxis: [
 				{

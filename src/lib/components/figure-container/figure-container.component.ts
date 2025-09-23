@@ -18,12 +18,9 @@ export class FigureContainerComponent{
 	@Input() suffix: string = '';
 	@Input() prefix: string = '';
   @Input() percentageOfValueAtRisk: number | undefined;
-	singleValue = false;
+  @Input() singleValue = false;
   constructor(private cd: ChangeDetectorRef) {
   }
-	applyStylesIfSingleValue(value: boolean) {
-		this.singleValue = value;
-    this.cd.detectChanges();
-	}
+
 }
 
