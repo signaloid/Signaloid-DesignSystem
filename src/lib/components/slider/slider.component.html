@@ -10,8 +10,10 @@
   [step]="step"
   [disabled]="disabled"
   (blur)="onBlur()"
+  [displayWith]=" showPercentageFromFloatingPoint ? percentage : formatLabel"
 >
   <input
+
     matSliderThumb
     [(ngModel)]="value"
     (ngModelChange)="onValueChange($event)"

@@ -31,6 +31,8 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	@Input() type: SliderTypes = SliderTypes.NUMERIC;
 	@Input() labelBelow: string | undefined;
   @Input() alwaysShowValue = false;
+  @Input() hasBigNumbers = true;
+  @Input() showPercentageFromFloatingPoint = false;
 	// Use these `EventEmitter`s if you need separate outputs
 	@Output() valueChange = new EventEmitter<number>();
 	@Output() rangeChange = new EventEmitter<{ min: number; max: number }>();
@@ -115,4 +117,29 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	onBlur() {
 		this.onTouchedFn();
 	}
+
+  formatLabel(value: number ): string {
+    let valueNumber = Number(value);
+    if (valueNumber === null || valueNumber === undefined || isNaN(valueNumber)) {
+      return `${valueNumber}`;
+    }
+
+    if (Math.abs(valueNumber) < 1000) {
+      return `${ valueNumber }`;
+    }
+
+    const units = ['k', 'M', 'B', 'T'];
+    let unitIndex = -1;
+
+    while (Math.abs(valueNumber) >= 1000 && unitIndex < units.length - 1) {
+      valueNumber = valueNumber / 1000;
+      unitIndex++;
+    }
+
+    return `${parseFloat(valueNumber.toFixed(1))}${units[unitIndex]}`;
+  }
+
+  percentage(value: number ) {
+    return `${(value * 100).toFixed(0)}%`;
+  }
 }

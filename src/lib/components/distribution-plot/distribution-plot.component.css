@@ -8,7 +8,7 @@
 
 .chart {
   min-height: 230px;
-  aspect-ratio: 10 / 6;
+  /*aspect-ratio: 10 / 6;*/
 }
 
 .plot-span {

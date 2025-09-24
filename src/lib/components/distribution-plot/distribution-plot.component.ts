@@ -57,10 +57,9 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() suffix = '';
 	@Input() prefix = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
-	@Output() hasSingleValueChange = new EventEmitter<boolean>();
+	@Input() hasSingleValue = false;
 	protected particleValue: number | null = null;
 	private hasColoring = false;
-	hasSingleValue = false;
 	chartOptions: EChartsOption = {};
 
 	ngOnInit(): void {
@@ -71,6 +70,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes?.['uxValue']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
+      console.log(this.hasColoring);
 			this.updateChartData();
 		}
 		else if (changes?.['percentageOfValueAtRisk']) {
@@ -86,7 +86,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			this.particleValue = this.distValue.particleValue; // Set the particleValue for the template
 			this.buildChartOptions();
 		} catch (error) {
-			console.error('Failed to parse or build chart:', error);
 			this.chartOptions = {}; // Clear chart on error
 		}
 	}
@@ -94,8 +93,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	private buildChartOptions(): void {
 		if (this.distValue.diracDeltaCount === 1) {
 			this.chartOptions = this.buildDiracArrowOptions();
-			this.hasSingleValue = true;
-			this.hasSingleValueChange.emit(true);
 		} else {
 			this.chartOptions = this.buildHistogramOptions();
 		}
@@ -110,12 +107,13 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.floor(Math.abs(normMean * 0.2 || 1));
 		const xAxisMin = normMean - range;
 		const xAxisMax = normMean + range;
+
 		return {
 			aria: ARIA_CONFIG,
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			graphic: {
-				elements: [
+				elements:  this.hasColoring ? [
 					{
 						type: 'text',
 						left: '50%',
@@ -126,7 +124,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 							fill: 'rgba(0, 0, 0, 0.8)',
 						},
 					},
-				],
+				] : [],
 			},
 			yAxis: [
 				{
@@ -211,9 +209,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.abs(normBP[normBP.length - 1] - normBP[0]);
 		const xAxisMin = Math.min(...normBP);
 		const xAxisMax = Math.max(...normBP);
-
-		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : 0;
-
+		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
@@ -280,11 +276,10 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				name: this.yAxisLabel,
 				nameLocation: 'middle' as const,
 				nameGap: 35,
+        min: 0,
 				nameTextStyle: AXIS_NAME_STYLE,
-				min: 0,
 				scale: true,
 				splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
-				axisLine: { show: false },
 				axisLabel: {
 					color: '#000',
 					// This formatter uses minYExp to calculate the correct label value.
@@ -301,20 +296,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			},
 		];
 
-		// This part, which adds the multiplier, remains the same.
-		if (minYExp !== 0) {
-			axes.push({
-				type: 'value' as const,
-				position: 'left' as const,
-				name: `1e${minYExp}`,
-				nameLocation: 'end' as const,
-				nameGap: 10,
-				nameTextStyle: { color: '#000' },
-				scale: false,
-				axisTick: { show: false },
-				axisLabel: { show: false },
-			});
-		}
 
 		return axes;
 	}
@@ -325,12 +306,12 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		normBW: number[],
 		minXExp: number,
 		normMean: number,
-		normValueAtRisk: number,
+		normValueAtRisk: number | undefined,
 	): EChartsOption['series'] {
 		const dataPoints = normBP.map((val, i) => ({
 			value: [val, normBP[i + 1], normBH[i], normBW[i] * normBH[i]],
 		}));
-		return [
+    return [
 			{
 				xAxisIndex: 0,
 				type: 'custom',
@@ -358,33 +339,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 						},
 					};
 				},
-				markLine: {
-					animation: false,
-					symbol: 'none',
-					data: [
-						{
-							name: 'E(x)',
-							xAxis: normMean,
-							label: {
-								show: true,
-								position: 'insideEndTop',
-								formatter: '{b}',
-							},
-						},
-						{
-							name: 'VaR',
-							xAxis: normValueAtRisk,
-							lineStyle: { color: 'black', width: 2 },
-							label: {
-								show: true,
-								position: 'insideStartTop',
-								formatter: '{b}',
-							},
-						},
-					],
-
-					lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
-				},
+				markLine: this.getMarkLine(normMean, normValueAtRisk) ,
 				markArea: this.hasColoring
 					? {
 							itemStyle: {
@@ -423,6 +378,54 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 	private getExponent = (num: number): number => this.scientific(num)[1];
 
+  private getMarkLine(normMean: number, normValueAtRisk: number | undefined): echarts.MarkLineComponentOption  {
+    if(!this.hasColoring) {
+		return {
+      animation: false,
+      symbol: 'none',
+      data: [
+        {
+          name: 'E(x)',
+          xAxis: normMean,
+          label: {
+            show: true,
+            position: 'insideEndTop',
+            formatter: '{b}',
+          },
+        },
+      ],
+      lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
+    };
+	}
+    return {
+      animation: false,
+      symbol: 'none',
+      data: [
+        {
+          name: 'E(x)',
+          xAxis: normMean,
+          label: {
+            show: true,
+            position: 'insideEndTop',
+            formatter: '{b}',
+          },
+        },
+        {
+          name: 'VaR',
+          xAxis: normValueAtRisk ? normValueAtRisk : 0,
+          lineStyle: { color: 'black', width: 2 },
+          label: {
+            show: true,
+            position: 'insideStartTop',
+            formatter: '{b}',
+          },
+        },
+      ],
+
+      lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
+    }
+  }
+
 	private normalize(val: number, newExp: number): number {
 		const [coef, origExp] = this.scientific(val);
 		return coef * Math.pow(10, origExp - newExp);
@@ -433,3 +436,4 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		return [c, e];
 	}
 }
+
