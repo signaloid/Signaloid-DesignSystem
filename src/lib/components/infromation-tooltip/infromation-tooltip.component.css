@@ -1,0 +1,56 @@
+.tooltip-icon {
+  cursor: pointer;
+  margin: 5px;
+}
+.tooltip-container {
+  .shown {
+    transition-duration: 1.02s;
+  }
+  position: relative;
+  transition-duration: 1.02s;
+}
+
+.tooltip {
+  position: absolute;
+  top: -61px;
+  left: 29px;
+  z-index: 10;
+  display: flex;
+  width: 343px;
+  min-width: 172px;
+  max-width: 343px;
+  padding: var(--space-sgnl-space-8, 8px) var(--space-sgnl-space-12, 12px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: var(--radius-sgnl-border-radius-4, 4px);
+  background: var(--defaults-primary-background-mono, #fff);
+
+  /* cards/card.md */
+  box-shadow:
+    var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-4, 4px) var(--effects-sgnl-effect-12, 12px)
+    var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_12, rgba(10, 14, 21, 0.12)),
+    var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-1, 1px) var(--effects-sgnl-effect-4, 4px)
+    var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_10, rgba(10, 14, 21, 0.1));
+  .tooltip-title {
+    color: var(--defaults-primary-text-primary, #3E4249);
+    /* text/Medium/p S Medium */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-paragraph-s, 14px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px); /* 142.857% */
+    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+  }
+  .tooltip-body {
+    color: var(--defaults-secondary-text-secondary, #636873);
+    align-self: stretch;
+    /* text/Regular/caption Regular */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-caption, 12px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: var(--line-height-sgnl-font-line-height-caption, 16px); /* 133.333% */
+  }
+
+}

@@ -25,3 +25,4 @@ export * from './password-strength/password-strength.component';
 export * from './code-editor/code-editor.component';
 export * from './tabs-task-output/tabs-task-output.component';
 export * from './multiple-choice/multiple-choice.component';
+export * from './infromation-tooltip/infromation-tooltip.component';

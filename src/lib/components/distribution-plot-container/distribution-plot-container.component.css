@@ -52,7 +52,7 @@
 	}
   .tooltip-icon {
     cursor: pointer;
-    padding: 5px;
+    margin: 5px;
   }
   .tooltip-container {
     .shown {
