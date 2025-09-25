@@ -17,6 +17,7 @@ export class FigureContainerComponent {
 	@Input() uxString: string = '';
 	@Input() xAxisLabel: string = '';
 	@Input() loading: boolean = false;
+  @Input() initialLoading: boolean = false;
 	@Input() suffix: string = '';
 	@Input() prefix: string = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
