@@ -119,7 +119,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 						left: '50%',
 						top: '40%',
 						style: {
-							text: '95% confidence',
+							text: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
 							font: '14px sans-serif',
 							fill: 'rgba(0, 0, 0, 0.8)',
 						},
