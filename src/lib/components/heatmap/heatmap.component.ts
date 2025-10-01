@@ -74,7 +74,7 @@ export class HeatmapComponent implements OnInit, OnChanges {
 	}
 
 	private updateChartOptions() {
-		this.options['series'] = [
+    this.options['series'] = [
 			{
 				name: 'Gaussian',
 				type: 'heatmap',
@@ -88,10 +88,12 @@ export class HeatmapComponent implements OnInit, OnChanges {
 				},
 			},
 		];
+
 	}
 
 	private constructDataForHeatMapFromArray(input: number[]) {
 		const indexMap: { [key in number]: number } = {};
+    this.chartReadyData = [];
 		for (let j = 0; j < this.heatmapSize.y; j++) {
 			for (let i = this.heatmapSize.x - 1; i >= 0; i--) {
 				const index = j * this.heatmapSize.x + i; // Corrected index formula
