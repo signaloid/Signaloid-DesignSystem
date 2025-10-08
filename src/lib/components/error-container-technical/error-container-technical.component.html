@@ -10,6 +10,7 @@
   </svg>
   <h3 class="title">We’re having some technical issues</h3>
   <p class="description">We’re working hard on resolving the issue. Please try again later.</p>
-
-  <lib-button label="Go back" (onClick)="onClick()"></lib-button>
+  @if(showButton) {
+    <lib-button label="Go back" (onClick)="onClick()"></lib-button>
+  }
 </div>

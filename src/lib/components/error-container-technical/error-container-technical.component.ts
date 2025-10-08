@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { Location } from '@angular/common';
 @Component({
@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 })
 export class ErrorContainerTechnicalComponent {
   @Output() onClickEmitter: EventEmitter<void> = new EventEmitter<void>();
-
+  @Input() showButton: boolean = true;
   constructor(private _location: Location){}
 
   onClick() {
