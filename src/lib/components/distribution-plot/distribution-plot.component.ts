@@ -207,9 +207,9 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
     const plotData = new PlotData(this.distValue, 64)
 
 		const [bp, bw, bh] = [plotData.positions, plotData.widths, plotData.masses];
-		const minXExp = this.getExponent(plotData.min_range);
+		const minXExp = this.getExponent(plotData.max_range/ 2)  - 1;
 
-		const minYExp = this.getExponent(plotData.max_value/ 2);
+		const minYExp = this.getExponent(plotData.max_value/ 2) - 1;
 
 		const normBP = bp.map((v) => this.normalize(v, minXExp));
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
@@ -268,7 +268,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				name: `1e${minXExp}`,
 				nameLocation: 'end' as const,
 				nameTextStyle: { ...AXIS_NAME_STYLE, color: '#000' },
-				nameGap: 10,
+				nameGap: 5,
 				scale: false,
 			});
 		}
