@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
-
+import { DistributionalValue, PlotData, signaloidChartOption} from '@signaloid/ux-charts';
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
-import { DistributionalValue } from '../../../project-kea-ux-data/distributionalValue';
+
 import { YAXisOption } from 'echarts/types/dist/shared';
 import { CurrencyPipe, NgClass } from '@angular/common';
 
@@ -51,7 +51,7 @@ const ARIA_CONFIG = {
 })
 export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() uxValue: string = '';
-	distValue!: DistributionalValue;
+	distValue!: DistributionalValue ;
 	@Input() yAxisLabel = 'Probability Density';
 	@Input() xAxisLabel = 'Distribution Support';
 	@Input() suffix = '';
@@ -81,9 +81,14 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 
 	private updateChartData(): void {
 		try {
-			this.distValue = new DistributionalValue();
-			this.distValue.parseHex(this.uxValue);
-			this.particleValue = this.distValue.particleValue; // Set the particleValue for the template
+
+			const dist = DistributionalValue.parse(this.uxValue);
+      if(dist === null) {
+        this.chartOptions = {}; // Clear chart on error
+        return;
+      }
+      this.distValue = dist;
+			this.particleValue = this.distValue.particle_value; // Set the particleValue for the template
 			this.buildChartOptions();
 		} catch (error) {
 			this.chartOptions = {}; // Clear chart on error
@@ -91,7 +96,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private buildChartOptions(): void {
-		if (this.distValue.diracDeltaCount === 1) {
+		if (this.distValue?.UR_order === 1) {
 			this.chartOptions = this.buildDiracArrowOptions();
 		} else {
 			this.chartOptions = this.buildHistogramOptions();
@@ -99,7 +104,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private buildDiracArrowOptions(): EChartsOption {
-		const position = this.distValue.mean ?? 0;
+		const position = this.distValue?.mean ?? 0;
 		const minXExp = this.getExponent(position);
 
 		const normMean = this.normalize(position, minXExp);
@@ -199,9 +204,12 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private buildHistogramOptions(): EChartsOption {
-		const [bp, bw, bh] = this.distValue.getPlotData?.() || [[0], [0], [0]];
-		const minXExp = Math.min(...bp.map(this.getExponent));
-		const minYExp = Math.min(...bh.map(this.getExponent));
+    const plotData = new PlotData(this.distValue, 64)
+
+		const [bp, bw, bh] = [plotData.positions, plotData.widths, plotData.masses];
+		const minXExp = this.getExponent(plotData.min_range);
+
+		const minYExp = this.getExponent(plotData.max_value/ 2);
 
 		const normBP = bp.map((v) => this.normalize(v, minXExp));
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
@@ -268,13 +276,16 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private getHistogramYAxes(minYExp: number): EChartsOption['yAxis'] {
-		const axes: YAXisOption[] = [
+		let axes: YAXisOption[] = [
 			{
 				...AXIS_STYLE,
 				type: 'value' as const,
 				position: 'left' as const,
 				name: this.yAxisLabel,
 				nameLocation: 'middle' as const,
+        axisLine: { show: false,onZero: false },
+        axisTick: { show: false },
+        minorTick: { show: false },
 				nameGap: 35,
         min: 0,
 				nameTextStyle: AXIS_NAME_STYLE,
@@ -294,10 +305,27 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 					},
 				},
 			},
+
 		];
+    if (minYExp !== 0) {
+      axes.push({
+        type: 'value' as const,
+        position: 'left' as const,
+        name: `1e${minYExp}`,
+        nameLocation: 'end' as const,
+        nameGap: 10,
+        nameTextStyle: { color: '#000' },
+        scale: false,
+        axisLine: { show: false, onZero: false },
+        axisTick: { show: false },
+        axisLabel: { show: false },
+      });
 
+    }
 
-		return axes;
+    console.log(axes);
+
+    return axes;
 	}
 
 	private getHistogramSeries(
