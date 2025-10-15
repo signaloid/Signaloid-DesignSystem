@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
-import { DistributionalValue, PlotData, signaloidChartOption} from '@signaloid/ux-charts';
+import { DistributionalValue, PlotData, signaloidChartOption} from '@signaloid/uxdata-tools-internal';
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 
 import { YAXisOption } from 'echarts/types/dist/shared';
