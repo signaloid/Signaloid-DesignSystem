@@ -1,0 +1,47 @@
+<!-- Single Value Slider -->
+<mat-slider
+  *ngIf="!multiple"
+
+  class="slider"
+  [discrete]="true"
+  [ngClass]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP,'show-value': alwaysShowValue }"
+  [max]="max"
+  [min]="min"
+  [step]="step"
+  [disabled]="disabled"
+  (blur)="onBlur()"
+  [displayWith]=" showPercentageFromFloatingPoint ? percentage : formatLabel"
+>
+  <input
+
+    matSliderThumb
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange($event)"
+    (dragEnd)="onUpdate(value)"
+  />
+</mat-slider>
+
+<!-- Range (Multiple Thumbs) Slider -->
+<mat-slider
+  *ngIf="multiple"
+  class="slider"
+  [max]="max"
+  [min]="min"
+  [step]="step"
+  [disabled]="disabled"
+  [discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
+  [ngClass]="{ 'label-below': type === SliderTypes.NUMERIC, 'label-above': type === SliderTypes.TOOLTIP,'show-value': alwaysShowValue }"
+  (blur)="onBlur()"
+>
+  <input
+    matSliderStartThumb
+    [(ngModel)]="multipleMinValue"
+    (ngModelChange)="onRangeChange($event, multipleMaxValue)"
+  />
+  <input
+    matSliderEndThumb
+    [(ngModel)]="multipleMaxValue"
+    (ngModelChange)="onRangeChange(multipleMinValue, $event)"
+  />
+</mat-slider>
+<p class="label-below" *ngIf="labelBelow">{{ labelBelow }}</p>

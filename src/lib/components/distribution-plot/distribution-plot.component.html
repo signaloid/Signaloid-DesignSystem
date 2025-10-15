@@ -1,0 +1,8 @@
+<p [ngClass]="{'plot-span': !hasSingleValue, 'single-value-span': hasSingleValue}" >{{ prefix }}{{ particleValue | currency: " " : "symbol" : "0.0-2" }}{{ suffix }}</p>
+@if (!hasSingleValue) {
+	<div
+		echarts
+		[options]="chartOptions"
+		class="chart"
+	></div>
+}

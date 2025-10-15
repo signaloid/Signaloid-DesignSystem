@@ -1,0 +1,97 @@
+.menu-container {
+  display: flex;
+  padding: 0px var(--space-sgnl-space-0, 0px);
+  align-items: center;
+  gap: var(--space-sgnl-space-8, 8px);
+}
+
+.badge {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-sgnl-border-radius-6, 6px);
+  border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #BABCC2);
+  background: var(--defaults-primary-background-mono, #FFF);
+}
+.profile-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  margin: 0;
+  .name {
+    color: var(--defaults-primary-text-primary, #3E4249);
+    margin: 0;
+    /* text/Medium/caption Medium */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-caption, 12px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--line-height-sgnl-font-line-height-caption, 16px); /* 133.333% */
+  }
+
+  .tier {
+    margin: 0;
+    display: flex;
+    padding: 0px var(--space-sgnl-space-8, 8px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sgnl-border-radius-6, 6px);
+    background: var(--brand-default-background-brand, #307D2B);
+    color: var(--defaults-primary-text-primary-inverse, #FFF);
+    /* text/Regular/footnote Regular */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-footnote, 10px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: var(--line-height-sgnl-font-line-height-footnote, 14px); /* 140% */
+    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+  }
+}
+::ng-deep.mat-mdc-menu-content {
+  border-radius: var(--radius-sgnl-border-radius-6, 6px);
+  border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #BABCC2);
+  background: var(--defaults-primary-background-mono, #FFF);
+  /* cards/card.xl */
+  box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-10, 10px) var(--effects-sgnl-effect-24, 24px) var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_20, rgba(10, 14, 21, 0.20)), var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-2, 2px) var(--effects-sgnl-effect-4, 4px) var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_16, rgba(10, 14, 21, 0.16));
+  display: flex;
+  width: 223px;
+  padding: var(--space-sgnl-space-6, 6px) var(--space-sgnl-space-16, 16px)!important;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sgnl-space-0, 0px);
+
+
+
+  ::ng-deep.mat-mdc-menu-item {
+    display: flex !important; width: 100%; justify-content: flex-start; align-items: center !important;
+  }
+}
+
+.menu-item {
+  cursor: pointer;
+  display: flex;
+  padding: var(--space-sgnl-space-10, 10px) 0px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-sgnl-space-8, 8px);
+  color: var(--defaults-secondary-text-secondary, #636873);
+  text-align: center;
+
+  /* text/Medium/p M Medium */
+  font-family: var(--family-text, "IBM Plex Sans");
+  font-size: var(--size-sgnl-paragraph-m, 16px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--line-height-sgnl-font-line-height-paragraph-m, 24px); /* 150% */
+  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+}
+.menu-divider {
+  height: 5px;
+  width: 100%;
+  border-bottom: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #BABCC2);
+}

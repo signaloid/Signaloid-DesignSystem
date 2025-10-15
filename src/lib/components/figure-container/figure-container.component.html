@@ -1,0 +1,51 @@
+<div [ngClass]="{ 'single-value-container': singleValue, 'figure-container': !singleValue }">
+	<p class="figure-title">
+		<ng-content select="[figure-title]"></ng-content>
+		@if (loading) {
+      <div [ngClass]="{ 'loader-single-value': singleValue }">
+      <mat-progress-spinner
+				diameter="16"
+				mode="indeterminate"
+			></mat-progress-spinner>
+      </div>
+		}
+	</p>
+	@if (loading && !singleValue && initialLoading) {
+		<div class="loading-container" >
+      <p-skeleton
+        height="24px"
+        width="88px"
+        borderRadius="6px"
+        styleClass="mb-2"
+      />
+			<p-skeleton
+
+				height="210px"
+			>
+			</p-skeleton>
+		</div>
+	} @else if (loading && singleValue && initialLoading) {
+		<div style="width: 100%">
+			<p-skeleton
+				height="24px"
+        width="88px"
+        borderRadius="6px"
+        styleClass="mb-2"
+			/>
+		</div>
+	} @else {
+		<lib-distribution-plot
+			[xAxisLabel]="xAxisLabel ? xAxisLabel : 'Distribution Support'"
+			[suffix]="suffix"
+			[prefix]="prefix"
+			[uxValue]="uxString"
+			[percentageOfValueAtRisk]="percentageOfValueAtRisk"
+			[hasSingleValue]="singleValue"
+		></lib-distribution-plot>
+	}
+	@if (!singleValue) {
+		<p class="figure-description">
+			<ng-content select="[figure-description]"></ng-content>
+		</p>
+	}
+</div>

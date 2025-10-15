@@ -1,0 +1,32 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-sgnl-border-radius-6, 6px);
+
+  background-image:
+    url('./hero-container.png');
+
+  background-color: lightgray;         /* Used with the first layer if the image is missing/transparent */
+  background-position: 50%, 0 0;       /* 1st layer at center, 2nd layer defaults to top-left */
+  background-size: cover, auto;        /* 1st layer: cover the container; 2nd layer: auto size (default) */
+  background-repeat: no-repeat, no-repeat;  padding: var(--space-sgnl-space-40, 40px);
+  justify-content: flex-end;
+  align-items: flex-start;
+  .banner-title {
+    color: var(--defaults-secondary-text-secondary-inverse, #D9DADC);
+    font-weight: 600;
+    font-size: var(--size-sgnl-h5);
+    line-height: var(--line-height-sgnl-font-line-height-h5);
+    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055)
+  }
+  .banner-description {
+    color: var(--defaults-secondary-text-secondary-inverse, #D9DADC);
+    /* text/Regular/p M Regular */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-paragraph-m, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: var(--line-height-sgnl-font-line-height-paragraph-l, 24px); /* 150% */
+    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+  }
+}

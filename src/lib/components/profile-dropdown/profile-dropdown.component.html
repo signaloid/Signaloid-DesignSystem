@@ -1,0 +1,37 @@
+<div
+	[matMenuTriggerFor]="menu"
+	#t="matMenuTrigger"
+	class="menu-container"
+>
+	<div class="badge">
+		{{ getUsernameInitials(username) | uppercase }}
+	</div>
+	<div class="profile-name">
+		<p class="name">{{ username }}</p>
+		<p class="tier">{{ userTier }}</p>
+	</div>
+	@if (t.menuOpen) {
+		<lib-icon [icon]="arrowUpIcon"></lib-icon>
+	} @else {
+		<lib-icon [icon]="arrowDownIcon"></lib-icon>
+	}
+</div>
+
+<mat-menu
+	#menu="matMenu"
+	class="menu-inner"
+>
+	@for (m of menuItems; let idx = $index; track idx) {
+		@if (!m.isDivider) {
+			<div class="menu-item">
+				<lib-icon
+					[size]="{ width: '30px', height: '30px' }"
+					[icon]="m.icon"
+				></lib-icon>
+				<span>{{ m.label }} </span>
+			</div>
+		} @else {
+			<div class="menu-divider"></div>
+		}
+	}
+</mat-menu>

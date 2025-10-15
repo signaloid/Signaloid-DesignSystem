@@ -1,0 +1,70 @@
+@if (type === ButtonType.Primary || type === ButtonType.Destructive) {
+
+	<button
+		mat-flat-button
+		[class.type-primary]="type === ButtonType.Primary"
+		[class.type-destructive]="type === ButtonType.Destructive"
+    [class.btn-s]="size === ButtonSize.S"
+    [class.btn-m]="size === ButtonSize.M"
+    [class.btn-l]="size === ButtonSize.L"
+    [class.btn-xl]="size === ButtonSize.XL"
+		class="btn"
+    [disabled]="disabled"
+		[style]="{ height: buttonSize.height + 'px', width: '100%' }"
+		disableRipple
+		(click)="onClick.emit($event)"
+	>
+		<div class="btn-inner">
+      @if(leftSvgIcon) {
+        <div [innerHTML]="leftSvgIcon | safeHtml">
+
+        </div>
+      }
+			@if (leftIcon) {
+				<lib-icon [color]="'var(--defaults-primary-icon-primary_inverse)'" [icon]="leftIcon"> </lib-icon>
+			}
+			<span [style.font-size]="buttonSize.fontSize + 'px'">{{ label }}</span>
+			@if (rightIcon && !loading) {
+				<lib-icon [color]="'var(--defaults-primary-icon-primary_inverse)'" [icon]="rightIcon"> </lib-icon>
+			}
+      @if(loading) {
+        <mat-progress-spinner diameter="20" color="primary" mode="indeterminate"></mat-progress-spinner>
+      }
+		</div>
+	</button>
+} @else {
+	<button
+		mat-stroked-button
+		class="btn"
+    [class.btn-s]="size === ButtonSize.S"
+    [class.btn-m]="size === ButtonSize.M"
+    [class.btn-l]="size === ButtonSize.L"
+    [class.btn-xl]="size === ButtonSize.XL"
+		[class.type-secondary]="type === ButtonType.Secondary"
+		[class.type-outlined]="type === ButtonType.Outlined"
+		[style]="{ height: buttonSize.height + 'px', width: '100%' }"
+		disableRipple
+    [disabled]="disabled"
+    (click)="onClick.emit($event)"
+	>
+
+		<div class="btn-inner">
+      @if(leftSvgIcon) {
+        <div [innerHTML]="leftSvgIcon | safeHtml">
+
+        </div>
+      }
+			@if (leftIcon) {
+				<lib-icon  [icon]="leftIcon"> </lib-icon>
+			}
+			<span [style.font-size]="buttonSize.fontSize + 'px'">{{ label }}</span>
+      @if (rightIcon && !loading) {
+        <lib-icon [icon]="rightIcon"> </lib-icon>
+      }
+      @if(loading) {
+        <mat-progress-spinner diameter="20" color="secondary" mode="indeterminate"></mat-progress-spinner>
+      }
+
+		</div>
+	</button>
+}

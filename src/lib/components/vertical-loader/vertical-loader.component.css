@@ -1,0 +1,91 @@
+.vertical-loader-container {
+  display: flex;
+  flex-direction: column;
+  width: 343px;
+  min-width: 343px;
+  justify-content: flex-start;
+  gap: var(--space-sgnl-space-16, 16px);
+}
+
+.vertical-loader-step {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 343px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-sgnl-space-16, 16px);
+
+
+  .status-icon {
+    display: flex;
+    padding: var(--space-sgnl-space-8, 8px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sgnl-border-radius-32, 32px);
+    border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #BABCC2);
+    background: var(--defaults-primary-background-mono, #FFF);
+    mat-icon {
+      font-size: 32px;
+      line-height: 32px;
+    }
+    .done {
+      color: #4caf50;
+    }
+    .failed {
+      color: #f44336;
+    }
+    .pending {
+      color: #9e9e9e;
+    }
+  }
+
+  .step-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .step-label {
+      color: var(--defaults-primary-text-primary, #3E4249);
+
+      /* text/Medium/p L Medium */
+      font-family: var(--family-text, "IBM Plex Sans");
+      font-size: var(--size-sgnl-paragraph-l, 18px);
+      font-style: normal;
+      font-weight: 500;
+      line-height: var(--line-height-sgnl-font-line-height-paragraph-l, 28px); /* 155.556% */
+      letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-02, -0.2px);
+    }
+
+    button[mat-button] {
+      margin-top: 2px;
+      padding: 0;
+      font-size: 12px;
+      min-width: 0;
+      text-transform: uppercase;
+    }
+  }
+.step-details-pending {
+  .step-label{
+    color: var(--defaults-tertiary-text-tertiary, #8F939B);
+
+    /* text/Medium/p L Medium */
+    font-family: var(--family-text, "IBM Plex Sans");
+    font-size: var(--size-sgnl-paragraph-l, 18px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--line-height-sgnl-font-line-height-paragraph-l, 28px); /* 155.556% */
+    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-02, -0.2px);
+  }
+}
+
+  .connector-line {
+    position: relative;
+    height: 58px;
+    border: black solid 1px;
+    background-color: #000;
+    z-index: 0;
+    right: 94%;
+    top: 25px;
+  }
+}
