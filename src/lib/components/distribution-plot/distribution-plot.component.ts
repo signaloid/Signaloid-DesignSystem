@@ -5,7 +5,7 @@ import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 
 import { YAXisOption } from 'echarts/types/dist/shared';
 import { CurrencyPipe, NgClass } from '@angular/common';
-import { DistributionalValue, PlotData } from '@signaloid/uxdata-tools-internal/dist/cjs';
+import * as uxTools  from '@signaloid/uxdata-tools-internal';
 
 const AXIS_STYLE = {
 	axisLine: { show: true, onZero: false, lineStyle: { type: 'solid' as const, width: 1.5, color: '#000' } },
@@ -51,7 +51,7 @@ const ARIA_CONFIG = {
 })
 export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() uxValue: string = '';
-	distValue!: DistributionalValue;
+	distValue!: uxTools.DistributionalValue;
 	@Input() yAxisLabel = 'Probability Density';
 	@Input() xAxisLabel = 'Distribution Support';
 	@Input() suffix = '';
@@ -80,7 +80,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 
 	private updateChartData(): void {
 		try {
-			const dist = DistributionalValue.parse(this.uxValue);
+			const dist = uxTools.DistributionalValue.parse(this.uxValue);
 			if (dist === null) {
 				this.chartOptions = {}; // Clear chart on error
 				return;
@@ -204,7 +204,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private buildHistogramOptions(): EChartsOption {
-		const plotData = new PlotData(this.distValue, 64);
+		const plotData = new uxTools.PlotData(this.distValue, 64);
 
 		const [bp, bw, bh] = [plotData.positions, plotData.widths, plotData.masses];
 		const minXExp = this.getExponent(plotData.max_range / 2) - 1;
