@@ -391,47 +391,35 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 		});
 	}
 
-	/** Normalizes / finalizes distribution and emits distributionChange */
 	updateDistribution() {
-		// ensure at least 2 decimal places for distribution
 		const decimalPlaces = Math.max(2, this.countDecimalPlaces(this.step));
 
-		// find first non-zero weight
-		let firstIndex = this.points.findIndex((p) => this.roundToDecimalPlaces(p[1], decimalPlaces) !== 0);
-		let lastIndex = [...this.points]
-			.reverse()
-			.findIndex((p) => this.roundToDecimalPlaces(p[1], decimalPlaces) !== 0);
-
-		// If no distribution is non-zero, fallback to center value
-		if (firstIndex === -1 && lastIndex === -1) {
-			firstIndex = this.points.findIndex(
-				(p) =>
-					this.roundToDecimalPlaces(p[0], decimalPlaces) ===
-					this.roundToDecimalPlaces(this.valueState, decimalPlaces),
-			);
-			lastIndex = [...this.points]
-				.reverse()
-				.findIndex(
-					(p) =>
-						this.roundToDecimalPlaces(p[0], decimalPlaces) ===
-						this.roundToDecimalPlaces(this.valueState, decimalPlaces),
-				);
-		}
-		// slice & transform distribution
-		const sliceEnd = this.points.length - lastIndex;
-		const distribution = this.points.slice(firstIndex, sliceEnd).map(([x, w]) => [
-			this.roundToDecimalPlaces(x, decimalPlaces),
-			Math.round(w * 100), // scale back
-		]) as [number, number][];
 		if (this.collapsed) {
-			// collapsed => just center
 			this.distributionChange.emit({
-				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 1]],
+				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 100]],
 				value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
 			});
-
 			return;
 		}
+
+		const fullDistribution = this.points.map(([x, w]) => [
+			this.roundToDecimalPlaces(x, decimalPlaces),
+			Math.round(w * 100),
+		]) as [number, number][];
+
+		const firstIndex = fullDistribution.findIndex((p) => p[1] !== 0);
+
+		if (firstIndex === -1) {
+			this.distributionChange.emit({
+				distribution: fullDistribution,
+				value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
+			});
+			return;
+		}
+
+		const lastIndexReversed = [...fullDistribution].reverse().findIndex((p) => p[1] !== 0);
+		const sliceEnd = fullDistribution.length - lastIndexReversed;
+		const distribution = fullDistribution.slice(firstIndex, sliceEnd);
 
 		this.distributionChange.emit({
 			distribution,
