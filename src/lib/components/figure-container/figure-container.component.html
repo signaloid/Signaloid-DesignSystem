@@ -10,7 +10,7 @@
       </div>
 		}
 	</p>
-	@if (loading && !singleValue) {
+	@if (loading && !singleValue && initialLoading) {
 		<div class="loading-container" >
       <p-skeleton
         height="24px"
@@ -20,11 +20,11 @@
       />
 			<p-skeleton
 
-				height="240px"
+				height="210px"
 			>
 			</p-skeleton>
 		</div>
-	} @else if (loading && singleValue) {
+	} @else if (loading && singleValue && initialLoading) {
 		<div style="width: 100%">
 			<p-skeleton
 				height="24px"
@@ -35,7 +35,7 @@
 		</div>
 	} @else {
 		<lib-distribution-plot
-			[xAxisLabel]="xAxisLabel"
+			[xAxisLabel]="xAxisLabel ? xAxisLabel : 'Distribution Support'"
 			[suffix]="suffix"
 			[prefix]="prefix"
 			[uxValue]="uxString"

@@ -1,5 +1,5 @@
 .distribution-plot-container {
-	padding: var(--space-sgnl-space-16, 16px);
+	padding: var(--space-sgnl-space-16, 16px) var(--space-sgnl-space-16, 16px) 0 var(--space-sgnl-space-16, 16px) ;
 	border-radius: var(--radius-sgnl-border-radius-6, 6px);
 	border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #babcc2);
 	background: var(--defaults-primary-background-mono, #fff);
@@ -12,7 +12,9 @@
       display: flex;
       align-items: center;
       margin: 0;
+      justify-content: start;
       max-width: 585px;
+      width: max-content;
       color: var(--defaults-primary-text-primary, #3E4249);
       /* text/Medium/p L Medium */
       font-family: var(--family-text, "IBM Plex Sans");
@@ -26,7 +28,6 @@
 
 	.plot-description {
 		color: var(--defaults-secondary-text-secondary, #636873);
-		margin-top: var(--space-sgnl-space-8, 8px);
 		/* text/Regular/caption Regular */
 		font-family: var(--family-text, "IBM Plex Sans");
 		font-size: var(--size-sgnl-caption, 12px);
@@ -58,14 +59,15 @@
     .shown {
       transition-duration: 1.02s;
     }
+    width: 100%;
     position: relative;
     transition-duration: 1.02s;
   }
 
 	.tooltip {
     position: absolute;
-    top: 0px;
-    left: 120px;
+    top: -60px;
+    left: 0px;
     z-index: 10;
     display: flex;
     width: 343px;

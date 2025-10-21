@@ -26,3 +26,4 @@ export * from './code-editor/code-editor.component';
 export * from './tabs-task-output/tabs-task-output.component';
 export * from './multiple-choice/multiple-choice.component';
 export * from './infromation-tooltip/infromation-tooltip.component';
+export * from './error-container-technical/error-container-technical.component';
