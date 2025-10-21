@@ -1,0 +1,70 @@
+.radio-wrapper {
+	display: flex;
+	padding-top: var(--space-sgnl-space-24, 1rem);
+	justify-content: center;
+	flex-direction: column;
+	align-items: start;
+}
+
+.flex {
+	display: flex;
+}
+:host .container {
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: start;
+	gap: var(--space-sgnl-space-32, 1rem);
+	width: fit-content;
+}
+.items-center {
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sgnl-space-12, 1rem);
+	width: 100%;
+}
+
+/* PrimeNG RadioButton Style Overrides using Design Tokens */
+
+:host ::ng-deep {
+	--p-radiobutton-width: 1.5rem;
+	--p-radiobutton-height: 1.5rem;
+	--p-radiobutton-border-radius: 50%;
+	--p-radiobutton-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05);
+	--p-radiobutton-transition-duration: 0.2s;
+	--p-radiobutton-focus-ring-width: 0;
+	--p-radiobutton-focus-ring-style: solid;
+	--p-radiobutton-focus-ring-color: transparent;
+	--p-radiobutton-focus-ring-offset: 0;
+	--p-radiobutton-focus-ring-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.2);
+	--p-radiobutton-border-width: 1px;
+	--p-radiobutton-hover-border-color: var(--brand-hover-background-brand-hover, #2c7227);
+	--p-radiobutton-checked-border-color: var(--brand-default-background-brand, #307d2b);
+	--p-radiobutton-background: var(--defaults-primary-background-mono);
+	--p-radiobutton-disabled-background: var(--defaults-primary-background-mono);
+	--p-radiobutton-checked-background: var(--defaults-primary-background-mono);
+	--p-radiobutton-icon-size: 18px;
+	--p-radiobutton-icon-color: var(--defaults-primary-background-mono);
+	--p-radiobutton-icon-checked-color: #307d2b; /* White inner circle when checked */
+	--p-radiobutton-icon-disabled-color: var(--defaults-primary-background-mono);
+	--p-radiobutton-icon-checked-hover-color: var(--defaults-primary-background-mono, #2c7227);
+}
+
+:host ::ng-deep .p-radiobutton.p-radiobutton-checked.p-focus .p-radiobutton-box {
+	box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.2);
+}
+
+:host ::ng-deep .p-radiobutton:not(.p-radiobutton-checked).p-focus .p-radiobutton-box {
+	box-shadow: 0 0 0 0.2rem rgba(107, 114, 128, 0.2);
+	border-color: #6b7280;
+}
+
+:host ::ng-deep .p-radiobutton.p-disabled .p-radiobutton-box {
+	opacity: 0.6;
+	background: #e5e7eb;
+	border-color: #d1d5db;
+}
+
+:host ::ng-deep .p-radiobutton.p-radiobutton-checked.p-disabled .p-radiobutton-box .p-radiobutton-icon {
+	background: #e8f5e9;
+}
