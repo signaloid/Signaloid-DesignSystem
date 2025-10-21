@@ -265,7 +265,8 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	onMouseUp() {
-		if (this.selectedPoint == null && !this.selectedCenterPoint) {
+    this.hoveredElementIndex = -1;
+    if (this.selectedPoint == null && !this.selectedCenterPoint) {
 			return;
 		}
 		if (this.selectedCenterPoint) {
@@ -494,10 +495,14 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	public hoverOnSlider(index: number) {
-		this.hoveredElementIndex = index;
+    if(!this.selectedPoint) {
+		  this.hoveredElementIndex = index;
+    }
 	}
 	public hoverOffSlider() {
-		this.hoveredElementIndex = -1;
+    if(!this.selectedPoint) {
+      this.hoveredElementIndex = -1;
+    }
 	}
 	protected readonly InputTextSize = InputTextSize;
 	protected readonly ButtonSize = ButtonSize;
