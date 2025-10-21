@@ -1,0 +1,52 @@
+/* Wrapper for demo purposes */
+.toggle-wrapper {
+  display: flex;
+  min-width: 40px;
+  padding: var(--space-sgnl-space-2, 1rem);
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
+
+:host ::ng-deep {
+  --p-toggleswitch-width: 2.75rem;
+  --p-toggleswitch-height: 1.5rem;
+  --p-toggleswitch-border-radius: 30px;
+  --p-toggleswitch-gap: 0.25rem;
+  --p-toggleswitch-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05);
+  --p-toggleswitch-border-width: 1px;
+  --p-toggleswitch-border-color:  var(--defaults-primary-border-primary);
+  --p-toggleswitch-hover-border-color:var(--defaults-primary-border-primary);
+  --p-toggleswitch-checked-border-color: var(--brand-default-border-brand, #307D2B);
+  --p-toggleswitch-checked-hover-border-color: #307D2B;
+  --p-toggleswitch-transition-duration: 0.2s;
+  --p-toggleswitch-slide-duration: 0.2s;
+  --p-toggleswitch-focus-ring-color: transparent;
+  --p-toggleswitch-handle-size: 1rem;
+  --p-toggleswitch-handle-border-radius: 50%;
+  --p-toggleswitch-handle-background: #6b6b6b;
+  --p-toggleswitch-handle-disabled-background: var(--defaults-primary-background-mono);
+  --p-toggleswitch-handle-hover-background:  var(--defaults-primary-background-mono);
+  --p-toggleswitch-handle-checked-background: var(--brand-default-icon-brand, #307D2B);
+  --p-toggleswitch-handle-checked-hover-background: #307D2B;
+  --p-toggleswitch-handle-color: var(--defaults-primary-background-mono);
+  --p-toggleswitch-handle-hover-color: var(--defaults-primary-background-mono);
+  --p-toggleswitch-handle-checked-color: var(--defaults-primary-background-mono);
+  --p-toggleswitch-handle-checked-hover-color: var(--defaults-primary-background-mono);
+  --p-toggleswitch-background: var(--defaults-primary-background-mono);;
+  --p-toggleswitch-disabled-background: #e0e0e0;
+  --p-toggleswitch-hover-background: var(--defaults-primary-background-mono);;
+  --p-toggleswitch-checked-background: var(--defaults-primary-background-primary, #ffffff);
+  --p-toggleswitch-checked-hover-background: var(--defaults-primary-background-primary, #ffffff);
+}
+
+:host ::ng-deep .p-toggleswitch.p-toggleswitch-checked.p-disabled .p-toggleswitch-slider {
+  background: #a5d6a7;
+  border-color: #81c784;
+  opacity: 0.6;
+}
+
+:host ::ng-deep .p-toggleswitch.p-toggleswitch-checked.p-disabled .p-toggleswitch-handle {
+  background: #e8f5e9;
+}
