@@ -1,5 +1,5 @@
 .distribution-plot-container {
-	padding: var(--space-sgnl-space-16, 16px) var(--space-sgnl-space-16, 16px) 0 var(--space-sgnl-space-16, 16px) ;
+	padding: var(--space-sgnl-space-16, 16px);
 	border-radius: var(--radius-sgnl-border-radius-6, 6px);
 	border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #babcc2);
 	background: var(--defaults-primary-background-mono, #fff);
@@ -37,7 +37,6 @@
 	}
 
 	.bottom-title {
-    padding-top: var(--space-sgnl-space-16, 16px);
 		display: flex;
 		justify-content: center;
 		align-items: center;
