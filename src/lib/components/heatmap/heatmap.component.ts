@@ -25,7 +25,7 @@ export class HeatmapComponent implements OnInit, OnChanges {
 	private chartInstance!: ECharts;
 
 	protected options: EChartsCoreOption = {
-		// grid: { left: '50px', right: '15px', top: '15px', bottom: '50px' },
+		grid: { left: '0px', right: '0px', top: '0px', bottom: '0px',width: '100%', height: '100%'  },
 		tooltip: {},
 		xAxis: {
 			type: 'category',
@@ -41,7 +41,6 @@ export class HeatmapComponent implements OnInit, OnChanges {
 			axisTick: { show: false },
 			axisLine: { show: false },
 		},
-
 		visualMap: {
 			type: 'piecewise',
 			min: 0,

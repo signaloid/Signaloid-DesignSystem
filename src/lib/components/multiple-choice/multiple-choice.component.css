@@ -45,7 +45,7 @@
 	--p-radiobutton-checked-background: var(--defaults-primary-background-mono);
 	--p-radiobutton-icon-size: 18px;
 	--p-radiobutton-icon-color: var(--defaults-primary-background-mono);
-	--p-radiobutton-icon-checked-color: #307d2b; /* White inner circle when checked */
+	--p-radiobutton-icon-checked-color: var(--brand-default-background-brand, #307d2b); /* White inner circle when checked */
 	--p-radiobutton-icon-disabled-color: var(--defaults-primary-background-mono);
 	--p-radiobutton-icon-checked-hover-color: var(--brand-default-background-brand, #307d2b);
   --p-radiobutton-checked-hover-background: #719A6F;
