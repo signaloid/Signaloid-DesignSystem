@@ -28,7 +28,6 @@
 
 	.plot-description {
 		color: var(--defaults-secondary-text-secondary, #636873);
-		/* text/Regular/caption Regular */
 		font-family: var(--family-text, "IBM Plex Sans");
 		font-size: var(--size-sgnl-caption, 12px);
 		font-style: normal;

@@ -82,7 +82,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	};
 
 	padding = {
-		top: 40,
+		top: 20,
 		bottom: 10,
 		left: 60,
 		right: -150,
