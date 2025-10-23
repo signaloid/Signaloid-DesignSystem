@@ -15,8 +15,7 @@ import { ThemeService } from '../../services';
 	styleUrl: './snackbar.component.scss',
 })
 export class SnackbarComponent {
-	constructor(@Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData, private themingService: ThemeService) {
-    this.themingService.setTheme('light');
+	constructor(@Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData) {
   }
 	protected snackbarRef = inject(MatSnackBar);
 	protected readonly ButtonType = ButtonType;
