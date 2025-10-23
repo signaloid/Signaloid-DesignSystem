@@ -7,6 +7,30 @@
 	box-shadow: none !important;
 }
 
+:host .error {
+  border-radius: var(--radius-sgnl-border-radius-6);
+  border: var(--border-sgnl-border-width-1) solid var(--alerts-error-border-error);
+  background-color: var(--alerts-error-background-error-primary, #FEF3F3);
+}
+
+:host .warning {
+  border-radius: var(--radius-sgnl-border-radius-6);
+  border: var(--border-sgnl-border-width-1) solid var(--alerts-warning-border-warning);
+  background: var(--alerts-warning-background-warning-primary);
+}
+
+:host .success {
+  border-radius: var(--radius-sgnl-border-radius-6);
+  border: var(--border-sgnl-border-width-1) solid var(--alerts-success-border-success);
+  background: var(--alerts-success-background-success-primary);
+}
+
+:host .info {
+  border-radius: var(--radius-sgnl-border-radius-6);
+  border: var(--border-sgnl-border-width-1) solid var(--alerts-informal-border-informal);
+  background: var(--alerts-informal-background-informal-primary);
+}
+
 .snackbar-container {
 	display: flex;
 	width: 343px;
