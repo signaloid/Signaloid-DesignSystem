@@ -389,12 +389,14 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 		this.distributionState.forEach((d) => {
 			d[0] = this.roundToDecimalPlaces(d[0] + valueShift, decimalPlaces);
+			if (d[0] < this.min || d[0] > this.max) {
+				d[1] = 0;
+			}
 		});
 	}
 
 	updateDistribution() {
 		const decimalPlaces = Math.max(2, this.countDecimalPlaces(this.step));
-
 		if (this.collapsed) {
 			this.distributionChange.emit({
 				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 100]],
