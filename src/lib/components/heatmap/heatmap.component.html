@@ -1,4 +1,24 @@
-<div style="width: 100%; height: min-content;">
-
-<div echarts (chartClick)="clicked($event)" (chartInit)="initChart($event)"   [options]="options" class="chart" ></div>
+<div
+	class="chart-wrapper"
+	[style.aspect-ratio]="`${heatmapSize.x}/${heatmapSize.y}`"
+>
+	@if (loading) {
+		<div
+			class="loading-container"
+			[style.aspect-ratio]="`${heatmapSize.x}/${heatmapSize.y}`"
+		>
+			<p-skeleton
+				styleClass="full-size-skeleton"
+				borderRadius="6px"
+			/>
+		</div>
+	} @else {
+		<div
+			echarts
+			(chartClick)="clicked($event)"
+			(chartInit)="initChart($event)"
+			[options]="options"
+			class="chart-container"
+		></div>
+	}
 </div>

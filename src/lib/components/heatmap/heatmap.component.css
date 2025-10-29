@@ -1,6 +1,29 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+:host .loading-container {
+	width: 100%;
+}
+
+:host .loading-container ::ng-deep .full-size-skeleton {
+	width: 100% !important;
+	height: 100% !important;
+}
+:host .chart-wrapper {
+	width: 100%;
+	position: relative;
+}
+
+.loading-container ::ng-deep .full-size-skeleton {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+:host .chart-container {
+	width: 100%;
+	height: 100%;
 }
