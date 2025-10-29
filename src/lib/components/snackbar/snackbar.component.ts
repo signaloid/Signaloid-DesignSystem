@@ -6,6 +6,7 @@ import { ButtonType } from '../button/button.types';
 // @ts-ignore
 import close from '@carbon/icons/es/close/32';
 import { SnackbarData } from './snackbar.model';
+import { ThemeService } from '../../services';
 
 @Component({
 	selector: 'lib-snackbar',
@@ -14,8 +15,10 @@ import { SnackbarData } from './snackbar.model';
 	styleUrl: './snackbar.component.scss',
 })
 export class SnackbarComponent {
-	constructor(@Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData) {}
+	constructor(@Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData) {
+  }
 	protected snackbarRef = inject(MatSnackBar);
 	protected readonly ButtonType = ButtonType;
 	protected readonly close = close;
+
 }

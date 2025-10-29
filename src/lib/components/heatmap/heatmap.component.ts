@@ -25,8 +25,21 @@ export class HeatmapComponent implements OnInit, OnChanges {
 	private chartInstance!: ECharts;
 
 	protected options: EChartsCoreOption = {
-		// grid: { left: '50px', right: '15px', top: '15px', bottom: '50px' },
-		tooltip: {},
+		grid: { left: '0px', right: '0px', top: '0px', bottom: '0px',width: '100%', height: '100%'  },
+		tooltip: {
+      formatter: (params: any) => {
+        console.log(params);
+        const [x, y, value] = params.data;
+        return `
+
+        Pixel Temperature
+        <div style="padding: 5px;">
+        <span style="display: inline-block; width: 10px; height: 10px; background-color: ${params.color}; border-radius: 50%;"></span>
+           ${Number(value).toFixed(2)}°C
+        </div>
+      `;
+      }
+    },
 		xAxis: {
 			type: 'category',
 			data: Array.from(Array(this.heatmapSize.x).keys()),
@@ -41,7 +54,6 @@ export class HeatmapComponent implements OnInit, OnChanges {
 			axisTick: { show: false },
 			axisLine: { show: false },
 		},
-
 		visualMap: {
 			type: 'piecewise',
 			min: 0,
@@ -52,6 +64,7 @@ export class HeatmapComponent implements OnInit, OnChanges {
 			calculable: true,
 			realtime: true,
 			splitNumber: 1024,
+
 			inRange: {
 				color: ['#eeeeee', '#c7c3da', '#a19ac7', '#7c70b3', '#56479f', '#4b3f72'],
 			},
@@ -76,7 +89,6 @@ export class HeatmapComponent implements OnInit, OnChanges {
 	private updateChartOptions() {
     this.options['series'] = [
 			{
-				name: 'Gaussian',
 				type: 'heatmap',
 				data: this.constructDataForHeatMapFromArray(this.dataArray),
 				legend: { show: false },

@@ -82,8 +82,8 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	};
 
 	padding = {
-		top: 40,
-		bottom: 20,
+		top: 20,
+		bottom: 10,
 		left: 60,
 		right: -150,
 	};
@@ -214,7 +214,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 				y: this.safeArea.topLeft.y + (this.safeArea.height - weight * this.safeArea.height),
 			};
 		});
-    return points;
+		return points;
 	}
 
 	/** The path string used in `<path d="M ... L ... Z">` for the distribution area */
@@ -265,6 +265,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	onMouseUp() {
+		this.hoveredElementIndex = -1;
 		if (this.selectedPoint == null && !this.selectedCenterPoint) {
 			return;
 		}
@@ -388,12 +389,14 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 		this.distributionState.forEach((d) => {
 			d[0] = this.roundToDecimalPlaces(d[0] + valueShift, decimalPlaces);
+			if (d[0] < this.min || d[0] > this.max) {
+				d[1] = 0;
+			}
 		});
 	}
 
 	updateDistribution() {
 		const decimalPlaces = Math.max(2, this.countDecimalPlaces(this.step));
-
 		if (this.collapsed) {
 			this.distributionChange.emit({
 				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 100]],
@@ -419,8 +422,12 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 		const lastIndexReversed = [...fullDistribution].reverse().findIndex((p) => p[1] !== 0);
 		const sliceEnd = fullDistribution.length - lastIndexReversed;
-		const distribution = fullDistribution.slice(firstIndex, sliceEnd);
-
+		const distribution = fullDistribution.slice(firstIndex, sliceEnd).map((elem) => {
+			if (elem[1] === 0) {
+				elem[1] = 1e-16;
+			}
+			return elem;
+		});
 		this.distributionChange.emit({
 			distribution,
 			value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
@@ -494,10 +501,14 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	public hoverOnSlider(index: number) {
-		this.hoveredElementIndex = index;
+		if (!this.selectedPoint) {
+			this.hoveredElementIndex = index;
+		}
 	}
 	public hoverOffSlider() {
-		this.hoveredElementIndex = -1;
+		if (!this.selectedPoint) {
+			this.hoveredElementIndex = -1;
+		}
 	}
 	protected readonly InputTextSize = InputTextSize;
 	protected readonly ButtonSize = ButtonSize;

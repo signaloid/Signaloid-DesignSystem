@@ -86,7 +86,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				return;
 			}
 			this.distValue = dist;
-			this.particleValue = this.distValue.particle_value; // Set the particleValue for the template
+			this.particleValue = this.distValue.mean; // Set the particleValue for the template
 			this.buildChartOptions();
 		} catch (error) {
 			this.chartOptions = {}; // Clear chart on error
