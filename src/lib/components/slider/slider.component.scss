@@ -66,9 +66,7 @@
 .label-below {
   color: var(--defaults-secondary-text-secondary);
   text-align: center;
-  margin: 12px 0 0 0;
-
-  /* text/Medium/p S Medium */
+  margin: 0;
   font-family: var(--family-text);
   font-size: var(--size-sgnl-paragraph-s, 14px);
   font-style: normal;
@@ -81,4 +79,25 @@
 .mat-slider.show-value .mdc-slider__thumb-label {
   transform: scale(1) !important;
   opacity: 1 !important;
+}
+
+.slider-container {
+  margin: 5px 0px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.slider {
+  flex: 1;
+  align-self: end;
+}
+
+.slider-indicator {
+  font-size: 15px;
+  color: #666;
+  min-width: 20px;
+  text-align: center;
+  font-weight: 400;
 }
