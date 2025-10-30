@@ -21,11 +21,11 @@ import { SliderComponent } from '../slider/slider.component';
 	imports: [DistributionSliderComponent, ButtonGroupComponent, SliderComponent],
 	templateUrl: './distribution-plot-container.component.html',
 	styleUrl: './distribution-plot-container.component.css',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 })
 export class DistributionPlotContainerComponent implements AfterViewInit, OnInit {
-	inputOptionsDefaultValue = 'distribution';
+	inputOptionsDefaultValue: 'distribution' | 'slider' = 'distribution';
 	@Input() title: string = '';
 	@Input() min!: number;
 	@Input() max!: number;
@@ -42,7 +42,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	@Input() yAxisLabel?: string;
 	@Input() adjustWidthToSlidersCount: boolean = false;
 	@Input() showBottomTitle = true;
-	@Input() inputOptionValue = this.inputOptionsDefaultValue;
+	@Input() inputOptionValue!: 'distribution' | 'slider';
 	@Input() showSliderToggleButton = true;
 	@Output() switchedMode = new EventEmitter<'distribution' | 'slider'>();
 	@Output() distributionChangeInner = new EventEmitter<{
@@ -63,7 +63,11 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	];
 	showingTooltip = false;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) {
+    if(this.inputOptionValue === undefined) {
+      this.inputOptionValue = this.inputOptionsDefaultValue;
+    }
+  }
 	ngOnInit() {
 		this.distributionCenterValue = this.initialValue;
 	}
@@ -76,8 +80,8 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 		return this.graphWidth;
 	}
 	ngAfterViewInit() {
-		this.inputOptionValue = this.inputOptionsDefaultValue;
 		this.showingTooltip = false;
+    this.cd.detectChanges();
   }
 
 	public onDistributionChange(event: { distribution: [number, number][]; value: number }) {
@@ -93,9 +97,10 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	}
 	onChangeView(value: string) {
 		this.switchedMode.emit(value as 'distribution' | 'slider');
-		this.inputOptionValue = value;
+		this.inputOptionValue = value as 'distribution' | 'slider';
     this.cd.detectChanges();
 	}
+
 	onLockedChange(isLocked: boolean) {
 		this.showBottomTitle = isLocked;
 	}
