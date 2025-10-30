@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { DistributionSliderComponent } from '../distribution-slider/distribution-slider.component';
 // @ts-ignore
 import ChartColumn from '@carbon/icons/es/chart--column/16.js';
@@ -54,6 +63,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	];
 	showingTooltip = false;
 
+  constructor(private cd: ChangeDetectorRef) {}
 	ngOnInit() {
 		this.distributionCenterValue = this.initialValue;
 	}
@@ -66,14 +76,15 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 		return this.graphWidth;
 	}
 	ngAfterViewInit() {
-		this.inputOptionsDefaultValue = 'distribution';
 		this.inputOptionValue = this.inputOptionsDefaultValue;
 		this.showingTooltip = false;
-	}
+  }
+
 	public onDistributionChange(event: { distribution: [number, number][]; value: number }) {
 		this.distributionCenterValue = event.value;
 		this.distributionChangeInner.emit(event);
 	}
+
 	showTooltip() {
 		this.showingTooltip = true;
 	}
@@ -83,6 +94,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	onChangeView(value: string) {
 		this.switchedMode.emit(value as 'distribution' | 'slider');
 		this.inputOptionValue = value;
+    this.cd.detectChanges();
 	}
 	onLockedChange(isLocked: boolean) {
 		this.showBottomTitle = isLocked;
