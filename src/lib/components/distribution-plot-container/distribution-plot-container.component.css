@@ -8,7 +8,7 @@
 		justify-content: space-between;
 		align-items: center;
 
-    :host .container-title-text, .container-title-text>p  {
+    .container-title-text, .container-title-text>p  {
       display: flex;
       align-items: center;
       margin: 0;
