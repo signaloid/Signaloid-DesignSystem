@@ -22,6 +22,8 @@ export class FigureContainerComponent {
 	@Input() prefix: string = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
 	@Input() singleValue = false;
-	constructor(private cd: ChangeDetectorRef) {}
+  @Input() varValue: number | undefined;
+	constructor(private cd: ChangeDetectorRef) {
+  }
 }
 
