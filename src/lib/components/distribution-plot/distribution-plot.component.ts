@@ -57,6 +57,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() suffix = '';
 	@Input() prefix = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
+  @Input() varValue:number | undefined ;
 	@Input() hasSingleValue = false;
 	protected particleValue: number | null = null;
 	private hasColoring = false;
@@ -70,12 +71,14 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes?.['uxValue']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
-			console.log(this.hasColoring);
 			this.updateChartData();
 		} else if (changes?.['percentageOfValueAtRisk']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 			this.updateChartData();
 		}
+    else if (changes?.['varValue']) {
+      this.updateChartData();
+    }
 	}
 
 	private updateChartData(): void {
@@ -217,7 +220,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.abs(normBP[normBP.length - 1] - normBP[0]);
 		const xAxisMin = Math.min(...normBP);
 		const xAxisMax = Math.max(...normBP);
-		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+    let valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+    if(this.varValue) {
+		  valueAtRisk = this.normalize(this.varValue, minXExp) ?? undefined;
+    }
+    console.log({ valueAtRisk, xAxisMin, xAxisMax });
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
@@ -352,8 +359,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 					const bottomRight = api.coord([toX, 0]);
 					const width = bottomRight[0] - topLeft[0];
 					const heightInPixels = bottomRight[1] - topLeft[1];
-
-					return {
+ 					return {
 						type: 'rect',
 						shape: { x: topLeft[0], y: topLeft[1], width: width, height: heightInPixels },
 						style: {
