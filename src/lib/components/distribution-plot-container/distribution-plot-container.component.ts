@@ -25,7 +25,7 @@ import { SliderComponent } from '../slider/slider.component';
 	standalone: true,
 })
 export class DistributionPlotContainerComponent implements AfterViewInit, OnInit {
-	inputOptionsDefaultValue = 'slider';
+	inputOptionsDefaultValue = 'distribution';
 	@Input() title: string = '';
 	@Input() min!: number;
 	@Input() max!: number;
