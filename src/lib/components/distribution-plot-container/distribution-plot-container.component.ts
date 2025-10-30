@@ -16,6 +16,7 @@ import { SliderComponent } from '../slider/slider.component';
 	standalone: true,
 })
 export class DistributionPlotContainerComponent implements AfterViewInit, OnInit {
+	inputOptionsDefaultValue = 'distribution';
 	@Input() title: string = '';
 	@Input() min!: number;
 	@Input() max!: number;
@@ -32,6 +33,8 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	@Input() yAxisLabel?: string;
 	@Input() adjustWidthToSlidersCount: boolean = false;
 	@Input() showBottomTitle = true;
+	@Input() inputOptionValue = this.inputOptionsDefaultValue;
+	@Input() showSliderToggleButton = true;
 	@Output() switchedMode = new EventEmitter<'distribution' | 'slider'>();
 	@Output() distributionChangeInner = new EventEmitter<{
 		distribution: [number, number][];
@@ -49,8 +52,6 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 			icon: SettingsAdjust,
 		},
 	];
-	inputOptionsDefaultValue = 'distribution';
-	inputOptionValue = this.inputOptionsDefaultValue;
 	showingTooltip = false;
 
 	ngOnInit() {
