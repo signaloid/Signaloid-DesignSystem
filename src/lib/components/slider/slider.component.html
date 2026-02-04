@@ -9,11 +9,9 @@
 	<mat-slider
 		class="slider"
 		[discrete]="true"
-		[ngClass]="{
-			'label-below': type === SliderTypes.NUMERIC,
-			'label-above': type === SliderTypes.TOOLTIP,
-			'show-value': alwaysShowValue,
-		}"
+		[class.label-below]="type === SliderTypes.NUMERIC"
+		[class.label-above]="type === SliderTypes.TOOLTIP"
+		[class.show-value]="alwaysShowValue"
 		[max]="max"
 		[min]="min"
 		[step]="step"
@@ -49,11 +47,9 @@
 		[step]="step"
 		[disabled]="disabled"
 		[discrete]="type === SliderTypes.TOOLTIP || type === SliderTypes.NUMERIC"
-		[ngClass]="{
-			'label-below': type === SliderTypes.NUMERIC,
-			'label-above': type === SliderTypes.TOOLTIP,
-			'show-value': alwaysShowValue,
-		}"
+		[class.label-below]="type === SliderTypes.NUMERIC"
+		[class.label-above]="type === SliderTypes.TOOLTIP"
+		[class.show-value]="alwaysShowValue"
 		(blur)="onBlur()"
 	>
 		<input

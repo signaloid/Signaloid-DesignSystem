@@ -27,7 +27,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/design-system'),
+      dir: require('path').join(__dirname, './coverage/design-system'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -35,7 +35,18 @@ module.exports = function (config) {
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['Chrome'],
-    restartOnFileChange: true
+    browsers: ['ChromeHeadless'],
+    restartOnFileChange: true,
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--headless',
+          '--disable-gpu',
+          '--no-sandbox',
+          '--disable-dev-shm-usage'
+        ]
+      }
+    }
   });
 };

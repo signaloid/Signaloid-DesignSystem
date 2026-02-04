@@ -1,6 +1,6 @@
 # Design System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.0.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.0 and upgraded to Angular 21.
 
 ## Code scaffolding
 

@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { InputSwitch } from 'primeng/inputswitch';
+import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'lib-toggle',
-	imports: [InputSwitch, FormsModule],
+	imports: [ToggleSwitch, FormsModule],
 	templateUrl: './toggle.component.html',
 	styleUrl: './toggle.component.css',
 })

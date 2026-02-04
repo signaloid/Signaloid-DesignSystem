@@ -1,8 +1,8 @@
-<div [ngClass]="{ 'single-value-container': singleValue, 'figure-container': !singleValue }">
+<div [class.single-value-container]="singleValue" [class.figure-container]="!singleValue">
 	<p class="figure-title">
 		<ng-content select="[figure-title]"></ng-content>
 		@if (loading) {
-      <div [ngClass]="{ 'loader-single-value': singleValue }">
+      <div [class.loader-single-value]="singleValue">
       <mat-progress-spinner
 				diameter="16"
 				mode="indeterminate"

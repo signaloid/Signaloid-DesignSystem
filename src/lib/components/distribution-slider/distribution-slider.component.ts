@@ -141,7 +141,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	// Whenever window is resized, recalc measurements
-	@HostListener('window:resize', ['$event'])
+	@HostListener('window:resize')
 	onWindowResize() {
 		this.updateMeasurements();
 	}

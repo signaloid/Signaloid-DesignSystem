@@ -3,12 +3,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlider, MatSliderRangeThumb, MatSliderThumb } from '@angular/material/slider';
 import { SliderTypes } from './slider.types';
 import { FormsModule } from '@angular/forms';
-import { NgClass, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
 	selector: 'lib-slider',
 	standalone: true,
-	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf, NgClass],
+	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf],
 	templateUrl: './slider.component.html',
 	styleUrls: ['./slider.component.scss'],
 	providers: [

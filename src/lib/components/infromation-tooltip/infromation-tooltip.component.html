@@ -22,7 +22,7 @@
       fill="#636873"
     />
   </svg>
-  <div *ngIf="showingTooltip" class="tooltip-container" [ngClass]="'tooltip--' + position">
+  <div *ngIf="showingTooltip" class="tooltip-container" [class]="'tooltip--' + position">
     <div class="tooltip">
       <div class="tooltip-title">
         <ng-content select="[tooltip-title]"></ng-content>
