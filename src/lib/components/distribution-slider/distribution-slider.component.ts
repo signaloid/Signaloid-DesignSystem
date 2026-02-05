@@ -1,13 +1,11 @@
 import {
 	AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	EventEmitter,
 	HostListener,
 	Input,
 	OnChanges,
-	OnDestroy,
 	OnInit,
 	Output,
 	SimpleChanges,
@@ -19,7 +17,6 @@ import { InputTextSize } from '../input-text/input-text.models';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { ButtonSize } from '../button/button.types';
-import { Subscription } from 'rxjs';
 import { BigNumbersPipe } from '../../pipes';
 
 interface DistributionPoint {
@@ -92,7 +89,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	selectedCenterPoint: boolean = false;
 	valueState: number = 0;
 	distributionState: [number, number][] | number[][] = [];
-	constructor() {}
+	constructor() { }
 
 	pointTracking(index: number, point: DistributionPoint) {
 		return `${index} ${point.x} ${point.y}`;

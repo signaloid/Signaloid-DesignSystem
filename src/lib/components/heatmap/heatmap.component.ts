@@ -32,13 +32,12 @@ export class HeatmapComponent implements OnInit, OnChanges {
 			formatter: (params: any) => {
 				const [x, y, value] = params.data;
 				return `
-
-        Pixel Temperature
-        <div style="padding: 5px;">
-        <span style="display: inline-block; width: 10px; height: 10px; background-color: ${params.color}; border-radius: 50%;"></span>
-           ${Number(value).toFixed(2)}°C
-        </div>
-      `;
+					Pixel Temperature
+					<div style="padding: 5px;">
+					<span style="display: inline-block; width: 10px; height: 10px; background-color: ${params.color}; border-radius: 50%;"></span>
+						${Number(value).toFixed(2)}°C
+					</div>
+				`;
 			},
 		},
 		xAxis: {

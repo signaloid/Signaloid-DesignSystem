@@ -5,13 +5,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 	selector: 'lib-icon',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	template: `<div
-		[style.color]="color ? color : 'var(--defaults-secondary-icon-secondary)'"
-		[style.width]="size.width"
-		[style.height]="size.height"
-		style="display: flex; align-items: center; justify-content: center;"
-		[innerHTML]="svgContent"
-	></div>`,
+	template: `
+		<div
+			[style.color]="color ? color : 'var(--defaults-secondary-icon-secondary)'"
+			[style.width]="size.width"
+			[style.height]="size.height"
+			style="display: flex; align-items: center; justify-content: center;"
+			[innerHTML]="svgContent"
+		></div>
+	`,
 })
 export class CarbonIconComponent implements OnChanges, OnInit {
 	@Input() icon: unknown = undefined;
@@ -21,9 +23,9 @@ export class CarbonIconComponent implements OnChanges, OnInit {
 	constructor(
 		private sanitizer: DomSanitizer,
 		private cd: ChangeDetectorRef,
-	) {}
+	) { }
 
-	ngOnInit(): void {}
+	ngOnInit(): void { }
 
 	ngOnChanges(): void {
 		if (this.icon) {

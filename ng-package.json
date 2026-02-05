@@ -1,24 +1,24 @@
 {
-  "$schema": "node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "dist/design-system",
-  "lib": {
-    "entryFile": "src/public-api.ts"
-  },
-  "assets": [
-    {
-      "glob": "**/*.css",
-      "input": "./src/lib/styles",
-      "output": "styles"
-    },
-    {
-      "glob": "**/*.scss",
-      "input": "./src/lib/styles",
-      "output": "styles"
-    },
-    {
-      "glob": "**/*.json",
-      "input": "./src/lib/components/code-editor/models/editor-themes",
-      "output": "/public/editor-themes"
-    }
-  ]
+	"$schema": "node_modules/ng-packagr/ng-package.schema.json",
+	"dest": "dist/design-system",
+	"lib": {
+		"entryFile": "src/public-api.ts"
+	},
+	"assets": [
+		{
+			"glob": "**/*.css",
+			"input": "./src/lib/styles",
+			"output": "styles"
+		},
+		{
+			"glob": "**/*.scss",
+			"input": "./src/lib/styles",
+			"output": "styles"
+		},
+		{
+			"glob": "**/*.json",
+			"input": "./src/lib/components/code-editor/models/editor-themes",
+			"output": "/public/editor-themes"
+		}
+	]
 }

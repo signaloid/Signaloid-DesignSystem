@@ -46,9 +46,9 @@ export class CodeEditorComponent implements AfterViewInit, OnDestroy {
 	@Input() showUxHwSuggestions = true;
 	@Input() theme: EditorTheme = kDefaultTheme;
 	@Input() options: monaco.editor.IStandaloneEditorConstructionOptions = {
-    fontFamily: '"IBM Plex Mono", Menlo, Monaco, "Courier New", monospace',
-    fontSize: 14,
-  };
+		fontFamily: '"IBM Plex Mono", Menlo, Monaco, "Courier New", monospace',
+		fontSize: 14,
+	};
 
 	private editor?: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffEditor;
 	private resizeObs?: ResizeObserver;
@@ -57,7 +57,7 @@ export class CodeEditorComponent implements AfterViewInit, OnDestroy {
 	private uxhwHoverProvider?: monaco.IDisposable;
 	private uxhwCompletion: UxHwTypeSense[] = [];
 
-	constructor(private ngZone: NgZone) {}
+	constructor(private ngZone: NgZone) { }
 
 	async ngAfterViewInit() {
 		await this.loadTheme(kDefaultTheme);
@@ -165,16 +165,16 @@ export class CodeEditorComponent implements AfterViewInit, OnDestroy {
 		this.resizeObs?.disconnect();
 	}
 
-  private async loadTheme(key: EditorTheme) {
-    if (this.loadedThemes.includes(key)) return;
-    const filename = themeList[key];
-    console.log(filename);
-    const url = new URL(`${window.location.origin}/design-system/editor-themes/${filename}.json`).href;
-    console.log(url);
-    const theme = await fetch(url).then(r => r.json());
-    monaco.editor.defineTheme(key, theme);
-    this.loadedThemes.push(key);
-  }
+	private async loadTheme(key: EditorTheme) {
+		if (this.loadedThemes.includes(key)) return;
+		const filename = themeList[key];
+		console.log(filename);
+		const url = new URL(`${window.location.origin}/design-system/editor-themes/${filename}.json`).href;
+		console.log(url);
+		const theme = await fetch(url).then(r => r.json());
+		monaco.editor.defineTheme(key, theme);
+		this.loadedThemes.push(key);
+	}
 
 	private setTheme(newTheme: EditorTheme) {
 		this.loadTheme(newTheme).then(() => {

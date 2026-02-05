@@ -1,12 +1,12 @@
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output
 } from '@angular/core';
 import { DistributionSliderComponent } from '../distribution-slider/distribution-slider.component';
 // @ts-ignore
@@ -21,7 +21,7 @@ import { SliderComponent } from '../slider/slider.component';
 	imports: [DistributionSliderComponent, ButtonGroupComponent, SliderComponent],
 	templateUrl: './distribution-plot-container.component.html',
 	styleUrl: './distribution-plot-container.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: true,
 })
 export class DistributionPlotContainerComponent implements AfterViewInit, OnInit {
@@ -63,11 +63,11 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	];
 	showingTooltip = false;
 
-  constructor(private cd: ChangeDetectorRef) {
-    if(this.inputOptionValue === undefined) {
-      this.inputOptionValue = this.inputOptionsDefaultValue;
-    }
-  }
+	constructor(private cd: ChangeDetectorRef) {
+		if (this.inputOptionValue === undefined) {
+			this.inputOptionValue = this.inputOptionsDefaultValue;
+		}
+	}
 	ngOnInit() {
 		this.distributionCenterValue = this.initialValue;
 	}
@@ -81,8 +81,8 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	}
 	ngAfterViewInit() {
 		this.showingTooltip = false;
-    this.cd.detectChanges();
-  }
+		this.cd.detectChanges();
+	}
 
 	public onDistributionChange(event: { distribution: [number, number][]; value: number }) {
 		this.distributionCenterValue = event.value;
@@ -98,7 +98,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	onChangeView(value: string) {
 		this.switchedMode.emit(value as 'distribution' | 'slider');
 		this.inputOptionValue = value as 'distribution' | 'slider';
-    this.cd.detectChanges();
+		this.cd.detectChanges();
 	}
 
 	onLockedChange(isLocked: boolean) {

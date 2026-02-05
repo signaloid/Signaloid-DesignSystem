@@ -33,21 +33,18 @@ export const Default: Story = {
 	render: (args) => ({
 		props: args,
 		template: `
-      <lib-banner
-        [buttonLabel]="buttonLabel"
-        [disabled]="disabled"
-      >
-        <!-- Project the Title -->
-        <div banner-title>Welcome!</div>
+			<lib-banner
+				[buttonLabel]="buttonLabel"
+				[disabled]="disabled"
+			>
+				<!-- Project the Title -->
+				<div banner-title>Welcome!</div>
 
-        <!-- Project the Description -->
-        <div banner-description>
-          Let’s setup your SCDP profile. Click the button below to complete your profile information.
-        </div>
-
-
-
-      </lib-banner>
-    `,
+				<!-- Project the Description -->
+				<div banner-description>
+					Let’s setup your SCDP profile. Click the button below to complete your profile information.
+				</div>
+			</lib-banner>
+		`,
 	}),
 };

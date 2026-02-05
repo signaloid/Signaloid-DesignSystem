@@ -1,62 +1,65 @@
 .card {
-  display: flex;
-  height: 100%;
-  min-width: 288px;
-  max-width: 373px;
-  min-height: 328px;
-  padding: var(--space-sgnl-space-16, 16px);
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sgnl-space-24, 24px);
-  flex: 1 0 0;
-  border-radius: var(--radius-sgnl-border-radius-6, 6px);
-  background: var(--defaults-primary-background-mono, #FFF);
+	display: flex;
+	height: 100%;
+	min-width: 288px;
+	max-width: 373px;
+	min-height: 328px;
+	padding: var(--space-sgnl-space-16, 16px);
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-sgnl-space-24, 24px);
+	flex: 1 0 0;
+	border-radius: var(--radius-sgnl-border-radius-6, 6px);
+	background: var(--defaults-primary-background-mono, #FFF);
 }
 
 .card-title {
-  -webkit-font-smoothing: antialiased;
-  display: flex;
-  align-items: center;
-  gap: var(--gap-padding-m, 16px);
-  align-self: stretch;
-  color: var(--defaults-primary-text-primary, #3E4249);
-  /* text/Medium/p M Medium */
-  font-family: var(--family-text, "IBM Plex Sans");
-  font-size: var(--size-sgnl-paragraph-m, 16px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: var(--line-height-sgnl-font-line-height-paragraph-m, 24px); /* 150% */
-  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+	-webkit-font-smoothing: antialiased;
+	display: flex;
+	align-items: center;
+	gap: var(--gap-padding-m, 16px);
+	align-self: stretch;
+	color: var(--defaults-primary-text-primary, #3E4249);
+	/* text/Medium/p M Medium */
+	font-family: var(--family-text, "IBM Plex Sans");
+	font-size: var(--size-sgnl-paragraph-m, 16px);
+	font-style: normal;
+	font-weight: 500;
+	line-height: var(--line-height-sgnl-font-line-height-paragraph-m, 24px);
+	/* 150% */
+	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
 }
+
 .card-title-container {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-padding-m, 16px);
-  align-self: stretch;
+	display: flex;
+	align-items: center;
+	gap: var(--gap-padding-m, 16px);
+	align-self: stretch;
 }
 
 
 .card-content {
-  display: flex;
-  padding: var(--space-sgnl-space-0, 0px) 0px 0px 0px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sgnl-space-12, 12px);
-  flex: 1 0 0;
-  align-self: stretch;
-  color: var(--defaults-secondary-text-secondary, #636873);
-  /* text/Regular/p S Regular */
-  font-family: var(--family-text, "IBM Plex Sans");
-  font-size: var(--size-sgnl-paragraph-s, 14px);
-  font-style: normal;
-  font-weight: 400;
-  line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px); /* 142.857% */
-  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
+	display: flex;
+	padding: var(--space-sgnl-space-0, 0px) 0px 0px 0px;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-sgnl-space-12, 12px);
+	flex: 1 0 0;
+	align-self: stretch;
+	color: var(--defaults-secondary-text-secondary, #636873);
+	/* text/Regular/p S Regular */
+	font-family: var(--family-text, "IBM Plex Sans");
+	font-size: var(--size-sgnl-paragraph-s, 14px);
+	font-style: normal;
+	font-weight: 400;
+	line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px);
+	/* 142.857% */
+	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
 }
 
 .card-actions {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--margin-margin-16, 16px);
-  align-self: stretch;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--margin-margin-16, 16px);
+	align-self: stretch;
 }

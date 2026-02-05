@@ -10,10 +10,12 @@
 	background-color: var(--primary-sgnl-green-500-base) !important;
 	color: white !important;
 }
-::ng-deep  .mat-button-toggle-label-content {
-  padding: 0 0px !important;
-  line-height: var(--mat-standard-button-toggle-height, 40px);
+
+::ng-deep .mat-button-toggle-label-content {
+	padding: 0 0px !important;
+	line-height: var(--mat-standard-button-toggle-height, 40px);
 }
+
 .mat-button-toggle-appearance-standard {
-  color: var(--defaults-secondary-icon-secondary);
+	color: var(--defaults-secondary-icon-secondary);
 }

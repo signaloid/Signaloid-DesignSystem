@@ -18,5 +18,4 @@ export class SnackbarComponent {
 	protected snackbarRef = inject(MatSnackBar);
 	protected readonly ButtonType = ButtonType;
 	protected readonly close = close;
-
 }

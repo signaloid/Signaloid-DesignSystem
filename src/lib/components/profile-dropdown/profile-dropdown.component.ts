@@ -3,7 +3,6 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { CarbonIconComponent } from '../icon/icon.component';
 import { UpperCasePipe } from '@angular/common';
 import { ProfileDropdownItem } from './profile.dropdown.models';
-import { MatDivider } from '@angular/material/divider';
 //@ts-ignore
 import { ChevronUp } from '@carbon/icons/lib/chevron--up/32.js';
 //@ts-ignore
@@ -24,8 +23,8 @@ export class ProfileDropdownComponent implements OnInit {
 
 	arrowUpIcon = ChevronUp;
 	arrowDownIcon = ChevronDown;
-	constructor() {}
-	ngOnInit() {}
+	constructor() { }
+	ngOnInit() { }
 
 	public getUsernameInitials(username: string) {
 		return username

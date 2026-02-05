@@ -33,6 +33,7 @@ $backdropColourTransparency: 1;
 	stroke: var(--primary-sgnl-green-500-base);
 	stroke-width: 1;
 }
+
 .graph-grid-line {
 	stroke: $grey-lighten-3;
 
@@ -62,11 +63,14 @@ $backdropColourTransparency: 1;
 .thump-dragged {
 	opacity: 1 !important;
 }
+
 .svg-thumb-vertical {
+
 	//cursor: ns-resize;
 	//opacity: 0; /* Hidden by default */
 	&:hover {
-		opacity: 1 !important; /* Show on hover */
+		opacity: 1 !important;
+		/* Show on hover */
 	}
 }
 
@@ -99,8 +103,9 @@ $backdropColourTransparency: 1;
 }
 
 .graph-thumb {
-  cursor: ns-resize;
+	cursor: ns-resize;
 	fill: var(--defaults-secondary-icon-secondary);
+
 	&.collapsed {
 		opacity: 0;
 	}
@@ -142,18 +147,21 @@ $backdropColourTransparency: 1;
 		opacity: 0;
 	}
 }
+
 .axis-label {
-  fill: var(--defaults-secondary-text-secondary, #636873);
-  text-align: center;
-  margin: 0;
-  /* text/Medium/p S Medium */
-  font-family: var(--family-text);
-  font-size: var(--size-sgnl-paragraph-s, 14px);
-  font-style: normal;
-  font-weight: 400;
-  line-height: var(--line-height-sgnl-font-line-height-paragraph-s); /* 142.857% */
-  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
+	fill: var(--defaults-secondary-text-secondary, #636873);
+	text-align: center;
+	margin: 0;
+	/* text/Medium/p S Medium */
+	font-family: var(--family-text);
+	font-size: var(--size-sgnl-paragraph-s, 14px);
+	font-style: normal;
+	font-weight: 400;
+	line-height: var(--line-height-sgnl-font-line-height-paragraph-s);
+	/* 142.857% */
+	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
 }
+
 .graph-tooltip {
 	fill: $base;
 	user-select: none;
@@ -177,13 +185,15 @@ $backdropColourTransparency: 1;
 	font-size: var(--size-sgnl-caption, 12px);
 	font-style: normal;
 	font-weight: 400;
-	line-height: var(--line-height-sgnl-font-line-height-footnote, 14px); /* 140% */
+	line-height: var(--line-height-sgnl-font-line-height-footnote, 14px);
+	/* 140% */
 	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
 }
 
 .update-values-container {
 	position: absolute;
 	top: 0;
+
 	.update-values-form {
 		height: auto;
 		position: relative;
@@ -193,6 +203,7 @@ $backdropColourTransparency: 1;
 		align-items: flex-start;
 		justify-content: start;
 		gap: 24px;
+
 		lib-button {
 			width: 100px;
 		}

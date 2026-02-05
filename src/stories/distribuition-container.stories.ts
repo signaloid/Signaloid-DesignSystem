@@ -9,7 +9,7 @@ const meta: Meta<DistributionPlotContainerComponent> = {
 	render: (args) => ({
 		props: {
 			...args,
-			distributionChange: (event: { distribution: [number, number][]; value: number }) => {},
+			distributionChange: (event: { distribution: [number, number][]; value: number }) => { },
 		},
 	}),
 	argTypes: {
@@ -54,32 +54,31 @@ export const WithTooltip: Story = {
 	render: (args) => ({
 		props: args,
 		template: `
-    <div style="height: 200px"></div>
-      <lib-distribution-plot-container
-        [title]="title"
-        [min]="min"
-        [max]="max"
-        [step]="step"
-        [initialValue]="initialValue"
-        [initialDistribution]="initialDistribution"
-        [gridSteps]="gridSteps"
-        [graphHeight]="graphHeight"
-        [canCollapse]="canCollapse"
-        [collapsed]="collapsed"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        (distributionChange)="distributionChange($event)"
-      >
-            <p tooltip-title>Slider Widget to define the distribution</p>
-            <div tooltip-body>
-                Signaloid provides an intuitive way to define the shape of the distribution for a variable. On the x-axis you can define the possible values that the variable can take. On the y-axis you can define the probability that the variable will take that value. You can slide the distribution left or right and it's shape will remain intact.
-            </div>
-        <div plot-description>
-
-        Move slider and the dirac deltas to shape the distribution of the Temperature. This information will pass on to the application which will use it in the calculations. You can modify this slider and re-launch tasks to observe how it affects the output values.
-        </div>
-        <div bottom-title>Temperature (ADC Reading) </div>
-      </lib-distribution-plot-container>
-    `,
+			<div style="height: 200px"></div>
+			<lib-distribution-plot-container
+				[title]="title"
+				[min]="min"
+				[max]="max"
+				[step]="step"
+				[initialValue]="initialValue"
+				[initialDistribution]="initialDistribution"
+				[gridSteps]="gridSteps"
+				[graphHeight]="graphHeight"
+				[canCollapse]="canCollapse"
+				[collapsed]="collapsed"
+				[xAxisLabel]="xAxisLabel"
+				[yAxisLabel]="yAxisLabel"
+				(distributionChange)="distributionChange($event)"
+			>
+				<p tooltip-title>Slider Widget to define the distribution</p>
+				<div tooltip-body>
+				Signaloid provides an intuitive way to define the shape of the distribution for a variable. On the x-axis you can define the possible values that the variable can take. On the y-axis you can define the probability that the variable will take that value. You can slide the distribution left or right and it's shape will remain intact.
+				</div>
+				<div plot-description>
+					Move slider and the dirac deltas to shape the distribution of the Temperature. This information will pass on to the application which will use it in the calculations. You can modify this slider and re-launch tasks to observe how it affects the output values.
+				</div>
+				<div bottom-title>Temperature (ADC Reading) </div>
+			</lib-distribution-plot-container>
+		`,
 	}),
 };

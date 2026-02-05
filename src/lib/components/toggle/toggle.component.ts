@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ToggleComponent {
 	@Input() isChecked: boolean = false;
-  @Input() disabled: boolean = false;
+	@Input() disabled: boolean = false;
 	@Output() toggleChange = new EventEmitter<boolean>();
 	onToggleChange(event: any) {
 		this.toggleChange.emit(event.checked);

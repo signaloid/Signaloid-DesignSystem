@@ -1,10 +1,11 @@
 <!-- Single Value Slider -->
-<div
-	*ngIf="!multiple"
-	class="slider-container"
->
+<div *ngIf="!multiple" class="slider-container">
 	<span class="slider-indicator">{{
-		showPercentageFromFloatingPoint ? percentage(min) : hasBigNumbers ? formatLabel(min) : min
+		showPercentageFromFloatingPoint
+			? percentage(min)
+			: hasBigNumbers
+				? formatLabel(min)
+				: min
 	}}</span>
 	<mat-slider
 		class="slider"
@@ -27,17 +28,22 @@
 		/>
 	</mat-slider>
 	<span class="slider-indicator">{{
-		showPercentageFromFloatingPoint ? percentage(max) : hasBigNumbers ? formatLabel(max) : max
+		showPercentageFromFloatingPoint
+			? percentage(max)
+			: hasBigNumbers
+				? formatLabel(max)
+				: max
 	}}</span>
 </div>
 
 <!-- Range (Multiple Thumbs) Slider -->
-<div
-	*ngIf="multiple"
-	class="slider-container"
->
+<div *ngIf="multiple" class="slider-container">
 	<span class="slider-indicator">{{
-		showPercentageFromFloatingPoint ? percentage(min) : hasBigNumbers ? formatLabel(min) : min
+		showPercentageFromFloatingPoint
+			? percentage(min)
+			: hasBigNumbers
+				? formatLabel(min)
+				: min
 	}}</span>
 
 	<mat-slider
@@ -64,12 +70,13 @@
 		/>
 	</mat-slider>
 	<span class="slider-indicator">{{
-		showPercentageFromFloatingPoint ? percentage(max) : hasBigNumbers ? formatLabel(max) : max
+		showPercentageFromFloatingPoint
+			? percentage(max)
+			: hasBigNumbers
+				? formatLabel(max)
+				: max
 	}}</span>
 </div>
-<p
-	class="label-below"
-	*ngIf="labelBelow"
->
+<p class="label-below" *ngIf="labelBelow">
 	{{ labelBelow }}
 </p>

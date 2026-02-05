@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgForOf } from '@angular/common';
@@ -29,10 +29,10 @@ export class MultipleChoiceComponent implements ControlValueAccessor, OnInit {
 
 	onChange: (value: string) => void = (value: string) => {
 		this.valueUpdate.emit(value);
-    this.writeValue(value);
+		this.writeValue(value);
 	};
 
-	onTouched: () => void = () => {};
+	onTouched: () => void = () => { };
 
 	registerOnChange(fn: (value: string) => void): void {
 		this.onChange = fn;

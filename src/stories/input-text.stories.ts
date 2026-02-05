@@ -5,7 +5,6 @@ import { CarbonIconComponent } from '../lib/components';
 import Add16 from '@carbon/icons/es/watson-health/3D-curve--auto-vessels/20';
 import { InputTextComponent } from '../lib/components/input-text/input-text.component';
 import { InputTextSize } from '../lib/components/input-text/input-text.models';
-import { ButtonSize } from '../lib/components/button/button.types';
 
 const meta: Meta<InputTextComponent> = {
 	title: 'Components/Inputs/Text',

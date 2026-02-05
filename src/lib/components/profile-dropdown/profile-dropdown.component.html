@@ -1,8 +1,4 @@
-<div
-	[matMenuTriggerFor]="menu"
-	#t="matMenuTrigger"
-	class="menu-container"
->
+<div [matMenuTriggerFor]="menu" #t="matMenuTrigger" class="menu-container">
 	<div class="badge">
 		{{ getUsernameInitials(username) | uppercase }}
 	</div>
@@ -17,10 +13,7 @@
 	}
 </div>
 
-<mat-menu
-	#menu="matMenu"
-	class="menu-inner"
->
+<mat-menu #menu="matMenu" class="menu-inner">
 	@for (m of menuItems; let idx = $index; track idx) {
 		@if (!m.isDivider) {
 			<div class="menu-item">

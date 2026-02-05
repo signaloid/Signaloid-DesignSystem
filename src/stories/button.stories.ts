@@ -30,18 +30,18 @@ const meta: Meta<ButtonComponent> = {
 		docs: {
 			description: {
 				component: `
-### Button Types:
-- **Primary**: \`${ButtonType.Primary}\`
-- **Secondary**: \`${ButtonType.Secondary}\`
-- **Outlined**: \`${ButtonType.Outlined}\`
-- **Destructive**: \`${ButtonType.Destructive}\`
+					### Button Types:
+					- **Primary**: \`${ButtonType.Primary}\`
+					- **Secondary**: \`${ButtonType.Secondary}\`
+					- **Outlined**: \`${ButtonType.Outlined}\`
+					- **Destructive**: \`${ButtonType.Destructive}\`
 
-### Button Sizes:
-- **Small**: \`${JSON.stringify(ButtonSizes[ButtonSize.S])}\`
-- **Medium**: \`${JSON.stringify(ButtonSizes[ButtonSize.M])}\`
-- **Large**: \`${JSON.stringify(ButtonSizes[ButtonSize.L])}\`
-- **X-Large**: \`${JSON.stringify(ButtonSizes[ButtonSize.XL])}\`
-        `,
+					### Button Sizes:
+					- **Small**: \`${JSON.stringify(ButtonSizes[ButtonSize.S])}\`
+					- **Medium**: \`${JSON.stringify(ButtonSizes[ButtonSize.M])}\`
+					- **Large**: \`${JSON.stringify(ButtonSizes[ButtonSize.L])}\`
+					- **X-Large**: \`${JSON.stringify(ButtonSizes[ButtonSize.XL])}\`
+				`,
 			},
 		},
 	},

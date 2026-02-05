@@ -1,15 +1,17 @@
 <nav class="breadcrumb">
-  @for (crumb of breadcrumbs; track crumb.label; let last = $last) {
-    <p class="breadcrumb-item"
-          [class.clickable]="!last"
-          (click)="!last && navigateTo(crumb.url)">
-      @if (crumb.icon) {
-      <lib-icon [icon]="crumb.icon"></lib-icon>
-      }
-      {{ crumb.label }}
-    </p>
-    @if (!last) {
-    <p class="separator"> > </p>
-    }
-  }
+	@for (crumb of breadcrumbs; track crumb.label; let last = $last) {
+		<p
+			class="breadcrumb-item"
+			[class.clickable]="!last"
+			(click)="!last && navigateTo(crumb.url)"
+		>
+			@if (crumb.icon) {
+				<lib-icon [icon]="crumb.icon"></lib-icon>
+			}
+			{{ crumb.label }}
+		</p>
+		@if (!last) {
+			<p class="separator">></p>
+		}
+	}
 </nav>
