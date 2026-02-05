@@ -183,3 +183,13 @@ npm install
 - [ ] Build library successfully (pending internal dependencies)
 - [ ] Test in consuming application
 - [ ] Document any consumer-facing breaking changes
+
+## Manual changes needed
+- Replaced decorator-based injections with normal `inject` to fix error `TS1206` on:
+	- `src/lib/components/input-dropdown/input-dropdown.component.ts`
+	- `src/lib/components/input-text/input-text.component.ts`
+	- `src/lib/components/snackbar/snackbar.component.ts`
+	- `src/lib/services/theme.service.ts`
+- Removed unused and incompatible `"ngx-monaco-editor-v2": "^18.0.0"` dependency.
+- Updated all dependencies to their current latest available versions.
+- Updated copyright year in `LICENSE`.
