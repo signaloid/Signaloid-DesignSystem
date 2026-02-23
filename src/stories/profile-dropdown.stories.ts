@@ -1,15 +1,14 @@
 // profile-dropdown.stories.ts
 import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 
-// Import Carbon icons correctly
 // @ts-ignore
-import { UserAvatar } from '@carbon/icons/lib/user--avatar/32.js';
+import UserAvatar from '@carbon/icons/es/user--avatar/16';
 // @ts-ignore
-import { Settings } from '@carbon/icons/lib/settings/32.js';
+import Settings from '@carbon/icons/es/settings/16';
 // @ts-ignore
-import { Help } from '@carbon/icons/lib/help/32.js';
+import Help from '@carbon/icons/es/help/16';
 // @ts-ignore
-import { Logout } from '@carbon/icons/lib/logout/32.js';
+import Logout from '@carbon/icons/es/logout/16';
 import { ProfileDropdownComponent } from '../lib/components';
 import { ThemeService } from '../lib/services';
 
@@ -23,13 +22,6 @@ const meta: Meta<ProfileDropdownComponent> = {
 		}),
 	],
 	tags: ['autodocs'],
-
-	// Include necessary Angular Material modules
-	render: (args: ProfileDropdownComponent) => {
-		return {
-			props: args,
-		};
-	},
 	argTypes: {
 		username: { control: 'text' },
 		userTier: { control: 'text' },

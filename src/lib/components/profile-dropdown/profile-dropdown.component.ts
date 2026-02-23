@@ -3,12 +3,12 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { CarbonIconComponent } from '../icon/icon.component';
 import { UpperCasePipe } from '@angular/common';
 import { ProfileDropdownItem } from './profile.dropdown.models';
-//@ts-ignore
-import { ChevronUp } from '@carbon/icons/lib/chevron--up/32.js';
-//@ts-ignore
-import { ChevronDown } from '@carbon/icons/lib/chevron--down/32.js';
-//@ts-ignore
-import { UserAvatar } from '@carbon/icons/lib/user--avatar/16.js';
+// @ts-ignore
+import ChevronUp from '@carbon/icons/es/chevron--up/32';
+// @ts-ignore
+import ChevronDown from '@carbon/icons/es/chevron--down/32';
+// @ts-ignore
+import UserAvatar from '@carbon/icons/es/user--avatar/16';
 
 @Component({
 	selector: 'lib-profile-dropdown',
