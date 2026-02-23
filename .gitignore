@@ -19,9 +19,19 @@ Thumbs.db
 
 # Node
 /node_modules
+.npmrc
 npm-debug.log
 yarn-error.log
 
 
+# Angular cache
+.angular
+
+# Generated docs
+documentation.json
+
 # Build artifacts
 dist
+
+*storybook.log
+storybook-static
