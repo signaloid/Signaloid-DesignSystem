@@ -29,12 +29,12 @@
 	color: var(--defaults-secondary-text-secondary-inverse);
 	margin: 0 !important;
 	/* text/Regular/p M Regular */
-	font-family: var(--sgnl-font-family-text);
+	font-family: var(--family-text);
 	font-size: var(--size-sgnl-paragraph-m);
 	font-style: normal;
 	font-weight: 400;
 	line-height: var(--line-height-sgnl-font-line-height-paragraph-m);
 	/* 150% */
-	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing0);
+	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
 
 }

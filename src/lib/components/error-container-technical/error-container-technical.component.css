@@ -16,13 +16,13 @@
 		text-align: center;
 		margin: 0;
 		/* text/Semibold/subtitle Semibold */
-		font-family: var(--sgnl-font-family-text);
+		font-family: var(--family-text);
 		font-size: var(--size-sgnl-subtitle);
 		font-style: normal;
 		font-weight: 600;
 		line-height: var(--line-height-sgnl-font-line-height-subtitle);
 		/* 140% */
-		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing02);
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-02);
 	}
 
 	.description {
@@ -30,12 +30,12 @@
 		text-align: center;
 		margin: 0;
 		/* text/Regular/p S Regular */
-		font-family: var(--sgnl-font-family-text);
+		font-family: var(--family-text);
 		font-size: var(--size-sgnl-paragraph-s);
 		font-style: normal;
 		font-weight: 400;
 		line-height: var(--line-height-sgnl-font-line-height-paragraph-s);
 		/* 142.857% */
-		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing0);
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
 	}
 }
