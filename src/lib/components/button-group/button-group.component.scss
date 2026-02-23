@@ -1,19 +1,16 @@
 @use "@angular/material" as mat;
 
-.mat-button-toggle-group-appearance-standard {
-	border-radius: 5px;
-}
-
-
-
-.mat-button-toggle-checked {
-	background-color: var(--primary-sgnl-green-500-base) !important;
-	color: white !important;
+:host {
+	@include mat.button-toggle-overrides((
+		divider-color: var(--defaults-primary-border-primary, #babcc2),
+		shape: var(--radius-sgnl-border-radius-6, 6px),
+		selected-state-background-color: var(--primary-sgnl-green-500-base),
+		selected-state-text-color: white,
+	));
 }
 
 ::ng-deep .mat-button-toggle-label-content {
-	padding: 0 0px !important;
-	line-height: var(--mat-standard-button-toggle-height, 40px);
+	padding: 0 !important;
 }
 
 .mat-button-toggle-appearance-standard {

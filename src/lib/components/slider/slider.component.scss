@@ -5,11 +5,27 @@
 	@include mat.slider-overrides((handle-color: var(--defaults-primary-background-mono, #FFF),
 			focus-handle-color: var(--defaults-primary-background-mono, #FFF),
 			hover-handle-color: var(--defaults-primary-background-mono, #FFF),
+			handle-shape: 50%,
+			handle-width: 24px,
+			handle-height: 24px,
+			handle-elevation: none,
 			focus-state-layer-color: transparent,
 			ripple-color: none,
+			active-track-color: var(--brand-default-background-brand, #307D2B),
 			inactive-track-color: var(--support-charts-chart-mono, #D9DADC),
 			active-track-height: 8px,
 			inactive-track-height: 8px,
+			active-track-shape: 9999px,
+			inactive-track-shape: 9999px,
+			label-container-color: var(--defaults-primary-background-primary-inverse, #3E4249),
+			label-label-text-color: var(--base-b-white, #FFF),
+			value-indicator-border-radius: var(--radius-sgnl-border-radius-4, 4px),
+			value-indicator-width: auto,
+			value-indicator-height: auto,
+			value-indicator-padding: 4px 8px,
+			value-indicator-opacity: 1,
+			value-indicator-container-transform: translateX(-50%),
+			value-indicator-text-transform: none,
 			disabled-active-track-color: black,
 			disabled-inactive-track-color: black,
 			disabled-handle-color: black,
@@ -17,30 +33,19 @@
 
 
 	.mdc-slider__thumb-knob {
-		fill: var(--defaults-primary-background-mono, #FFF);
-		stroke-width: 1px;
-		border: 1px solid var(--defaults-tertiary-border-tertiary, #D9DADC);
+		outline: 1px solid var(--defaults-tertiary-border-tertiary, #D9DADC);
 		filter: drop-shadow(var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-1, 1px) var(--effects-sgnl-effect-4, 4px) var(--opacity-black-b-black_10, rgba(10, 14, 21, 0.10))) drop-shadow(var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-4, 4px) var(--effects-sgnl-effect-12, 12px) var(--opacity-black-b-black_12, rgba(10, 14, 21, 0.12)));
-		width: 24px;
-		height: 24px;
 
 		:focus {
-			border: 1px solid red;
+			outline: 1px solid red;
 		}
 	}
 
-	.mdc-slider__value-indicator-container {
-		left: 25%;
-		transform: scale(1);
-	}
-
 	.mdc-slider__value-indicator {
-		border-radius: var(--radius-sgnl-border-radius-4, 4px);
-		background: var(--defaults-primary-background-primary-inverse, #3E4249);
 		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-4, 4px) var(--effects-sgnl-effect-12, 12px) var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_12, rgba(10, 14, 21, 0.12)), var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-1, 1px) var(--effects-sgnl-effect-4, 4px) var(--effects-sgnl-effect-0, 0px) var(--opacity-black-b-black_10, rgba(10, 14, 21, 0.10));
 
-		.mdc-slider__value-indicator-text {
-			transform: scale(1);
+		&::before {
+			display: none;
 		}
 	}
 }
@@ -54,16 +59,8 @@
 	.mdc-slider__value-indicator {
 		color: var(--defaults-secondary-text-secondary, #636873);
 		background-color: transparent;
-	}
-
-	.mdc-slider__value-indicator {
-		border-radius: var(--radius-sgnl-border-radius-4, 4px);
 		background: inherit;
 		box-shadow: none;
-
-		.mdc-slider__value-indicator-text {
-			transform: scale(1);
-		}
 	}
 }
 
