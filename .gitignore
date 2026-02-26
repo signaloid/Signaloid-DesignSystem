@@ -1,3 +1,37 @@
-.idea
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
 
+
+# Other IDEs and editors
+.idea/
+
+
+# System files
 .DS_Store
+Thumbs.db
+
+
+# Node
+/node_modules
+.npmrc
+npm-debug.log
+yarn-error.log
+
+
+# Angular cache
+.angular
+
+# Generated docs
+documentation.json
+
+# Build artifacts
+dist
+
+*storybook.log
+storybook-static

@@ -1,7 +1,4 @@
-<div
-	class="DistributionSlider"
-	[style.height]="svgHeight"
->
+<div class="DistributionSlider" [style.height]="svgHeight">
 	<svg
 		#svgRef
 		[attr.width]="svgWidth"
@@ -58,21 +55,15 @@
 		</text>
 
 		<svg
-
 			[attr.x]="safeArea.bottomLeft.x - 60"
 			[attr.y]="safeArea.bottomLeft.y + 19"
-			style="display:none;cursor: pointer; z-index: 99"
+			style="display: none; cursor: pointer; z-index: 99"
 			(click)="toggleLocked()"
 		>
-			<circle
-				cx="15"
-				cy="15"
-				r="15"
-				fill="transparent"
-			></circle>
+			<circle cx="15" cy="15" r="15" fill="transparent"></circle>
 		</svg>
 		<svg
-      style="display: none;"
+			style="display: none"
 			[attr.x]="safeArea.bottomLeft.x - 55"
 			[attr.y]="safeArea.bottomLeft.y + 25"
 			width="40px"
@@ -104,7 +95,13 @@
 			dominant-baseline="central"
 			[attr.x]="0"
 			[attr.y]="safeArea.topLeft.y + safeArea.height / 2"
-			[attr.transform]="'rotate(-90, ' + 20 + ', ' + (safeArea.topLeft.y + safeArea.height / 2) +')'"
+			[attr.transform]="
+				'rotate(-90, ' +
+				20 +
+				', ' +
+				(safeArea.topLeft.y + safeArea.height / 2) +
+				')'
+			"
 			[class.collapsed]="collapsed"
 		>
 			{{ yAxisLabel }}
@@ -115,9 +112,11 @@
 			*ngIf="xAxisLabel && !updatingMinMaxStepValues"
 			class="axis-label"
 			text-anchor="middle"
-			[attr.x]="safeArea.bottomLeft.x + (safeArea.width / 2)"
+			[attr.x]="safeArea.bottomLeft.x + safeArea.width / 2"
 			[attr.y]="
-				collapsed ? safeArea.topLeft.y + safeArea.height / 3 : safeArea.bottomLeft.y + 15 + (safeArea.height * 2) / 5 + 5
+				collapsed
+					? safeArea.topLeft.y + safeArea.height / 3
+					: safeArea.bottomLeft.y + 15 + (safeArea.height * 2) / 5 + 5
 			"
 		>
 			{{ xAxisLabel }}
@@ -143,22 +142,32 @@
 			class="graph-backdrop"
 			fill="url(#graph-fill-gradient)"
 		></path>
-      @let rectWidth = (svgWidth)/(pointList.length + 3);
+		@let rectWidth = svgWidth / (pointList.length + 3);
 		<!-- Vertical struts for each distribution point (from top to each point) -->
 		<ng-container *ngFor="let pt of pointList; let i = index">
-
 			<rect
-        class="sliders"
+				class="sliders"
 				[attr.x]="pt.x"
 				[attr.y]="pt.y"
-        [attr.width]="Math.abs(pointList[i+1]?.x ? pointList[i+1]?.x - pt.x : rectWidth)"
+				[attr.width]="
+					Math.abs(pointList[i + 1]?.x ? pointList[i + 1]?.x - pt.x : rectWidth)
+				"
 				[attr.height]="safeArea.bottomLeft.y - pt.y"
 				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
 				[attr.transform]="collapsed ? 'scale(1, 0)' : ''"
 			></rect>
 			<!-- Secondary strut (dashed) going upwards for UI effect -->
 			<path
-				[attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + (safeArea.topLeft.y - 18)"
+				[attr.d]="
+					'M ' +
+					pt.x +
+					' ' +
+					pt.y +
+					' L ' +
+					pt.x +
+					' ' +
+					(safeArea.topLeft.y - 18)
+				"
 				class="graph-strut-secondary"
 				stroke-dasharray="4"
 				[class.active]="selectedPoint === i"
@@ -187,44 +196,65 @@
 				safeArea.bottomRight.y
 			"
 			[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
-			[attr.transform]="collapsed ? 'translate(1, ' + -safeArea.height + ')' : ''"
+			[attr.transform]="
+				collapsed ? 'translate(1, ' + -safeArea.height + ')' : ''
+			"
 			class="graph-track"
 			[class.collapsed]="collapsed"
 		></path>
 
 		<!-- Circles for each distribution point -->
-		<ng-container *ngFor="let pt of pointList; let i = index; trackBy: pointTracking">
+		<ng-container
+			*ngFor="let pt of pointList; let i = index; trackBy: pointTracking"
+		>
 			<svg
 				class="svg-thumb-vertical"
 				(mousedown)="onPointMouseDown($event, i)"
 				(touchstart)="onPointMouseDown($event, i)"
 				[class.thump-dragged]="selectedPoint === i"
 			>
-        <rect
-          [attr.d]="'M ' + pt.x + ' ' + pt.y + ' L ' + pt.x + ' ' + safeArea.bottomLeft.y"
-          [attr.x]="pt.x"
-          [attr.y]="pt.y"
-          [attr.width]="Math.abs(pointList[i+1]?.x ? pointList[i+1]?.x - pt.x : rectWidth)"
-          [attr.height]="safeArea.bottomLeft.y - pt.y"
-          [attr.fill]="i === selectedPoint ? '#307D2B' : 'transparent'"
-          style="display: block; pointer-events: visiblePainted !important;"
-          (mouseenter)="hoverOnSlider(i)"
-          (mouseleave)="hoverOffSlider()"
-          [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
-        ></rect>
+				<rect
+					[attr.d]="
+						'M ' +
+						pt.x +
+						' ' +
+						pt.y +
+						' L ' +
+						pt.x +
+						' ' +
+						safeArea.bottomLeft.y
+					"
+					[attr.x]="pt.x"
+					[attr.y]="pt.y"
+					[attr.width]="
+						Math.abs(
+							pointList[i + 1]?.x ? pointList[i + 1]?.x - pt.x : rectWidth
+						)
+					"
+					[attr.height]="safeArea.bottomLeft.y - pt.y"
+					[attr.fill]="i === selectedPoint ? '#307D2B' : 'transparent'"
+					style="display: block; pointer-events: visiblePainted !important"
+					(mouseenter)="hoverOnSlider(i)"
+					(mouseleave)="hoverOffSlider()"
+					[attr.transform-origin]="
+						safeArea.topLeft.x + ' ' + safeArea.topLeft.y
+					"
+				></rect>
 				<svg
 					width="16"
 					height="20"
 					viewBox="0 0 16 20"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
-          [style.opacity]="i === hoveredElementIndex ? 1 : 0"
+					[style.opacity]="i === hoveredElementIndex ? 1 : 0"
 					class="graph-thumb"
-					[attr.x]="pt.x + rectWidth/2 - 7"
+					[attr.x]="pt.x + rectWidth / 2 - 7"
 					[attr.y]="pt.y - 10"
-          (mouseenter)="hoverOnSlider(i)"
-          (mouseleave)="hoverOffSlider()"
-					[style.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+					(mouseenter)="hoverOnSlider(i)"
+					(mouseleave)="hoverOffSlider()"
+					[style.transform-origin]="
+						safeArea.topLeft.x + ' ' + safeArea.topLeft.y
+					"
 					[style.transform]="collapsed ? 'scale(1, 0)' : ''"
 					[class.graph-center-thumb]="getPointClass(i)"
 					[class.collapsed]="collapsed"
@@ -267,27 +297,26 @@
 				[attr.x]="pt.x"
 				[attr.y]="safeArea.topLeft.y - 22"
 			>
-				{{ points[i][0]  | bignumbers}}
+				{{ points[i][0] | bignumbers }}
 			</text>
 		</ng-container>
 
-    <!-- Center point label -->
-    @if (!updatingMinMaxStepValues) {
-      <text
-        text-anchor="middle"
-        [attr.x]="centerPoint.x"
-        [attr.y]="safeArea.bottomLeft.y + 40"
-        [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
-        [attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
-        class="text-body-2 graph-tooltip"
-        [attr.style]="
-					'font-family: var(--family-display); font-size: 13px; font-weight: semi-bold; fill: #636363;'
+		<!-- Center point label -->
+		@if (!updatingMinMaxStepValues) {
+			<text
+				text-anchor="middle"
+				[attr.x]="centerPoint.x"
+				[attr.y]="safeArea.bottomLeft.y + 40"
+				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+				[attr.transform]="
+					collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''
 				"
-      >
-
-        {{ valueState | bignumbers}}
-      </text>
-    }
+				class="text-body-2 graph-tooltip"
+				[attr.style]="'font-family: var(--family-display); font-size: 13px; font-weight: semi-bold; fill: #636363;'"
+			>
+				{{ valueState | bignumbers }}
+			</text>
+		}
 
 		<!-- Center "thumb" circle for controlling the entire distribution horizontally -->
 		@if (!updatingMinMaxStepValues) {
@@ -300,12 +329,13 @@
 				style="cursor: ew-resize"
 				class="graph-center-thumb"
 				[attr.x]="centerPoint.x - 10.5"
-        [attr.y]="safeArea.bottomLeft.y - 8"
-
-        [attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
-				[attr.transform]="collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''"
-        (mouseenter)="hoverOnSlider(centerPointIndex)"
-        (mouseleave)="hoverOffSlider()"
+				[attr.y]="safeArea.bottomLeft.y - 8"
+				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
+				[attr.transform]="
+					collapsed ? 'translate(1, ' + (-safeArea.height - 15) + ')' : ''
+				"
+				(mouseenter)="hoverOnSlider(centerPointIndex)"
+				(mouseleave)="hoverOffSlider()"
 				(mousedown)="onCenterPointMouseDown($event)"
 				(touchstart)="onCenterPointMouseDown($event)"
 			>
@@ -334,20 +364,21 @@
 				<text
 					class="text-caption graph-tooltip-secondary"
 					text-anchor="middle"
-
 					[attr.x]="pt.x"
 					[attr.y]="safeArea.bottomLeft.y + 22"
-					[attr.transform]="'rotate(-45 ' + pt.x + ' ' + (safeArea.bottomLeft.y + 20) + ')'"
+					[attr.transform]="
+						'rotate(-45 ' + pt.x + ' ' + (safeArea.bottomLeft.y + 20) + ')'
+					"
 				>
-          @if(pointList.length > 15) {
-            @if(i % 2 === 0) {
-              {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
-            }
-          }@else {
-            {{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""  }}
-
-          }
-
+					@if (pointList.length > 15) {
+						@if (i % 2 === 0) {
+							{{
+								points[i][0] !== valueState ? (points[i][0] | bignumbers) : ""
+							}}
+						}
+					} @else {
+						{{ points[i][0] !== valueState ? (points[i][0] | bignumbers) : "" }}
+					}
 				</text>
 			}
 		</ng-container>
@@ -355,10 +386,7 @@
 
 	@if (updatingMinMaxStepValues) {
 		<div class="update-values-container">
-			<form
-				class="update-values-form"
-				[formGroup]="valuesFormGroup"
-			>
+			<form class="update-values-form" [formGroup]="valuesFormGroup">
 				<lib-input-text
 					placeholder="Minimum value"
 					formControlName="min"

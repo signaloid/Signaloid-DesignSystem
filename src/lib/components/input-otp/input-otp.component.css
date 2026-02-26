@@ -1,11 +1,11 @@
 .otp {
-  ::ng-deep .p-inputtext {
-    border-radius: var(--radius-sgnl-border-radius-6, 6px);
-    border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #4C5159);
-    background: var(--defaults-primary-background-mono, #1C2430);
-    color: var(--defaults-primary-text-primary, #C4C6C9);
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
-  }
+	::ng-deep .p-inputtext {
+		border-radius: var(--radius-sgnl-border-radius-6, 6px);
+		border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-primary-border-primary, #4C5159);
+		background: var(--defaults-primary-background-mono, #1C2430);
+		color: var(--defaults-primary-text-primary, #C4C6C9);
+		height: 40px;
+		min-width: 40px;
+		min-height: 40px;
+	}
 }

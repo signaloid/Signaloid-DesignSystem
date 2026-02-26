@@ -7,4 +7,4 @@ import { MatDividerModule } from '@angular/material/divider';
 	templateUrl: './footer.component.html',
 	styleUrl: './footer.component.css',
 })
-export class FooterComponent {}
+export class FooterComponent { }

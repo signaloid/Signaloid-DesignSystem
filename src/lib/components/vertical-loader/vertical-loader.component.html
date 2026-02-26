@@ -1,13 +1,14 @@
-
 <div class="vertical-loader-container">
 	@for (step of steps; let i = $index; track i) {
-
 		<div class="vertical-loader-step">
 			<div class="status-icon">
 				<!-- Completed -->
-        @if(step.status === 'done') {
-				<lib-icon color="var(--brand-default-icon-brand)" [icon]="checkMark"></lib-icon>
-        }
+				@if (step.status === "done") {
+					<lib-icon
+						color="var(--brand-default-icon-brand)"
+						[icon]="checkMark"
+					></lib-icon>
+				}
 
 				<!-- In Progress -->
 				<mat-progress-spinner
@@ -20,36 +21,42 @@
 				</mat-progress-spinner>
 
 				<!-- Failed -->
-        @if(step.status === 'failed') {
-          <lib-icon color="var(--alerts-error-icon-error)" [icon]="error"></lib-icon>
-        }
+				@if (step.status === "failed") {
+					<lib-icon
+						color="var(--alerts-error-icon-error)"
+						[icon]="error"
+					></lib-icon>
+				}
 				<!-- Pending (just a hollow circle or another icon) -->
-        <mat-progress-spinner
-          *ngIf="step.status === 'pending'"
-          diameter="20"
-          mode="determinate"
-          value="1"
-          strokeWidth="2"
-          color="primary"
-        >
-        </mat-progress-spinner>
+				<mat-progress-spinner
+					*ngIf="step.status === 'pending'"
+					diameter="20"
+					mode="determinate"
+					value="1"
+					strokeWidth="2"
+					color="primary"
+				>
+				</mat-progress-spinner>
 			</div>
 
-			<div class="step-details" [class.step-details-failed]="step.status === 'failed'" [class.step-details-pending]="step.status === 'pending'">
+			<div
+				class="step-details"
+				[class.step-details-failed]="step.status === 'failed'"
+				[class.step-details-pending]="step.status === 'pending'"
+			>
 				<div class="step-label">
 					{{ step.label }}
 				</div>
 				<!-- Show retry if failed -->
-<!--				<button-->
-<!--					*ngIf="step.status === 'failed'"-->
-<!--					mat-button-->
-<!--					color="warn"-->
-<!--        (click)="onRetry(step)"-->
-<!--				>-->
-<!--					Retry-->
-<!--				</button>-->
+				<!--				<button-->
+				<!--					*ngIf="step.status === 'failed'"-->
+				<!--					mat-button-->
+				<!--					color="warn"-->
+				<!--        (click)="onRetry(step)"-->
+				<!--				>-->
+				<!--					Retry-->
+				<!--				</button>-->
 			</div>
-
 		</div>
 	}
 </div>

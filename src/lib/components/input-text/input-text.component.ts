@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CarbonIconComponent } from '../icon/icon.component';
 import { NgControl } from '@angular/forms';
 import { InputTextSize, InputTextSizes } from './input-text.models';
@@ -23,27 +23,28 @@ export class InputTextComponent implements OnInit {
 	@Input() rightIcon?: any;
 	@Input() size: InputTextSize = InputTextSize.M;
 	@Input() type: string = 'text';
-  @Input() autocomplete: string = 'on';
-  @Input() defaultValue: string | undefined;
+	@Input() autocomplete: string = 'on';
+	@Input() defaultValue: string | undefined;
 	@Input() disabled: boolean = false;
 	value: string | undefined = '';
 	disabledIconColor = 'var(--neutral-b-gray-200)';
 	normalColor = 'var(--neutral-b-gray-700)';
 	private onChange = (value: string) => { this.valueUpdate.emit(value); };
-	private onTouched = () => {};
+	private onTouched = () => { };
 	protected isFocused = false;
 	protected inputSizeValues = InputTextSizes[this.size];
-  @Output() focus = new EventEmitter<any>();
-  @Output() blur = new EventEmitter<any>();
-  @Output() valueUpdate = new EventEmitter<string>();
-	constructor(@Self() @Optional() public ngControl: NgControl) {
+	@Output() focus = new EventEmitter<any>();
+	@Output() blur = new EventEmitter<any>();
+	@Output() valueUpdate = new EventEmitter<string>();
+	public ngControl = inject(NgControl, { self: true, optional: true });
+	constructor() {
 		if (this.ngControl) {
 			this.ngControl.valueAccessor = this;
 		}
 	}
 
 	ngOnInit() {
-    this.value = this.defaultValue;
+		this.value = this.defaultValue;
 		this.inputSizeValues = InputTextSizes[this.size];
 	}
 
@@ -70,12 +71,12 @@ export class InputTextComponent implements OnInit {
 
 	onFocus() {
 		this.isFocused = true;
-    this.focus.emit();
+		this.focus.emit();
 	}
 	onBlur() {
 		this.isFocused = false;
 		this.onTouched();
-    this.blur.emit();
+		this.blur.emit();
 	}
 
 	get errorMessages(): string[] {

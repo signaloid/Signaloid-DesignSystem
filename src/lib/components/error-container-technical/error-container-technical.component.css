@@ -1,38 +1,41 @@
 :host .container {
-  display: flex;
-  width: 640px;
-  min-width: var(--containers-sgnl-container-640);
-  max-width: var(--containers-sgnl-container-768);
-  padding: var(--space-sgnl-space-32) var(--space-sgnl-space-16);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-sgnl-space-24);
-  border-radius: 6px;
-  background: var(--defaults-primary-background-mono);
-  .title {
-    color: var(--defaults-primary-text-primary);
-    text-align: center;
-    margin: 0;
-    /* text/Semibold/subtitle Semibold */
-    font-family: var(--sgnl-font-family-text);
-    font-size: var(--size-sgnl-subtitle);
-    font-style: normal;
-    font-weight: 600;
-    line-height: var(--line-height-sgnl-font-line-height-subtitle); /* 140% */
-    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing02);
-  }
+	display: flex;
+	width: 640px;
+	min-width: var(--containers-sgnl-container-640);
+	max-width: var(--containers-sgnl-container-768);
+	padding: var(--space-sgnl-space-32) var(--space-sgnl-space-16);
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-sgnl-space-24);
+	border-radius: 6px;
+	background: var(--defaults-primary-background-mono);
 
-  .description {
-    color: var(--defaults-primary-text-primary);
-    text-align: center;
-    margin: 0;
-    /* text/Regular/p S Regular */
-    font-family: var(--sgnl-font-family-text);
-    font-size: var(--size-sgnl-paragraph-s);
-    font-style: normal;
-    font-weight: 400;
-    line-height: var(--line-height-sgnl-font-line-height-paragraph-s); /* 142.857% */
-    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing0);
-  }
+	.title {
+		color: var(--defaults-primary-text-primary);
+		text-align: center;
+		margin: 0;
+		/* text/Semibold/subtitle Semibold */
+		font-family: var(--family-text);
+		font-size: var(--size-sgnl-subtitle);
+		font-style: normal;
+		font-weight: 600;
+		line-height: var(--line-height-sgnl-font-line-height-subtitle);
+		/* 140% */
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-02);
+	}
+
+	.description {
+		color: var(--defaults-primary-text-primary);
+		text-align: center;
+		margin: 0;
+		/* text/Regular/p S Regular */
+		font-family: var(--family-text);
+		font-size: var(--size-sgnl-paragraph-s);
+		font-style: normal;
+		font-weight: 400;
+		line-height: var(--line-height-sgnl-font-line-height-paragraph-s);
+		/* 142.857% */
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
+	}
 }

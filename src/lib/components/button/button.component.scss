@@ -1,8 +1,8 @@
 @use "@angular/material" as mat;
-@import "../../../../../../public/static/styles/colors/colors.light.css";
+// @import "../../../../../../public/static/styles/colors/colors.light.css";
 
 .mdc-button {
-  min-width: 0;
+	min-width: 0;
 }
 
 .btn-inner {
@@ -10,6 +10,7 @@
 	align-items: center;
 	justify-content: space-evenly;
 	gap: var(--space-sgnl-space-8, 8px);
+
 	:hover {
 		background-color: transparent;
 	}
@@ -17,7 +18,7 @@
 
 .btn {
 	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0, 0px);
-  font-weight: 500;
+	font-weight: 500;
 	border-radius: 6px;
 }
 
@@ -28,45 +29,45 @@
 .btn-m {
 	padding: var(--space-sgnl-space-10) var(--space-sgnl-space-16);
 }
+
 .btn-l {
 	padding: var(--space-sgnl-space-10) var(--space-sgnl-space-20);
 }
+
 .btn-xl {
 	padding: var(--space-sgnl-space-12) var(--space-sgnl-space-24);
 }
 
 .type-primary {
-	@include mat.button-overrides(
-		(
-			filled-container-color: var(--sngl-primary-500),
-			filled-label-text-color: var(--neutral-b-white),
+	@include mat.button-overrides((filled-container-color: var(--brand-default-background-brand),
+			filled-label-text-color: var(--base-b-white),
 			filled-hover-state-layer-opacity: 0,
 			filled-focus-state-layer-opacity: 0,
 			filled-disabled-container-color: var(--brand-disabled-background-brand-disabled, #b7c9b7),
 			filled-disabled-label-text-color: var(--defaults-primary-text-primary-inverse, #fff),
-		)
-	);
+		));
+
 	&:hover {
 		text-decoration: underline;
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--brand-hover-background-brand-hover, #2c7227);
 
 		/* focus/focus.primary */
-		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px)
-			var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
+		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
 	}
+
 	&:focus {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--brand-focus-background-brand-focus, #276623);
-		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px)
-			var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
+		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
 	}
+
 	&:active {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--brand-focus-background-brand-focus, #276623);
-		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px)
-			var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
+		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
 	}
+
 	&:disabled {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--brand-disabled-background-brand-disabled, #b7c9b7);
@@ -74,12 +75,10 @@
 }
 
 .type-secondary {
-	@include mat.button-overrides(
-		(
-			outlined-label-text-color: var(--neutral-b-gray-600),
+	@include mat.button-overrides((outlined-label-text-color: var(--neutral-b-gray-600),
 			outlined-outline-color: var(--defaults-primary-border-primary),
-		)
-	);
+		));
+
 	&:hover {
 		text-decoration: underline;
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
@@ -87,12 +86,14 @@
 		background: var(--defaults-hover-background-hover, #ededee);
 		box-shadow: 0px 0px 0px 3px var(--focus-ring-focus-secondary, #6c727e);
 	}
+
 	&:focus {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-focus-border-focus, #babcc2);
 		background: var(--defaults-focus-background-focus, #d9dadc);
 		box-shadow: 0px 0px 0px 3px var(--focus-ring-focus-secondary, #6c727e);
 	}
+
 	&:disabled {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		border: var(--border-sgnl-border-width-1, 1px) solid var(--defaults-disabled-border-disabled, #c4c6c9);
@@ -102,26 +103,25 @@
 }
 
 .type-outlined {
-	@include mat.button-overrides(
-		(
-			outlined-label-text-color: var(--brand-focus-text-brand-focus),
+	@include mat.button-overrides((outlined-label-text-color: var(--brand-focus-text-brand-focus),
 			outlined-outline-color: var(--brand-default-border-brand),
-		)
-	);
+		));
+
 	&:focus {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		border: var(--border-sgnl-border-width-1, 1px) solid var(--brand-focus-border-brand-focus, #276623);
 		background: var(--defaults-focus-background-focus, #d9dadc);
 
 		/* focus/focus.primary */
-		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px)
-			var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
+		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
 	}
+
 	&:disabled {
-    color: var(--brand-disabled-text-brand-disabled);
+		color: var(--brand-disabled-text-brand-disabled);
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		border: var(--border-sgnl-border-width-1, 1px) solid var(--brand-disabled-border-brand-disabled, #b7c9b7);
 	}
+
 	&:hover {
 		text-decoration: underline;
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
@@ -129,20 +129,17 @@
 		background: var(--defaults-primary-background-mono, #fff);
 
 		/* focus/focus.primary */
-		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px)
-			var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
+		box-shadow: var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) var(--effects-sgnl-effect-0, 0px) 3px var(--focus-ring-focus-primary, #719a6f);
 	}
 }
 
 .type-destructive {
-	@include mat.button-overrides(
-		(
-			filled-container-color: var(--red-s-error-600),
-			filled-label-text-color: var(--neutral-b-white),
+	@include mat.button-overrides((filled-container-color: var(--red-s-error-600),
+			filled-label-text-color: var(--base-b-white),
 			filled-disabled-container-color: var(--alerts-error-background-error-disabled, #f8bbb8),
 			filled-disabled-label-text-color: var(--defaults-primary-text-primary-inverse, #fff),
-		)
-	);
+		));
+
 	&:hover {
 		text-decoration: underline;
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
@@ -150,12 +147,14 @@
 		/* focus/focus.error */
 		box-shadow: 0px 0px 0px 3px var(--focus-ring-focus-error, #aa3027);
 	}
+
 	&:focus {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--alerts-error-background-error-hover, #c4372d);
 		/* focus/focus.error */
 		box-shadow: 0px 0px 0px 3px var(--focus-ring-focus-error, #aa3027);
 	}
+
 	&:disabled {
 		border-radius: var(--radius-sgnl-border-radius-6, 6px);
 		background: var(--alerts-error-background-error-disabled, #f8bbb8);

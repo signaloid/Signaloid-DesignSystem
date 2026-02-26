@@ -4,7 +4,6 @@ import { CarbonIconComponent } from '../icon/icon.component';
 // @ts-ignore
 import Add16 from '@carbon/icons/es/watson-health/3D-curve--auto-vessels/20';
 import { ButtonSize, ButtonSizes, ButtonType } from './button.types';
-import { SafeHtml } from '@angular/platform-browser';
 import { SafeHtmlPipe } from 'primeng/menu';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 

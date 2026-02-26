@@ -1,25 +1,25 @@
 .circular-container {
-  width: min-content;
+	width: min-content;
 
-  .progress-ring {
-    //transform: rotate(-90deg);
-  }
+	.progress-ring {
+		//transform: rotate(-90deg);
+	}
 
-  .progress-label {
-    margin-top: 10px;
-    font-size: 1.2rem;
-    color: #555;
+	.progress-label {
+		margin-top: 10px;
+		font-size: 1.2rem;
+		color: #555;
 
-    strong {
-      font-weight: bold;
-      color: #333;
-    }
-  }
+		strong {
+			font-weight: bold;
+			color: #333;
+		}
+	}
 
-  .progress-ring__background,
-  .progress-ring__circle {
-    transition: stroke-dashoffset 0.35s;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-  }
+	.progress-ring__background,
+	.progress-ring__circle {
+		transition: stroke-dashoffset 0.35s;
+		transform: rotate(-90deg);
+		transform-origin: 50% 50%;
+	}
 }

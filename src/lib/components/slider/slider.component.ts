@@ -3,12 +3,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSlider, MatSliderRangeThumb, MatSliderThumb } from '@angular/material/slider';
 import { SliderTypes } from './slider.types';
 import { FormsModule } from '@angular/forms';
-import { NgClass, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
 	selector: 'lib-slider',
 	standalone: true,
-	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf, NgClass],
+	imports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, FormsModule, NgIf],
 	templateUrl: './slider.component.html',
 	styleUrls: ['./slider.component.scss'],
 	providers: [
@@ -30,9 +30,9 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	@Input() multipleMaxValue = 50;
 	@Input() type: SliderTypes = SliderTypes.NUMERIC;
 	@Input() labelBelow: string | undefined;
-  @Input() alwaysShowValue = false;
-  @Input() hasBigNumbers = true;
-  @Input() showPercentageFromFloatingPoint = false;
+	@Input() alwaysShowValue = false;
+	@Input() hasBigNumbers = true;
+	@Input() showPercentageFromFloatingPoint = false;
 	// Use these `EventEmitter`s if you need separate outputs
 	@Output() valueChange = new EventEmitter<number>();
 	@Output() rangeChange = new EventEmitter<{ min: number; max: number }>();
@@ -42,10 +42,10 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 	/**
 	 * ControlValueAccessor callbacks
 	 */
-	private onChangeFn: (value: any) => void = () => {};
-	private onTouchedFn: () => void = () => {};
+	private onChangeFn: (value: any) => void = () => { };
+	private onTouchedFn: () => void = () => { };
 
-	ngOnInit(): void {}
+	ngOnInit(): void { }
 
 	// -------------------------------------------------------
 	// ControlValueAccessor methods
@@ -118,28 +118,28 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
 		this.onTouchedFn();
 	}
 
-  formatLabel(value: number ): string {
-    let valueNumber = Number(value);
-    if (valueNumber === null || valueNumber === undefined || isNaN(valueNumber)) {
-      return `${valueNumber}`;
-    }
+	formatLabel(value: number): string {
+		let valueNumber = Number(value);
+		if (valueNumber === null || valueNumber === undefined || isNaN(valueNumber)) {
+			return `${valueNumber}`;
+		}
 
-    if (Math.abs(valueNumber) < 1000) {
-      return `${ valueNumber }`;
-    }
+		if (Math.abs(valueNumber) < 1000) {
+			return `${valueNumber}`;
+		}
 
-    const units = ['k', 'M', 'B', 'T'];
-    let unitIndex = -1;
+		const units = ['k', 'M', 'B', 'T'];
+		let unitIndex = -1;
 
-    while (Math.abs(valueNumber) >= 1000 && unitIndex < units.length - 1) {
-      valueNumber = valueNumber / 1000;
-      unitIndex++;
-    }
+		while (Math.abs(valueNumber) >= 1000 && unitIndex < units.length - 1) {
+			valueNumber = valueNumber / 1000;
+			unitIndex++;
+		}
 
-    return `${parseFloat(valueNumber.toFixed(1))}${units[unitIndex]}`;
-  }
+		return `${parseFloat(valueNumber.toFixed(1))}${units[unitIndex]}`;
+	}
 
-  percentage(value: number ) {
-    return `${(value * 100).toFixed(0)}%`;
-  }
+	percentage(value: number) {
+		return `${(value * 100).toFixed(0)}%`;
+	}
 }

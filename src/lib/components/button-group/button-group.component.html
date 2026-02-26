@@ -1,5 +1,9 @@
 <mat-button-toggle-group
-	style="border-radius: var(--radius-sgnl-border-radius-6); border-color:  var(--defaults-primary-border-primary); height: 28px"
+	style="
+		border-radius: var(--radius-sgnl-border-radius-6);
+		border-color: var(--defaults-primary-border-primary);
+		height: 28px;
+	"
 	[hideSingleSelectionIndicator]="true"
 	[formControl]="buttonGroup"
 >
@@ -15,7 +19,9 @@
 						></lib-icon>
 					</mat-button-toggle>
 				} @else {
-					<mat-button-toggle [value]="option.value">{{ option.value | titlecase }}</mat-button-toggle>
+					<mat-button-toggle [value]="option.value">{{
+						option.value | titlecase
+					}}</mat-button-toggle>
 				}
 			}
 		}

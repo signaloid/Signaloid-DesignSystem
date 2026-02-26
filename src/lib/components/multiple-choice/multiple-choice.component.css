@@ -9,6 +9,7 @@
 .flex {
 	display: flex;
 }
+
 :host .container {
 	display: flex;
 	flex-direction: row;
@@ -17,6 +18,7 @@
 	gap: var(--space-sgnl-space-32, 1rem);
 	width: fit-content;
 }
+
 .items-center {
 	align-items: center;
 	justify-content: center;
@@ -45,10 +47,11 @@
 	--p-radiobutton-checked-background: var(--defaults-primary-background-mono);
 	--p-radiobutton-icon-size: 18px;
 	--p-radiobutton-icon-color: var(--defaults-primary-background-mono);
-	--p-radiobutton-icon-checked-color: var(--brand-default-background-brand, #307d2b); /* White inner circle when checked */
+	--p-radiobutton-icon-checked-color: var(--brand-default-background-brand, #307d2b);
+	/* White inner circle when checked */
 	--p-radiobutton-icon-disabled-color: var(--defaults-primary-background-mono);
 	--p-radiobutton-icon-checked-hover-color: var(--brand-default-background-brand, #307d2b);
-  --p-radiobutton-checked-hover-background: #719A6F;
+	--p-radiobutton-checked-hover-background: #719A6F;
 }
 
 :host ::ng-deep .p-radiobutton.p-radiobutton-checked.p-focus .p-radiobutton-box {
@@ -69,12 +72,14 @@
 :host ::ng-deep .p-radiobutton.p-radiobutton-checked.p-disabled .p-radiobutton-box .p-radiobutton-icon {
 	background: #e8f5e9;
 }
+
 :host .name {
-  color: var(--defaults-primary-text-primary);
-  font-family: var(--family-text);
-  font-size: var(--size-sgnl-paragraph-s);
-  font-style: normal;
-  font-weight: 400;
-  line-height: var(--line-height-sgnl-font-line-height-paragraph-s); /* 142.857% */
-  letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
+	color: var(--defaults-primary-text-primary);
+	font-family: var(--family-text);
+	font-size: var(--size-sgnl-paragraph-s);
+	font-style: normal;
+	font-weight: 400;
+	line-height: var(--line-height-sgnl-font-line-height-paragraph-s);
+	/* 142.857% */
+	letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-0);
 }

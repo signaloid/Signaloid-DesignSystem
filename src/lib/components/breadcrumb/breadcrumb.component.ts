@@ -1,14 +1,13 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { JsonPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CarbonIconComponent } from '../icon/icon.component';
 
 interface Breadcrumb {
 	label: string;
 	url: string;
-  icon?: unknown;
+	icon?: unknown;
 }
 
 @Component({
@@ -23,7 +22,7 @@ export class BreadcrumbComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-	) {}
+	) { }
 
 	ngOnInit(): void {
 		this.generateBreadcrumbs();

@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnChanges } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { InputOtp } from 'primeng/inputotp';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -16,12 +16,12 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 	],
 })
 export class InputOtpComponent implements ControlValueAccessor {
-  protected onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
-  disabled = false;
-  writeValue(obj: number): void {
-    this.value = obj
-  }
+	protected onChange: (value: any) => void = () => { };
+	private onTouched: () => void = () => { };
+	disabled = false;
+	writeValue(obj: number): void {
+		this.value = obj
+	}
 	registerOnChange(fn: any): void {
 		this.onChange = fn;
 	}

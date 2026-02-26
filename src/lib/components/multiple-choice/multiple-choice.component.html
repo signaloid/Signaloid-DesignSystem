@@ -1,20 +1,18 @@
 <div class="radio-wrapper">
-  <div class="container">
-    <div *ngFor="let option of options" class="flex items-center">
-      <p-radiobutton
-        [inputId]="option.value"
-        [name]="'radio-group'"
-        [value]="option.value"
-        [disabled]="disabled"
-        [ngModel]="value"
-        (onClick)="onChange(option.value)">
-      </p-radiobutton>
-      <label
-        [for]="option.value"
-        class="name"
-        [class.opacity-60]="disabled">
-        {{ option.name }}
-      </label>
-    </div>
-  </div>
+	<div class="container">
+		<div *ngFor="let option of options" class="flex items-center">
+			<p-radiobutton
+				[inputId]="option.value"
+				[name]="'radio-group'"
+				[value]="option.value"
+				[disabled]="disabled"
+				[ngModel]="value"
+				(onClick)="onChange(option.value)"
+			>
+			</p-radiobutton>
+			<label [for]="option.value" class="name" [class.opacity-60]="disabled">
+				{{ option.name }}
+			</label>
+		</div>
+	</div>
 </div>
