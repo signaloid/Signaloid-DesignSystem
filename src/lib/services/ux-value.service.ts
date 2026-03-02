@@ -39,7 +39,7 @@ export class UxValueService {
 			dirac_deltas: diracDeltas,
 			double_precision: true,
 		});
-		distributionalValue.scale_dirac_deltas();
+		distributionalValue.normalize_dirac_deltas();
 		distributionalValue.interpolate(resampleToSize);
 
 		// Create UX string for distribution
