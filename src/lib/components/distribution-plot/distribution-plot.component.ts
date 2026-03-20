@@ -221,10 +221,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const xAxisMin = Math.min(...normBP);
 		const xAxisMax = Math.max(...normBP);
 		let valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+
 		if (this.varValue) {
 			valueAtRisk = this.normalize(this.varValue, minXExp) ?? undefined;
 		}
-		console.log({ valueAtRisk, xAxisMin, xAxisMax });
+
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
@@ -327,8 +328,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				axisLabel: { show: false },
 			});
 		}
-
-		console.log(axes);
 
 		return axes;
 	}

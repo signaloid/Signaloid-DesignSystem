@@ -30,8 +30,6 @@ export class ThemeService {
 			linkEl.id = 'theme-css';
 			linkEl.rel = 'stylesheet';
 			this.document.head.appendChild(linkEl);
-		} else {
-			console.warn('theme element already exists');
 		}
 	}
 

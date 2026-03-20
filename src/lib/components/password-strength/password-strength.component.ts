@@ -43,7 +43,6 @@ export class PasswordStrengthComponent implements OnChanges {
 
 		// If the parent changed the password string, push it into our internal control:
 		if (changes['password']) {
-			console.log(this.password);
 			this.internalControl.setValue(this.password, { emitEvent: false });
 			this.internalControl.updateValueAndValidity({ emitEvent: false });
 		}

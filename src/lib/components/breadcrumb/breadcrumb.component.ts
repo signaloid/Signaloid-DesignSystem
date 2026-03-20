@@ -67,7 +67,6 @@ export class BreadcrumbComponent implements OnInit {
 		}
 
 		this.breadcrumbs = breadcrumbs;
-		console.log('Breadcrumbs:', this.breadcrumbs);
 	}
 
 	navigateTo(url: string) {

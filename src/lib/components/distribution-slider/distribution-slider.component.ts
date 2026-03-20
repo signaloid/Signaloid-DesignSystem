@@ -118,10 +118,8 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 	private performInitialChecks() {
 		if (this.initialDistribution.length === 0) {
-			console.warn('initialDistribution is empty, rendering empty distribution');
 			return;
 		}
-		this.pointList;
 
 		const xAxisValues = this.initialDistribution.map(([x, y]) => x);
 		if (!xAxisValues.includes(this.initialValue)) {
