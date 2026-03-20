@@ -19,8 +19,8 @@
 			fill="#636873"
 		/>
 	</svg>
+	@if (showingTooltip) {
 	<div
-		*ngIf="showingTooltip"
 		class="tooltip-container"
 		[class]="'tooltip--' + position"
 	>
@@ -33,4 +33,5 @@
 			</div>
 		</div>
 	</div>
+	}
 </div>

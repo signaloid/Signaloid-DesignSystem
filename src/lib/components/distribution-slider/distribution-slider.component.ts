@@ -11,7 +11,7 @@ import {
 	SimpleChanges,
 	ViewChild,
 } from '@angular/core';
-import { DecimalPipe, NgForOf, NgIf } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { InputTextComponent } from '../input-text/input-text.component';
 import { InputTextSize } from '../input-text/input-text.models';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -27,7 +27,7 @@ interface DistributionPoint {
 @Component({
 	selector: 'lib-distribution-slider',
 	templateUrl: './distribution-slider.component.html',
-	imports: [NgForOf, NgIf, DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent, BigNumbersPipe],
+	imports: [DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent, BigNumbersPipe],
 	standalone: true,
 	styleUrls: ['./distribution-slider.component.scss'],
 })

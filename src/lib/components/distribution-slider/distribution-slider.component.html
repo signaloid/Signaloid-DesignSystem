@@ -23,7 +23,7 @@
 		</defs>
 
 		<!-- Grid lines -->
-		<ng-container *ngFor="let line of gridLines">
+		@for (line of gridLines; track $index) {
 			<svg>
 				<text
 					class="text-caption graph-legend"
@@ -41,7 +41,7 @@
 					[class.collapsed]="collapsed"
 				></line>
 			</svg>
-		</ng-container>
+		}
 
 		<!-- Y-axis bottom label -->
 		<text
@@ -108,19 +108,20 @@
 		</text>
 
 		<!-- X-axis label -->
-		<text
-			*ngIf="xAxisLabel && !updatingMinMaxStepValues"
-			class="axis-label"
-			text-anchor="middle"
-			[attr.x]="safeArea.bottomLeft.x + safeArea.width / 2"
-			[attr.y]="
-				collapsed
-					? safeArea.topLeft.y + safeArea.height / 3
-					: safeArea.bottomLeft.y + 15 + (safeArea.height * 2) / 5 + 5
-			"
-		>
-			{{ xAxisLabel }}
-		</text>
+		@if (xAxisLabel && !updatingMinMaxStepValues) {
+			<text
+				class="axis-label"
+				text-anchor="middle"
+				[attr.x]="safeArea.bottomLeft.x + safeArea.width / 2"
+				[attr.y]="
+					collapsed
+						? safeArea.topLeft.y + safeArea.height / 3
+						: safeArea.bottomLeft.y + 15 + (safeArea.height * 2) / 5 + 5
+				"
+			>
+				{{ xAxisLabel }}
+			</text>
+		}
 
 		<!-- Filled area path (backdrop) -->
 		<path
@@ -144,13 +145,14 @@
 		></path>
 		@let rectWidth = svgWidth / (pointList.length + 3);
 		<!-- Vertical struts for each distribution point (from top to each point) -->
-		<ng-container *ngFor="let pt of pointList; let i = index">
+		@for (pt of pointList; track $index) {
+			@let i = $index;
 			<rect
 				class="sliders"
 				[attr.x]="pt.x"
 				[attr.y]="pt.y"
 				[attr.width]="
-					Math.abs(pointList[i + 1]?.x ? pointList[i + 1]?.x - pt.x : rectWidth)
+					Math.abs(pointList[i + 1] ? pointList[i + 1].x - pt.x : rectWidth)
 				"
 				[attr.height]="safeArea.bottomLeft.y - pt.y"
 				[attr.transform-origin]="safeArea.topLeft.x + ' ' + safeArea.topLeft.y"
@@ -172,7 +174,7 @@
 				stroke-dasharray="4"
 				[class.active]="selectedPoint === i"
 			></path>
-		</ng-container>
+		}
 
 		<!-- Main path stroke for distribution curve -->
 		<path
@@ -204,9 +206,8 @@
 		></path>
 
 		<!-- Circles for each distribution point -->
-		<ng-container
-			*ngFor="let pt of pointList; let i = index; trackBy: pointTracking"
-		>
+		@for (pt of pointList; track pointTracking($index, pt)) {
+			@let i = $index;
 			<svg
 				class="svg-thumb-vertical"
 				(mousedown)="onPointMouseDown($event, i)"
@@ -228,7 +229,7 @@
 					[attr.y]="pt.y"
 					[attr.width]="
 						Math.abs(
-							pointList[i + 1]?.x ? pointList[i + 1]?.x - pt.x : rectWidth
+							pointList[i + 1] ? pointList[i + 1].x - pt.x : rectWidth
 						)
 					"
 					[attr.height]="safeArea.bottomLeft.y - pt.y"
@@ -299,7 +300,7 @@
 			>
 				{{ points[i][0] | bignumbers }}
 			</text>
-		</ng-container>
+		}
 
 		<!-- Center point label -->
 		@if (!updatingMinMaxStepValues) {
@@ -359,7 +360,8 @@
 		}
 
 		<!-- Extra secondary x-axis ticks/labels (rotated) -->
-		<ng-container *ngFor="let pt of pointList; let i = index">
+		@for (pt of pointList; track $index) {
+			@let i = $index;
 			@if (!updatingMinMaxStepValues) {
 				<text
 					class="text-caption graph-tooltip-secondary"
@@ -381,7 +383,7 @@
 					}
 				</text>
 			}
-		</ng-container>
+		}
 	</svg>
 
 	@if (updatingMinMaxStepValues) {
