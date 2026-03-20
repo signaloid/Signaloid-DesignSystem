@@ -4,7 +4,7 @@ import { EChartsOption } from 'echarts';
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 
 import { YAXisOption } from 'echarts/types/dist/shared';
-import { CurrencyPipe, NgClass } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import * as uxTools from '@signaloid/uxdata-tools-internal';
 
 const AXIS_STYLE = {
@@ -40,7 +40,7 @@ const ARIA_CONFIG = {
 	selector: 'lib-distribution-plot',
 	templateUrl: './distribution-plot.component.html',
 	styleUrls: ['./distribution-plot.component.css'],
-	imports: [NgxEchartsDirective, CurrencyPipe, NgClass], // Ensure NgxEchartsDirective and your pipe are imported
+	imports: [NgxEchartsDirective, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
 	standalone: true,
 	providers: [
 		{

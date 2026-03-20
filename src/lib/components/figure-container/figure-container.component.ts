@@ -3,13 +3,12 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { DistributionPlotComponent } from '../distribution-plot/distribution-plot.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
 	selector: 'lib-figure-container',
 	templateUrl: './figure-container.component.html',
 	styleUrl: './figure-container.component.css',
-	imports: [DistributionPlotComponent, MatProgressSpinner, SkeletonModule, ProgressSpinner],
+	imports: [DistributionPlotComponent, MatProgressSpinner, SkeletonModule],
 })
 export class FigureContainerComponent {
 	@Input() imageSource: string = '';

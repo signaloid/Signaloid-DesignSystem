@@ -4,7 +4,7 @@
 			class="icon-segment"
 			[style]="{ background: data.iconBackgroundColor }"
 		>
-			<lib-icon [icon]="data.icon" [color]="data.iconColor"></lib-icon>
+			<lib-icon [icon]="data.icon" [color]="data.iconColor ?? ''"></lib-icon>
 		</div>
 	}
 	<div class="text-segment">

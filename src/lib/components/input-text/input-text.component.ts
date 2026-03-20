@@ -66,7 +66,7 @@ export class InputTextComponent implements OnInit {
 
 	onInput(event: any): void {
 		this.value = event.target.value;
-		this.onChange(this.value);
+		this.onChange(this.value ?? "");
 	}
 
 	onFocus() {
