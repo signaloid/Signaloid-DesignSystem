@@ -384,14 +384,14 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 									itemStyle: { color: '#d9534f' },
 								},
 								{
-									xAxis: normValueAtRisk,
+									xAxis: 0,
 								},
 							],
 							// Green area (Confidence region)
 							[
 								{
 									name: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
-									xAxis: normValueAtRisk,
+									xAxis: 0,
 									itemStyle: { color: '#91cc75' },
 								},
 								{
