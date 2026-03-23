@@ -407,28 +407,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			},
 		];
 	}
+
 	private getExponent = (num: number): number => this.scientific(num)[1];
 
 	private getMarkLine(normMean: number, normValueAtRisk: number | undefined): echarts.MarkLineComponentOption {
-		if (!this.hasColoring) {
-			return {
-				animation: false,
-				symbol: 'none',
-				data: [
-					{
-						name: 'E(x)',
-						xAxis: normMean,
-						label: {
-							show: true,
-							position: 'insideEndTop',
-							formatter: '{b}',
-						},
-					},
-				],
-				lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
-			};
-		}
-		return {
+		const options: echarts.MarkLineComponentOption = {
 			animation: false,
 			symbol: 'none',
 			data: [
@@ -441,6 +424,13 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 						formatter: '{b}',
 					},
 				},
+			],
+			lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
+		};
+
+		if (this.hasColoring) {
+			// @ts-ignore
+			options.data.push(
 				{
 					name: 'VaR',
 					xAxis: normValueAtRisk ? normValueAtRisk : 0,
@@ -450,11 +440,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 						position: 'insideStartTop',
 						formatter: '{b}',
 					},
-				},
-			],
+				}
+			)
+		}
 
-			lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
-		};
+		return options;
 	}
 
 	private normalize(val: number, newExp: number): number {
