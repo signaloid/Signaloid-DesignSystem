@@ -15,6 +15,7 @@ import ChartColumn from '@carbon/icons/es/chart--column/16.js';
 import SettingsAdjust from '@carbon/icons/es/settings--adjust/16';
 import { ButtonGroupComponent } from '../button-group/button-group.component';
 import { SliderComponent } from '../slider/slider.component';
+import { groupOptions } from '../button-group/button-group.types';
 
 @Component({
 	selector: 'lib-distribution-plot-container',
@@ -51,14 +52,14 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	}>();
 	@Output() sliderChangeInner = new EventEmitter<number>();
 	distributionCenterValue: number = 0;
-	inputOptions = [
+	inputOptions: groupOptions = [
 		{
 			value: 'distribution',
-			icon: ChartColumn,
+			icon: ChartColumn as Object,
 		},
 		{
 			value: 'slider',
-			icon: SettingsAdjust,
+			icon: SettingsAdjust as Object,
 		},
 	];
 	showingTooltip = false;
@@ -72,7 +73,7 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 		this.distributionCenterValue = this.initialValue;
 	}
 
-	get calculateGraphWidth(): number | undefined {
+	get calculateGraphWidth(): number {
 		if (this.adjustWidthToSlidersCount) {
 			const slidersLength = (this.max - this.min) / this.step;
 			return slidersLength * 20 + 100;

@@ -4,7 +4,7 @@ import { EChartsOption } from 'echarts';
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 
 import { YAXisOption } from 'echarts/types/dist/shared';
-import { CurrencyPipe, NgClass } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import * as uxTools from '@signaloid/uxdata-tools-internal';
 
 const AXIS_STYLE = {
@@ -40,7 +40,7 @@ const ARIA_CONFIG = {
 	selector: 'lib-distribution-plot',
 	templateUrl: './distribution-plot.component.html',
 	styleUrls: ['./distribution-plot.component.css'],
-	imports: [NgxEchartsDirective, CurrencyPipe, NgClass], // Ensure NgxEchartsDirective and your pipe are imported
+	imports: [NgxEchartsDirective, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
 	standalone: true,
 	providers: [
 		{
@@ -221,10 +221,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const xAxisMin = Math.min(...normBP);
 		const xAxisMax = Math.max(...normBP);
 		let valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+
 		if (this.varValue) {
 			valueAtRisk = this.normalize(this.varValue, minXExp) ?? undefined;
 		}
-		console.log({ valueAtRisk, xAxisMin, xAxisMax });
+
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
@@ -327,8 +328,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				axisLabel: { show: false },
 			});
 		}
-
-		console.log(axes);
 
 		return axes;
 	}

@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { NgClass, NgIf } from "@angular/common";
 
 @Component({
 	selector: 'lib-infromation-tooltip',
-	imports: [NgClass, NgIf],
 	standalone: true,
 	templateUrl: './infromation-tooltip.component.html',
 	styleUrl: './infromation-tooltip.component.css'
