@@ -48,37 +48,39 @@
 	<div class="plot-description">
 		<ng-content select="[plot-description]"></ng-content>
 	</div>
-	@if (inputOptionValue === "distribution") {
-		<lib-distribution-slider
-			[min]="min"
-			[max]="max"
-			[step]="step"
-			[initialValue]="distributionCenterValue"
-			[initialDistribution]="initialDistribution"
-			[disabled]="disabled"
-			[gridSteps]="gridSteps"
-			[graphHeight]="graphHeight"
-			[graphWidth]="calculateGraphWidth - 40"
-			[xAxisLabel]="xAxisLabel"
-			[yAxisLabel]="yAxisLabel"
-			(distributionChange)="onDistributionChange($event)"
-			(onUpdatingValues)="onLockedChange($event)"
-			(valueChange)="onSliderChangeInner($event)"
-		></lib-distribution-slider>
-	} @else {
-		<lib-slider
-			[value]="distributionCenterValue"
-			[disabled]="disabled"
-			[labelBelow]="xAxisLabel"
-			[alwaysShowValue]="true"
-			style="margin-bottom: 25px"
-			[min]="min"
-			[max]="max"
-			[step]="step"
-			(valueUpdate)="sliderChange($event)"
-		>
-		</lib-slider>
-	}
+
+	<lib-distribution-slider
+		[style.display]="inputOptionValue === 'distribution' ? 'block' : 'none'"
+		[min]="min"
+		[max]="max"
+		[step]="step"
+		[initialValue]="distributionCenterValue"
+		[initialDistribution]="initialDistribution"
+		[disabled]="disabled"
+		[gridSteps]="gridSteps"
+		[graphHeight]="graphHeight"
+		[graphWidth]="calculateGraphWidth - 40"
+		[xAxisLabel]="xAxisLabel"
+		[yAxisLabel]="yAxisLabel"
+		(distributionChange)="onDistributionChange($event)"
+		(onUpdatingValues)="onLockedChange($event)"
+		(valueChange)="onSliderChangeInner($event)"
+	></lib-distribution-slider>
+
+	<lib-slider
+		[style.display]="inputOptionValue === 'slider' ? 'block' : 'none'"
+		[value]="distributionCenterValue"
+		[disabled]="disabled"
+		[labelBelow]="xAxisLabel"
+		[alwaysShowValue]="true"
+		style="margin-bottom: 25px"
+		[min]="min"
+		[max]="max"
+		[step]="step"
+		(valueUpdate)="sliderChange($event)"
+	>
+	</lib-slider>
+
 	@if (showBottomTitle) {
 		<div class="bottom-title">
 			<ng-content select="[bottom-title]"></ng-content>
