@@ -1,0 +1,105 @@
+name: 🚀 Public Release Issue Template
+description: Formalize the release of content from private development to the public domain.
+type: "release"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new release issue.
+        Use this template to coordinate the transition of private data, code, or assets to a public-facing state.
+        Please assign it to an employee (or team lead if that is uncertain), so it can be triaged efficiently.
+
+  - type: markdown
+    attributes:
+      value: "## Release Timeline"
+
+  - type: input
+    id: internal-target
+    attributes:
+      label: Internal Freeze Date
+      description: When the code/data is frozen for final testing.
+      placeholder: yyyy/mm/dd
+    validations:
+      required: false
+
+  - type: input
+    id: public-launch
+    attributes:
+      label: Public Launch Date
+      description: When the content becomes visible to the public.
+      placeholder: yyyy/mm/dd
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Overview"
+
+  - type: textarea
+    id: components
+    attributes:
+      label: Included Components and Versions
+      description: List all private repositories, submodules, or datasets and their corresponding hashes/tags.
+      placeholder: |
+        - Repo/Asset A: [Commit Hash or Tag]
+        - Repo/Asset B: [Commit Hash or Tag]
+    validations:
+      required: true
+
+  - type: textarea
+    id: blocking-items
+    attributes:
+      label: Blocking PRs or Dependencies
+      description: List any items that must be resolved prior to release.
+      placeholder: "- [ ] Link to PR #..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Public Communication"
+
+  - type: textarea
+    id: changelog
+    attributes:
+      label: Public Changelog / Release Notes
+      description: What will the external world see on Headway or otherwise?
+      placeholder: |
+        ### Added
+        - Feature X...
+        ### Changed
+        - Optimization Y...
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Quality and Security Gates"
+
+  - type: checkboxes
+    id: release_check
+    attributes:
+      label: General Acceptance Criteria
+      description: Mandatory checks for every Signaloid public release.
+      options:
+        - label: "Verified no internal API keys, secrets, or environment variables are present."
+        - label: "Verified that all included assets are cleared for public distribution."
+        - label: "Testing: Full suite of integration tests passed on the release candidate."
+        - label: "Public-facing READMEs and manuals are updated for this version."
+        - label: "Verified that the target public repository/storage has correct permissions."
+
+  - type: input
+    id: sign-off
+    attributes:
+      label: Final Sign-off By
+      description: Name or @username of the person authorizing the public push.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Deployment / Infrastructure Notes
+      description: Mention any specific CI/CD triggers or manual steps required for this release.
+    validations:
+      required: false
