@@ -6,6 +6,12 @@
 	gap: var(--space-sgnl-space-8, 8px);
 }
 
+.file-picker__destination {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sgnl-space-4, 4px);
+}
+
 .file-picker__label {
 	color: var(--defaults-secondary-text-secondary);
 	font-family: var(--family-text, 'IBM Plex Sans');

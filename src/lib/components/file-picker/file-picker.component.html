@@ -1,4 +1,23 @@
 <div class="file-picker">
+	@if (showDestination) {
+		<div class="file-picker__destination">
+			<lib-input-text
+				[label]="destinationLabel"
+				[placeholder]="destinationPlaceholder"
+				[defaultValue]="destination"
+				[disabled]="disabled"
+				(valueUpdate)="onDestinationChange($event)"
+			></lib-input-text>
+			<span
+				class="file-picker__message"
+				[class.file-picker__message--empty]="!destinationError"
+				role="status"
+				aria-live="polite"
+				>{{ destinationError }}</span
+			>
+		</div>
+	}
+
 	@if (label) {
 		<label
 			class="file-picker__label"

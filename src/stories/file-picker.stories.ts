@@ -20,6 +20,11 @@ const meta: Meta<FilePickerComponent> = {
 		progress: { control: { type: 'range', min: 0, max: 100 } },
 		busyLabel: { control: 'text' },
 		error: { control: 'text' },
+		showDestination: { control: 'boolean' },
+		destination: { control: 'text' },
+		destinationLabel: { control: 'text' },
+		destinationPlaceholder: { control: 'text' },
+		destinationError: { control: 'text' },
 		icon: { control: false },
 	},
 	parameters: {},
@@ -64,6 +69,14 @@ export const WithError: Story = {
 	args: {
 		label: 'Files',
 		error: 'data.out could not be parsed.',
+	},
+};
+
+export const WithDestination: Story = {
+	args: {
+		label: 'Files',
+		showDestination: true,
+		destination: 'uploads',
 	},
 };
 

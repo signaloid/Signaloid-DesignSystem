@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CarbonIconComponent } from '../icon/icon.component';
+import { InputTextComponent } from '../input-text/input-text.component';
 // @ts-ignore
 import CloudUpload from '@carbon/icons/es/cloud--upload/20';
 // @ts-ignore
 import Close from '@carbon/icons/es/close/16';
 
-/** Why a picked file was turned away. */
 let nextInputId = 0;
 
+/** Why a picked file was turned away. */
 export type FilePickerRejectionReason = 'type' | 'size' | 'too-many';
 
 export interface FilePickerRejection {
@@ -26,7 +27,7 @@ export interface FilePickerRejection {
  */
 @Component({
 	selector: 'lib-file-picker',
-	imports: [CarbonIconComponent],
+	imports: [CarbonIconComponent, InputTextComponent],
 	templateUrl: './file-picker.component.html',
 	styleUrl: './file-picker.component.css',
 	standalone: true,
@@ -47,10 +48,18 @@ export class FilePickerComponent {
 	/** App-level error. Takes the place of any rejection message. */
 	@Input() error?: string;
 	@Input() icon: unknown = CloudUpload;
+	/** Renders a destination field above the box, for pickers that upload somewhere. */
+	@Input() showDestination: boolean = false;
+	@Input() destination: string = '';
+	@Input() destinationLabel: string = 'Destination';
+	@Input() destinationPlaceholder: string = 'Upload destination';
+	/** Shown under the destination field. The consuming app owns the path rules. */
+	@Input() destinationError?: string;
 
 	@Output() filePicked = new EventEmitter<File>();
 	@Output() cleared = new EventEmitter<void>();
 	@Output() rejected = new EventEmitter<FilePickerRejection>();
+	@Output() destinationChange = new EventEmitter<string>();
 
 	protected readonly inputId = `file-picker-${nextInputId++}`;
 	protected file?: File;
@@ -83,6 +92,11 @@ export class FilePickerComponent {
 
 	get message(): string | undefined {
 		return this.error ?? this.rejectionMessage;
+	}
+
+	onDestinationChange(value: string): void {
+		this.destination = value;
+		this.destinationChange.emit(value);
 	}
 
 	onDragOver(event: DragEvent): void {

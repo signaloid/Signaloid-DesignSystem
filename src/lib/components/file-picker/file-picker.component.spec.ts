@@ -134,6 +134,35 @@ describe('FilePickerComponent', () => {
 		expect(picked).toEqual([]);
 	});
 
+	it('hides the destination field unless asked for it', () => {
+		expect(
+			fixture.nativeElement.querySelector('.file-picker__destination'),
+		).toBeNull();
+
+		component.showDestination = true;
+		fixture.detectChanges();
+
+		expect(
+			fixture.nativeElement.querySelector('.file-picker__destination'),
+		).toBeTruthy();
+	});
+
+	it('emits the destination as it is typed', () => {
+		const destinations: string[] = [];
+		component.destinationChange.subscribe((value) => destinations.push(value));
+		component.showDestination = true;
+		fixture.detectChanges();
+
+		const input: HTMLInputElement = fixture.nativeElement.querySelector(
+			'.file-picker__destination input',
+		);
+		input.value = 'runs/2026';
+		input.dispatchEvent(new Event('input'));
+
+		expect(destinations).toEqual(['runs/2026']);
+		expect(component.destination).toBe('runs/2026');
+	});
+
 	it('clears the selection', () => {
 		let cleared = 0;
 		component.cleared.subscribe(() => cleared++);
