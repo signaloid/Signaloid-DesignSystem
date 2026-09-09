@@ -8,7 +8,7 @@
 
 .file-picker__label {
 	color: var(--defaults-secondary-text-secondary);
-	font-family: var(--family-text, "IBM Plex Sans");
+	font-family: var(--family-text, 'IBM Plex Sans');
 	font-size: var(--size-sgnl-paragraph-m, 16px);
 	font-weight: 500;
 	line-height: var(--line-height-sgnl-font-line-height-paragraph-m, 24px);
@@ -111,7 +111,7 @@
 .file-picker__file-name,
 .file-picker__busy {
 	color: var(--defaults-primary-text-primary);
-	font-family: var(--family-text, "IBM Plex Sans");
+	font-family: var(--family-text, 'IBM Plex Sans');
 	font-size: var(--size-sgnl-paragraph-s, 14px);
 	font-weight: 500;
 	line-height: var(--line-height-sgnl-font-line-height-paragraph-s, 20px);
@@ -119,7 +119,7 @@
 
 .file-picker__hint {
 	color: var(--defaults-secondary-text-secondary);
-	font-family: var(--family-text, "IBM Plex Sans");
+	font-family: var(--family-text, 'IBM Plex Sans');
 	font-size: var(--size-sgnl-caption, 12px);
 	font-weight: 400;
 	line-height: var(--line-height-sgnl-font-line-height-caption, 16px);
@@ -231,7 +231,7 @@
 
 .file-picker__message {
 	color: var(--alerts-error-text-error);
-	font-family: var(--family-text, "IBM Plex Sans");
+	font-family: var(--family-text, 'IBM Plex Sans');
 	font-size: var(--size-sgnl-caption, 12px);
 	font-weight: 400;
 	line-height: var(--line-height-sgnl-font-line-height-caption, 16px);
