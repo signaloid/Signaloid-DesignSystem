@@ -1,0 +1,83 @@
+<div class="file-picker">
+	@if (label) {
+		<label
+			class="file-picker__label"
+			[class.file-picker__label--disabled]="disabled"
+			[attr.for]="inputId"
+		>
+			{{ label }}
+		</label>
+	}
+
+	<div
+		class="file-picker__area"
+		[class.file-picker__area--dragging]="dragging"
+		[class.file-picker__area--disabled]="disabled"
+		[class.file-picker__area--busy]="working"
+		[class.file-picker__area--error]="message"
+		[attr.aria-busy]="working"
+		(dragenter)="onDragOver($event)"
+		(dragover)="onDragOver($event)"
+		(dragleave)="onDragLeave($event)"
+		(drop)="onDrop($event)"
+	>
+		<input
+			class="file-picker__input"
+			[id]="inputId"
+			type="file"
+			[accept]="accept"
+			[disabled]="inert"
+			(change)="onInputChange($event)"
+		/>
+
+		@if (working) {
+			<span class="file-picker__busy">{{ busyText }}</span>
+			<progress
+				class="file-picker__progress"
+				max="100"
+				[attr.value]="determinate ? progress : null"
+				[attr.aria-label]="busyText"
+			></progress>
+		} @else if (file) {
+			<span class="file-picker__file">
+				<label class="file-picker__file-name" [attr.for]="inputId">{{
+					file.name
+				}}</label>
+				<button
+					class="file-picker__clear"
+					type="button"
+					aria-label="Remove file"
+					[disabled]="disabled"
+					(click)="clear()"
+				>
+					<lib-icon
+						[icon]="Close"
+						[size]="{ width: '16px', height: '16px' }"
+						[color]="disabled ? disabledIconColor : defaultIconColor"
+					></lib-icon>
+				</button>
+			</span>
+		} @else {
+			<label class="file-picker__pick" [attr.for]="inputId">
+				<span class="file-picker__prompt">
+					<lib-icon
+						[icon]="icon"
+						[color]="disabled ? disabledIconColor : defaultIconColor"
+					></lib-icon>
+					<span class="file-picker__placeholder">{{ placeholder }}</span>
+				</span>
+				@if (hint) {
+					<span class="file-picker__hint">{{ hint }}</span>
+				}
+			</label>
+		}
+	</div>
+
+	<span
+		class="file-picker__message"
+		[class.file-picker__message--empty]="!message"
+		role="status"
+		aria-live="polite"
+		>{{ message }}</span
+	>
+</div>

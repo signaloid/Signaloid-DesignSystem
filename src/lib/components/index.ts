@@ -28,3 +28,4 @@ export * from './multiple-choice/multiple-choice.component';
 export * from './infromation-tooltip/infromation-tooltip.component';
 export * from './error-container-technical/error-container-technical.component';
 export * from './toggle/toggle.component';
+export * from './file-picker/file-picker.component';
