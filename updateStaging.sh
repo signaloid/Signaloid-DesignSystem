@@ -35,7 +35,7 @@ git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/.gitignore
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/.prettierrc
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/angular.json
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/karma.conf.js
-git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/LICENCE
+git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/LICENSE
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/ng-package.json
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/package.json
 git checkout "$CURRENT_BRANCH" "$SCRIPT_DIR"/README.md
