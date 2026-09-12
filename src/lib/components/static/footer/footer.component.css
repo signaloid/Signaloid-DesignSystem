@@ -1,64 +1,68 @@
-.footer-dark{
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  box-sizing: border-box;
-  display: flex;
-  padding: var(--space-sgnl-space-96, 96px);
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sgnl-space-56, 3.5rem);  background: var(--gradients-g-neutral-v, linear-gradient(0deg, var(--support-gradient-neutral-light, #1C2430) 0%, var(--support-gradient-neutral-dark, #0A0E15) 100%));
+.footer-dark {
+	position: absolute;
+	bottom: 0;
+	width: 100vw;
+	box-sizing: border-box;
+	display: flex;
+	padding: var(--space-sgnl-space-96, 96px);
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-sgnl-space-56, 3.5rem);
+	background: var(--gradients-g-neutral-v, linear-gradient(0deg, var(--support-gradient-neutral-light, #1C2430) 0%, var(--support-gradient-neutral-dark, #0A0E15) 100%));
 
-  h4 {
-    color: var(--defaults-primary-text-primary-inverse, #FFF);
-    /* display/Medium/h4 Medium */
-    font-family: var(--family-display, "IBM Plex Sans");
-    font-size: var(--size-sgnl-h4, 44px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: var(--line-height-sgnl-font-line-height-h4, 48px); /* 109.091% */
-    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
-  }
+	h4 {
+		color: var(--defaults-primary-text-primary-inverse, #FFF);
+		/* display/Medium/h4 Medium */
+		font-family: var(--family-display, "IBM Plex Sans");
+		font-size: var(--size-sgnl-h4, 44px);
+		font-style: normal;
+		font-weight: 500;
+		line-height: var(--line-height-sgnl-font-line-height-h4, 48px);
+		/* 109.091% */
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
+	}
 
-  a {
-    color: var(--defaults-tertiary-text-tertiary, #8F939B);
+	a {
+		color: var(--defaults-tertiary-text-tertiary, #8F939B);
 
-    /* display/Regular/h6 Regular */
-    font-family: var(--family-display, "IBM Plex Sans");
-    font-size: var(--size-sgnl-h6, 24px);
-    font-style: normal;
-    font-weight: 400;
-    line-height: var(--line-height-sgnl-font-line-height-h6, 32px); /* 133.333% */
-    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-skip-ink: none;
-    text-decoration-thickness: auto;
-    text-underline-offset: auto;
-    text-underline-position: from-font;
-  }
+		/* display/Regular/h6 Regular */
+		font-family: var(--family-display, "IBM Plex Sans");
+		font-size: var(--size-sgnl-h6, 24px);
+		font-style: normal;
+		font-weight: 400;
+		line-height: var(--line-height-sgnl-font-line-height-h6, 32px);
+		/* 133.333% */
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
+		text-decoration-line: underline;
+		text-decoration-style: solid;
+		text-decoration-skip-ink: none;
+		text-decoration-thickness: auto;
+		text-underline-offset: auto;
+		text-underline-position: from-font;
+	}
 
-  mat-divider {
-    gap: var(--radius-sgnl-border-radius-8, 8px);
-    align-self: stretch;
-  }
+	mat-divider {
+		gap: var(--radius-sgnl-border-radius-8, 8px);
+		align-self: stretch;
+	}
 
 
-  p {
-    color: var(--defaults-tertiary-text-tertiary, #8F939B);
-    /* display/Regular/h6 Regular */
-    font-family: var(--family-display, "IBM Plex Sans");
-    font-size: var(--size-sgnl-h6, 24px);
-    font-style: normal;
-    font-weight: 400;
-    line-height: var(--line-height-sgnl-font-line-height-h6, 32px); /* 133.333% */
-    letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-skip-ink: none;
-    text-decoration-thickness: auto;
-    text-underline-offset: auto;
-    text-underline-position: from-font;
+	p {
+		color: var(--defaults-tertiary-text-tertiary, #8F939B);
+		/* display/Regular/h6 Regular */
+		font-family: var(--family-display, "IBM Plex Sans");
+		font-size: var(--size-sgnl-h6, 24px);
+		font-style: normal;
+		font-weight: 400;
+		line-height: var(--line-height-sgnl-font-line-height-h6, 32px);
+		/* 133.333% */
+		letter-spacing: var(--letter-spacing-sgnl-font-letter-spacing-055, -0.55px);
+		text-decoration-line: underline;
+		text-decoration-style: solid;
+		text-decoration-skip-ink: none;
+		text-decoration-thickness: auto;
+		text-underline-offset: auto;
+		text-underline-position: from-font;
 
-  }
+	}
 }

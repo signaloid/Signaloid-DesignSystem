@@ -1,16 +1,10 @@
-<div
-	class="snackbar-container"
-	[class]="data.type"
->
+<div class="snackbar-container" [class]="data.type">
 	@if (data.icon && data.icon !== "") {
 		<div
 			class="icon-segment"
 			[style]="{ background: data.iconBackgroundColor }"
 		>
-			<lib-icon
-				[icon]="data.icon"
-				[color]="data.iconColor"
-			></lib-icon>
+			<lib-icon [icon]="data.icon" [color]="data.iconColor ?? ''"></lib-icon>
 		</div>
 	}
 	<div class="text-segment">
@@ -24,10 +18,7 @@
 		}
 	</div>
 
-	<div
-		style="cursor: pointer"
-		(click)="snackbarRef.dismiss()"
-	>
+	<div style="cursor: pointer" (click)="snackbarRef.dismiss()">
 		<lib-icon [icon]="close"></lib-icon>
 	</div>
 </div>

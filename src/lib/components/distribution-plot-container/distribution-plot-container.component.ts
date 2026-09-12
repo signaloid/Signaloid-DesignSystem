@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output
+} from '@angular/core';
 import { DistributionSliderComponent } from '../distribution-slider/distribution-slider.component';
 // @ts-ignore
 import ChartColumn from '@carbon/icons/es/chart--column/16.js';
@@ -6,6 +15,7 @@ import ChartColumn from '@carbon/icons/es/chart--column/16.js';
 import SettingsAdjust from '@carbon/icons/es/settings--adjust/16';
 import { ButtonGroupComponent } from '../button-group/button-group.component';
 import { SliderComponent } from '../slider/slider.component';
+import { groupOptions } from '../button-group/button-group.types';
 
 @Component({
 	selector: 'lib-distribution-plot-container',
@@ -16,6 +26,7 @@ import { SliderComponent } from '../slider/slider.component';
 	standalone: true,
 })
 export class DistributionPlotContainerComponent implements AfterViewInit, OnInit {
+	inputOptionsDefaultValue: 'distribution' | 'slider' = 'distribution';
 	@Input() title: string = '';
 	@Input() min!: number;
 	@Input() max!: number;
@@ -32,6 +43,8 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	@Input() yAxisLabel?: string;
 	@Input() adjustWidthToSlidersCount: boolean = false;
 	@Input() showBottomTitle = true;
+	@Input() inputOptionValue!: 'distribution' | 'slider';
+	@Input() showSliderToggleButton = true;
 	@Output() switchedMode = new EventEmitter<'distribution' | 'slider'>();
 	@Output() distributionChangeInner = new EventEmitter<{
 		distribution: [number, number][];
@@ -39,25 +52,28 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	}>();
 	@Output() sliderChangeInner = new EventEmitter<number>();
 	distributionCenterValue: number = 0;
-	inputOptions = [
+	inputOptions: groupOptions = [
 		{
 			value: 'distribution',
-			icon: ChartColumn,
+			icon: ChartColumn as Object,
 		},
 		{
 			value: 'slider',
-			icon: SettingsAdjust,
+			icon: SettingsAdjust as Object,
 		},
 	];
-	inputOptionsDefaultValue = 'distribution';
-	inputOptionValue = this.inputOptionsDefaultValue;
 	showingTooltip = false;
 
+	constructor(private cd: ChangeDetectorRef) {
+		if (this.inputOptionValue === undefined) {
+			this.inputOptionValue = this.inputOptionsDefaultValue;
+		}
+	}
 	ngOnInit() {
 		this.distributionCenterValue = this.initialValue;
 	}
 
-	get calculateGraphWidth(): number | undefined {
+	get calculateGraphWidth(): number {
 		if (this.adjustWidthToSlidersCount) {
 			const slidersLength = (this.max - this.min) / this.step;
 			return slidersLength * 20 + 100;
@@ -65,14 +81,15 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 		return this.graphWidth;
 	}
 	ngAfterViewInit() {
-		this.inputOptionsDefaultValue = 'distribution';
-		this.inputOptionValue = this.inputOptionsDefaultValue;
 		this.showingTooltip = false;
+		this.cd.detectChanges();
 	}
+
 	public onDistributionChange(event: { distribution: [number, number][]; value: number }) {
 		this.distributionCenterValue = event.value;
 		this.distributionChangeInner.emit(event);
 	}
+
 	showTooltip() {
 		this.showingTooltip = true;
 	}
@@ -81,8 +98,10 @@ export class DistributionPlotContainerComponent implements AfterViewInit, OnInit
 	}
 	onChangeView(value: string) {
 		this.switchedMode.emit(value as 'distribution' | 'slider');
-		this.inputOptionValue = value;
+		this.inputOptionValue = value as 'distribution' | 'slider';
+		this.cd.detectChanges();
 	}
+
 	onLockedChange(isLocked: boolean) {
 		this.showBottomTitle = isLocked;
 	}

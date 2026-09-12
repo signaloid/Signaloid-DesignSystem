@@ -1,7 +1,18 @@
-<!-- monaco-editor.component.html -->
-<div
-  #editorContainer
-  class="monaco-editor-container"
-  [style.width]="width"
-  [style.height]="height"
-></div>
+@if (!diff) {
+	<ngx-monaco-editor
+		[options]="editorOptions()"
+		[(ngModel)]="value"
+		[style.width]="width"
+		[style.height]="height"
+		(onInit)="onMonacoEditorInit($event)"
+	/>
+} @else {
+	<ngx-monaco-diff-editor
+		[options]="editorOptions()"
+		[originalModel]="originalModel()"
+		[modifiedModel]="modifiedModel()"
+		[style.width]="width"
+		[style.height]="height"
+		(onInit)="onMonacoEditorInit($event)"
+	/>
+}

@@ -4,7 +4,7 @@ export interface SnackbarData {
 	actionLabel?: string;
 	description?: string;
 	icon?: unknown;
-  iconColor?: string;
-  iconBackgroundColor?: string;
+	iconColor?: string;
+	iconBackgroundColor?: string;
 }
 export type SnackbarType = 'primary' | 'neutral' | 'error' | 'success' | 'warning';

@@ -1,4 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CarbonIconComponent } from '../icon/icon.component';
 import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
 import { ButtonComponent } from '../button/button.component';
@@ -14,7 +14,7 @@ import { SnackbarData } from './snackbar.model';
 	styleUrl: './snackbar.component.scss',
 })
 export class SnackbarComponent {
-	constructor(@Inject(MAT_SNACK_BAR_DATA) public data: SnackbarData) {}
+	public data: SnackbarData = inject(MAT_SNACK_BAR_DATA);
 	protected snackbarRef = inject(MatSnackBar);
 	protected readonly ButtonType = ButtonType;
 	protected readonly close = close;

@@ -1,25 +1,22 @@
 import {
 	AfterViewInit,
-	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	EventEmitter,
 	HostListener,
 	Input,
 	OnChanges,
-	OnDestroy,
 	OnInit,
 	Output,
 	SimpleChanges,
 	ViewChild,
 } from '@angular/core';
-import { DecimalPipe, NgForOf, NgIf } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { InputTextComponent } from '../input-text/input-text.component';
 import { InputTextSize } from '../input-text/input-text.models';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { ButtonSize } from '../button/button.types';
-import { Subscription } from 'rxjs';
 import { BigNumbersPipe } from '../../pipes';
 
 interface DistributionPoint {
@@ -30,7 +27,7 @@ interface DistributionPoint {
 @Component({
 	selector: 'lib-distribution-slider',
 	templateUrl: './distribution-slider.component.html',
-	imports: [NgForOf, NgIf, DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent, BigNumbersPipe],
+	imports: [DecimalPipe, InputTextComponent, ReactiveFormsModule, ButtonComponent, BigNumbersPipe],
 	standalone: true,
 	styleUrls: ['./distribution-slider.component.scss'],
 })
@@ -82,8 +79,8 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	};
 
 	padding = {
-		top: 40,
-		bottom: 20,
+		top: 20,
+		bottom: 10,
 		left: 60,
 		right: -150,
 	};
@@ -92,7 +89,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	selectedCenterPoint: boolean = false;
 	valueState: number = 0;
 	distributionState: [number, number][] | number[][] = [];
-	constructor() {}
+	constructor() { }
 
 	pointTracking(index: number, point: DistributionPoint) {
 		return `${index} ${point.x} ${point.y}`;
@@ -121,10 +118,8 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 	private performInitialChecks() {
 		if (this.initialDistribution.length === 0) {
-			console.warn('initialDistribution is empty, rendering empty distribution');
 			return;
 		}
-		this.pointList;
 
 		const xAxisValues = this.initialDistribution.map(([x, y]) => x);
 		if (!xAxisValues.includes(this.initialValue)) {
@@ -141,7 +136,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	// Whenever window is resized, recalc measurements
-	@HostListener('window:resize', ['$event'])
+	@HostListener('window:resize')
 	onWindowResize() {
 		this.updateMeasurements();
 	}
@@ -214,7 +209,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 				y: this.safeArea.topLeft.y + (this.safeArea.height - weight * this.safeArea.height),
 			};
 		});
-    return points;
+		return points;
 	}
 
 	/** The path string used in `<path d="M ... L ... Z">` for the distribution area */
@@ -265,6 +260,7 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	onMouseUp() {
+		this.hoveredElementIndex = -1;
 		if (this.selectedPoint == null && !this.selectedCenterPoint) {
 			return;
 		}
@@ -388,51 +384,45 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 
 		this.distributionState.forEach((d) => {
 			d[0] = this.roundToDecimalPlaces(d[0] + valueShift, decimalPlaces);
+			if (d[0] < this.min || d[0] > this.max) {
+				d[1] = 0;
+			}
 		});
 	}
 
-	/** Normalizes / finalizes distribution and emits distributionChange */
 	updateDistribution() {
-		// ensure at least 2 decimal places for distribution
 		const decimalPlaces = Math.max(2, this.countDecimalPlaces(this.step));
-
-		// find first non-zero weight
-		let firstIndex = this.points.findIndex((p) => this.roundToDecimalPlaces(p[1], decimalPlaces) !== 0);
-		let lastIndex = [...this.points]
-			.reverse()
-			.findIndex((p) => this.roundToDecimalPlaces(p[1], decimalPlaces) !== 0);
-
-		// If no distribution is non-zero, fallback to center value
-		if (firstIndex === -1 && lastIndex === -1) {
-			firstIndex = this.points.findIndex(
-				(p) =>
-					this.roundToDecimalPlaces(p[0], decimalPlaces) ===
-					this.roundToDecimalPlaces(this.valueState, decimalPlaces),
-			);
-			lastIndex = [...this.points]
-				.reverse()
-				.findIndex(
-					(p) =>
-						this.roundToDecimalPlaces(p[0], decimalPlaces) ===
-						this.roundToDecimalPlaces(this.valueState, decimalPlaces),
-				);
-		}
-		// slice & transform distribution
-		const sliceEnd = this.points.length - lastIndex;
-		const distribution = this.points.slice(firstIndex, sliceEnd).map(([x, w]) => [
-			this.roundToDecimalPlaces(x, decimalPlaces),
-			Math.round(w * 100), // scale back
-		]) as [number, number][];
 		if (this.collapsed) {
-			// collapsed => just center
 			this.distributionChange.emit({
-				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 1]],
+				distribution: [[this.roundToDecimalPlaces(this.valueState, decimalPlaces), 100]],
 				value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
 			});
-
 			return;
 		}
 
+		const fullDistribution = this.points.map(([x, w]) => [
+			this.roundToDecimalPlaces(x, decimalPlaces),
+			Math.round(w * 100),
+		]) as [number, number][];
+
+		const firstIndex = fullDistribution.findIndex((p) => p[1] !== 0);
+
+		if (firstIndex === -1) {
+			this.distributionChange.emit({
+				distribution: fullDistribution,
+				value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
+			});
+			return;
+		}
+
+		const lastIndexReversed = [...fullDistribution].reverse().findIndex((p) => p[1] !== 0);
+		const sliceEnd = fullDistribution.length - lastIndexReversed;
+		const distribution = fullDistribution.slice(firstIndex, sliceEnd).map((elem) => {
+			if (elem[1] === 0) {
+				elem[1] = 1e-16;
+			}
+			return elem;
+		});
 		this.distributionChange.emit({
 			distribution,
 			value: this.roundToDecimalPlaces(this.valueState, decimalPlaces),
@@ -506,10 +496,14 @@ export class DistributionSliderComponent implements OnInit, OnChanges, AfterView
 	}
 
 	public hoverOnSlider(index: number) {
-		this.hoveredElementIndex = index;
+		if (!this.selectedPoint) {
+			this.hoveredElementIndex = index;
+		}
 	}
 	public hoverOffSlider() {
-		this.hoveredElementIndex = -1;
+		if (!this.selectedPoint) {
+			this.hoveredElementIndex = -1;
+		}
 	}
 	protected readonly InputTextSize = InputTextSize;
 	protected readonly ButtonSize = ButtonSize;

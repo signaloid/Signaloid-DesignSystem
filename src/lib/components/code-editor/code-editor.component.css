@@ -1,3 +1,10 @@
-::ng-deep  .view-line > span > *{
-  font-family: 'IBM Plex Mono', Menlo, Monaco, 'Courier New', monospace !important;
+::ng-deep .view-line>span>* {
+	font-family: 'IBM Plex Mono', Menlo, Monaco, 'Courier New', monospace !important;
+}
+
+:host {
+	display: flex;
+	flex-grow: 1;
+	width: 0;
+	margin-bottom: -10px;
 }
