@@ -18,10 +18,9 @@ TARGET="../Signaloid-DesignSystem"
 # Check if the directory exists
 if [ -d "$TARGET/.git" ]; then
 	printf -- "- Directory $TARGET already exists and is a git repository. Pulling the latest changes from the main branch.\n"
-	cd "$TARGET"
-	git checkout main
-	git reset --hard HEAD
-	git pull origin main
+	git -C "${TARGET}" checkout main
+	git -C "${TARGET}" reset --hard HEAD
+	git -C "${TARGET}" pull origin main
 else
 	printf -- "- Directory $TARGET does not exist. Cloning the repository.\n"
 	git clone "$PUBLIC_REPO_URL" "$TARGET"
@@ -38,6 +37,8 @@ git -C "${TARGET}" clean -fdx
 printf -- "\n- Files left in directory:\n"
 ls -a "${TARGET}"
 
+
+printf -- "\n- Checkout to staging:\n"
 git checkout staging
 
 printf -- "\n- Copying new files:\n"
