@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatFormField, MatHint, MatLabel, MatPrefix } from '@angular/material/form-field';
+import { MatFormField, MatHint } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
@@ -11,7 +11,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
-			useExisting: InputDropdownComponent,
+			useExisting: forwardRef(() => InputDropdownComponent),
 			multi: true,
 		},
 	],
@@ -20,13 +20,13 @@ export class InputDropdownComponent implements ControlValueAccessor {
 	@Input() label: string = 'Field Label';
 	@Input() placeholder: string = 'Placeholder text';
 	@Input() options: string[] | number[] = [];
-  @Input() hint: string | null = null;
-	constructor(private elementRef: ElementRef) {}
+	@Input() hint: string | null = null;
+	constructor(private elementRef: ElementRef) { }
 	isOpen = false;
 	value: string | number | null = null;
 
-	onChange = (val: any) => {};
-	onTouched = () => {};
+	onChange = (val: any) => { };
+	onTouched = () => { };
 
 	toggleDropdown() {
 		this.isOpen = !this.isOpen;

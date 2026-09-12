@@ -1,7 +1,4 @@
-<div
-	class="distribution-plot-container"
-	[style.width]="graphWidth + 'px'"
->
+<div class="distribution-plot-container" [style.width]="graphWidth + 'px'">
 	<div class="container-title">
 		<h6 class="container-title-text">
 			<p [innerHTML]="title"></p>
@@ -15,10 +12,7 @@
 				(mouseenter)="showTooltip()"
 				(mouseleave)="hideTooltip()"
 			>
-				<path
-					d="M8.5 11V7H6.5V8H7.5V11H6V12H10V11H8.5Z"
-					fill="#636873"
-				/>
+				<path d="M8.5 11V7H6.5V8H7.5V11H6V12H10V11H8.5Z" fill="#636873" />
 				<path
 					d="M8 4C7.85167 4 7.70666 4.04399 7.58333 4.1264C7.45999 4.20881 7.36386 4.32595 7.30709 4.46299C7.25033 4.60004 7.23548 4.75084 7.26441 4.89632C7.29335 5.04181 7.36478 5.17544 7.46967 5.28033C7.57456 5.38522 7.7082 5.45665 7.85369 5.48559C7.99917 5.51453 8.14997 5.49968 8.28701 5.44291C8.42406 5.38615 8.54119 5.29002 8.6236 5.16668C8.70602 5.04334 8.75 4.89834 8.75 4.75C8.75 4.55109 8.67098 4.36033 8.53033 4.21967C8.38968 4.07902 8.19892 4 8 4Z"
 					fill="#636873"
@@ -30,10 +24,7 @@
 			</svg>
 		</h6>
 
-		<div
-			class="tooltip-container"
-			[hidden]="!showingTooltip"
-		>
+		<div class="tooltip-container" [hidden]="!showingTooltip">
 			<div class="tooltip">
 				<div class="tooltip-title">
 					<ng-content select="[tooltip-title]"></ng-content>
@@ -43,20 +34,23 @@
 				</div>
 			</div>
 		</div>
-    <div style="display: flex; gap: 8px; align-items: center">
-      <lib-button-group
-        [disabled]="disabled"
-        [defaultValue]="inputOptionsDefaultValue"
-        (valueChange)="onChangeView($event)"
-        [optionsArray]="inputOptions"
-      ></lib-button-group>
-    </div>
+		@if (showSliderToggleButton) {
+			<div style="display: flex; gap: 8px; align-items: center">
+				<lib-button-group
+					[disabled]="disabled"
+					[defaultValue]="inputOptionValue"
+					(valueChange)="onChangeView($event)"
+					[optionsArray]="inputOptions"
+				></lib-button-group>
+			</div>
+		}
 	</div>
 	<div class="plot-description">
 		<ng-content select="[plot-description]"></ng-content>
 	</div>
+
 	<lib-distribution-slider
-		[hidden]="inputOptionValue === 'slider'"
+		[style.display]="inputOptionValue === 'distribution' ? 'block' : 'none'"
 		[min]="min"
 		[max]="max"
 		[step]="step"
@@ -74,7 +68,7 @@
 	></lib-distribution-slider>
 
 	<lib-slider
-		[hidden]="inputOptionValue === 'distribution'"
+		[style.display]="inputOptionValue === 'slider' ? 'block' : 'none'"
 		[value]="distributionCenterValue"
 		[disabled]="disabled"
 		[labelBelow]="xAxisLabel"

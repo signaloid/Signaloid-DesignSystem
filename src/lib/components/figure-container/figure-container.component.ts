@@ -1,27 +1,26 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 
 import { DistributionPlotComponent } from '../distribution-plot/distribution-plot.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import {NgClass} from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
 	selector: 'lib-figure-container',
 	templateUrl: './figure-container.component.html',
 	styleUrl: './figure-container.component.css',
-	imports: [DistributionPlotComponent, MatProgressSpinner, NgClass, SkeletonModule, ProgressSpinner],
+	imports: [DistributionPlotComponent, MatProgressSpinner, SkeletonModule],
 })
 export class FigureContainerComponent {
 	@Input() imageSource: string = '';
 	@Input() uxString: string = '';
 	@Input() xAxisLabel: string = '';
 	@Input() loading: boolean = false;
-  @Input() initialLoading: boolean = false;
+	@Input() initialLoading: boolean = false;
 	@Input() suffix: string = '';
 	@Input() prefix: string = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
 	@Input() singleValue = false;
-	constructor(private cd: ChangeDetectorRef) {}
+	@Input() varValue: number | undefined;
+	constructor(private cd: ChangeDetectorRef) {
+	}
 }
-

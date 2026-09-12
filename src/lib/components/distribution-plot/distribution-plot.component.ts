@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
-import { DistributionalValue, PlotData, signaloidChartOption} from '@signaloid/uxdata-tools';
 import { NGX_ECHARTS_CONFIG, NgxEchartsDirective } from 'ngx-echarts';
 
 import { YAXisOption } from 'echarts/types/dist/shared';
-import { CurrencyPipe, NgClass } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import * as uxTools from '@signaloid/uxdata-tools';
 
 const AXIS_STYLE = {
 	axisLine: { show: true, onZero: false, lineStyle: { type: 'solid' as const, width: 1.5, color: '#000' } },
@@ -40,7 +40,7 @@ const ARIA_CONFIG = {
 	selector: 'lib-distribution-plot',
 	templateUrl: './distribution-plot.component.html',
 	styleUrls: ['./distribution-plot.component.css'],
-	imports: [NgxEchartsDirective, CurrencyPipe, NgClass], // Ensure NgxEchartsDirective and your pipe are imported
+	imports: [NgxEchartsDirective, CurrencyPipe], // Ensure NgxEchartsDirective and your pipe are imported
 	standalone: true,
 	providers: [
 		{
@@ -51,12 +51,13 @@ const ARIA_CONFIG = {
 })
 export class DistributionPlotComponent implements OnInit, OnChanges {
 	@Input() uxValue: string = '';
-	distValue!: DistributionalValue ;
+	distValue!: uxTools.DistributionalValue;
 	@Input() yAxisLabel = 'Probability Density';
 	@Input() xAxisLabel = 'Distribution Support';
 	@Input() suffix = '';
 	@Input() prefix = '';
 	@Input() percentageOfValueAtRisk: number | undefined;
+	@Input() varValue: number | undefined;
 	@Input() hasSingleValue = false;
 	protected particleValue: number | null = null;
 	private hasColoring = false;
@@ -71,23 +72,24 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		if (changes?.['uxValue']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
 			this.updateChartData();
-		}
-		else if (changes?.['percentageOfValueAtRisk']) {
+		} else if (changes?.['percentageOfValueAtRisk']) {
 			this.hasColoring = this.percentageOfValueAtRisk !== undefined;
+			this.updateChartData();
+		}
+		else if (changes?.['varValue']) {
 			this.updateChartData();
 		}
 	}
 
 	private updateChartData(): void {
 		try {
-
-			const dist = DistributionalValue.parse(this.uxValue);
-      if(dist === null) {
-        this.chartOptions = {}; // Clear chart on error
-        return;
-      }
-      this.distValue = dist;
-			this.particleValue = this.distValue.particle_value; // Set the particleValue for the template
+			const dist = uxTools.DistributionalValue.parse(this.uxValue);
+			if (dist === null) {
+				this.chartOptions = {}; // Clear chart on error
+				return;
+			}
+			this.distValue = dist;
+			this.particleValue = this.distValue.mean; // Set the particleValue for the template
 			this.buildChartOptions();
 		} catch (error) {
 			this.chartOptions = {}; // Clear chart on error
@@ -117,18 +119,20 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			xAxis: this.getHistogramXAxes(xAxisMin, xAxisMax, minXExp),
 			graphic: {
-				elements:  this.hasColoring ? [
-					{
-						type: 'text',
-						left: '50%',
-						top: '40%',
-						style: {
-							text: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
-							font: '14px sans-serif',
-							fill: 'rgba(0, 0, 0, 0.8)',
+				elements: this.hasColoring
+					? [
+						{
+							type: 'text',
+							left: '50%',
+							top: '40%',
+							style: {
+								text: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
+								font: '14px sans-serif',
+								fill: 'rgba(0, 0, 0, 0.8)',
+							},
 						},
-					},
-				] : [],
+					]
+					: [],
 			},
 			yAxis: [
 				{
@@ -203,12 +207,12 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 	}
 
 	private buildHistogramOptions(): EChartsOption {
-    const plotData = new PlotData(this.distValue, 64)
+		const plotData = new uxTools.PlotData(this.distValue, 64);
 
 		const [bp, bw, bh] = [plotData.positions, plotData.widths, plotData.masses];
-		const minXExp = this.getExponent(plotData.max_range/ 2)  - 1;
+		const minXExp = this.getExponent(plotData.max_range / 2) - 1;
 
-		const minYExp = this.getExponent(plotData.max_value/ 2) - 1;
+		const minYExp = this.getExponent(plotData.max_value / 2) - 1;
 
 		const normBP = bp.map((v) => this.normalize(v, minXExp));
 		const normMean = this.distValue.mean != null ? this.normalize(this.distValue.mean, minXExp) : NaN;
@@ -216,7 +220,12 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const range = Math.abs(normBP[normBP.length - 1] - normBP[0]);
 		const xAxisMin = Math.min(...normBP);
 		const xAxisMax = Math.max(...normBP);
-		const valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+		let valueAtRisk = this.percentageOfValueAtRisk ? this.percentageOfValueAtRisk * xAxisMax : undefined;
+
+		if (this.varValue) {
+			valueAtRisk = this.normalize(this.varValue, minXExp) ?? undefined;
+		}
+
 		return {
 			grid: { left: '50px', right: '30px', top: '25px', bottom: '50px' },
 			aria: ARIA_CONFIG,
@@ -282,11 +291,11 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 				position: 'left' as const,
 				name: this.yAxisLabel,
 				nameLocation: 'middle' as const,
-        axisLine: { show: false,onZero: false },
-        axisTick: { show: false },
-        minorTick: { show: false },
+				axisLine: { show: false, onZero: false },
+				axisTick: { show: false },
+				minorTick: { show: false },
 				nameGap: 35,
-        min: 0,
+				min: 0,
 				nameTextStyle: AXIS_NAME_STYLE,
 				scale: true,
 				splitLine: { lineStyle: { type: 'dotted', color: 'rgba(153, 153, 153, 0.67)' } },
@@ -304,27 +313,23 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 					},
 				},
 			},
-
 		];
-    if (minYExp !== 0) {
-      axes.push({
-        type: 'value' as const,
-        position: 'left' as const,
-        name: `1e${minYExp}`,
-        nameLocation: 'end' as const,
-        nameGap: 10,
-        nameTextStyle: { color: '#000' },
-        scale: false,
-        axisLine: { show: false, onZero: false },
-        axisTick: { show: false },
-        axisLabel: { show: false },
-      });
+		if (minYExp !== 0) {
+			axes.push({
+				type: 'value' as const,
+				position: 'left' as const,
+				name: `1e${minYExp}`,
+				nameLocation: 'end' as const,
+				nameGap: 10,
+				nameTextStyle: { color: '#000' },
+				scale: false,
+				axisLine: { show: false, onZero: false },
+				axisTick: { show: false },
+				axisLabel: { show: false },
+			});
+		}
 
-    }
-
-    console.log(axes);
-
-    return axes;
+		return axes;
 	}
 
 	private getHistogramSeries(
@@ -338,7 +343,7 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		const dataPoints = normBP.map((val, i) => ({
 			value: [val, normBP[i + 1], normBH[i], normBW[i] * normBH[i]],
 		}));
-    return [
+		return [
 			{
 				xAxisIndex: 0,
 				type: 'custom',
@@ -353,7 +358,6 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 					const bottomRight = api.coord([toX, 0]);
 					const width = bottomRight[0] - topLeft[0];
 					const heightInPixels = bottomRight[1] - topLeft[1];
-
 					return {
 						type: 'rect',
 						shape: { x: topLeft[0], y: topLeft[1], width: width, height: heightInPixels },
@@ -366,36 +370,36 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 						},
 					};
 				},
-				markLine: this.getMarkLine(normMean, normValueAtRisk) ,
+				markLine: this.getMarkLine(normMean, normValueAtRisk),
 				markArea: this.hasColoring
 					? {
-							itemStyle: {
-								opacity: 0.25,
-							},
-							data: [
-								// Red area (Loss region)
-								[
-									{
-										xAxis: 'min', // from the start of the axis
-										itemStyle: { color: '#d9534f' },
-									},
-									{
-										xAxis: normValueAtRisk,
-									},
-								],
-								// Green area (Confidence region)
-								[
-									{
-										name: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
-										xAxis: normValueAtRisk,
-										itemStyle: { color: '#91cc75' },
-									},
-									{
-										xAxis: 'max', // to the end of the axis
-									},
-								],
+						itemStyle: {
+							opacity: 0.25,
+						},
+						data: [
+							// Red area (Loss region)
+							[
+								{
+									xAxis: 'min', // from the start of the axis
+									itemStyle: { color: '#d9534f' },
+								},
+								{
+									xAxis: 0,
+								},
 							],
-						}
+							// Green area (Confidence region)
+							[
+								{
+									name: `${((1 - Number(this.percentageOfValueAtRisk)) * 100).toFixed(0)} % Confidence`,
+									xAxis: 0,
+									itemStyle: { color: '#91cc75' },
+								},
+								{
+									xAxis: 'max', // to the end of the axis
+								},
+							],
+						],
+					}
 					: {},
 				tooltip: {
 					formatter: (params: any) => `Probability Mass<br/>${params.data.value[3]}`,
@@ -403,55 +407,45 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 			},
 		];
 	}
+
 	private getExponent = (num: number): number => this.scientific(num)[1];
 
-  private getMarkLine(normMean: number, normValueAtRisk: number | undefined): echarts.MarkLineComponentOption  {
-    if(!this.hasColoring) {
-		return {
-      animation: false,
-      symbol: 'none',
-      data: [
-        {
-          name: 'E(x)',
-          xAxis: normMean,
-          label: {
-            show: true,
-            position: 'insideEndTop',
-            formatter: '{b}',
-          },
-        },
-      ],
-      lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
-    };
-	}
-    return {
-      animation: false,
-      symbol: 'none',
-      data: [
-        {
-          name: 'E(x)',
-          xAxis: normMean,
-          label: {
-            show: true,
-            position: 'insideEndTop',
-            formatter: '{b}',
-          },
-        },
-        {
-          name: 'VaR',
-          xAxis: normValueAtRisk ? normValueAtRisk : 0,
-          lineStyle: { color: 'black', width: 2 },
-          label: {
-            show: true,
-            position: 'insideStartTop',
-            formatter: '{b}',
-          },
-        },
-      ],
+	private getMarkLine(normMean: number, normValueAtRisk: number | undefined): echarts.MarkLineComponentOption {
+		const options: echarts.MarkLineComponentOption = {
+			animation: false,
+			symbol: 'none',
+			data: [
+				{
+					name: 'E(x)',
+					xAxis: normMean,
+					label: {
+						show: true,
+						position: 'insideEndTop',
+						formatter: '{b}',
+					},
+				},
+			],
+			lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
+		};
 
-      lineStyle: { color: 'rgba(41, 120, 45, 0.4)', type: 'solid', width: 2 },
-    }
-  }
+		if (this.hasColoring) {
+			// @ts-ignore
+			options.data.push(
+				{
+					name: 'VaR',
+					xAxis: normValueAtRisk ? normValueAtRisk : 0,
+					lineStyle: { color: 'black', width: 2 },
+					label: {
+						show: true,
+						position: 'insideStartTop',
+						formatter: '{b}',
+					},
+				}
+			)
+		}
+
+		return options;
+	}
 
 	private normalize(val: number, newExp: number): number {
 		const [coef, origExp] = this.scientific(val);
@@ -463,4 +457,3 @@ export class DistributionPlotComponent implements OnInit, OnChanges {
 		return [c, e];
 	}
 }
-

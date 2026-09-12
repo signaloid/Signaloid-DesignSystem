@@ -17,7 +17,7 @@ export class ButtonGroupComponent implements OnInit, OnDestroy {
 	@Input() optionsArray: groupOptions = [];
 	@Input() defaultValue = '';
 	@Output() valueChange = new EventEmitter();
-  @Input() disabled: boolean = false;
+	@Input() disabled: boolean = false;
 	buttonGroup: FormControl = new FormControl(this.defaultValue);
 	privateOptionsArray: groupOptions = [];
 	subscriptions: Subscription[] = [];

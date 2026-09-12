@@ -1,12 +1,18 @@
-<mat-radio-group
-  aria-label="Select an option"
-  [disabled]="disabled"
-  [value]="value"
-  (change)="onChange($event.value)"
->
-  @for (option of options; track option.value) {
-  <mat-radio-button  [value]="option.value">
-    {{option.name}}
-  </mat-radio-button>
-  }
-</mat-radio-group>
+<div class="radio-wrapper">
+	<div class="container">
+		<div *ngFor="let option of options" class="flex items-center">
+			<p-radiobutton
+				[inputId]="option.value"
+				[name]="'radio-group'"
+				[value]="option.value"
+				[disabled]="disabled"
+				[ngModel]="value"
+				(onClick)="onChange(option.value)"
+			>
+			</p-radiobutton>
+			<label [for]="option.value" class="name" [class.opacity-60]="disabled">
+				{{ option.name }}
+			</label>
+		</div>
+	</div>
+</div>

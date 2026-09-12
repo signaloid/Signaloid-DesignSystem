@@ -1,36 +1,35 @@
-<div [ngClass]="{ 'single-value-container': singleValue, 'figure-container': !singleValue }">
+<div
+	[class.single-value-container]="singleValue"
+	[class.figure-container]="!singleValue"
+>
 	<p class="figure-title">
 		<ng-content select="[figure-title]"></ng-content>
 		@if (loading) {
-      <div [ngClass]="{ 'loader-single-value': singleValue }">
-      <mat-progress-spinner
-				diameter="16"
-				mode="indeterminate"
-			></mat-progress-spinner>
-      </div>
+			<div [class.loader-single-value]="singleValue">
+				<mat-progress-spinner
+					diameter="16"
+					mode="indeterminate"
+				></mat-progress-spinner>
+			</div>
 		}
 	</p>
 	@if (loading && !singleValue && initialLoading) {
-		<div class="loading-container" >
-      <p-skeleton
-        height="24px"
-        width="88px"
-        borderRadius="6px"
-        styleClass="mb-2"
-      />
+		<div class="loading-container">
 			<p-skeleton
-
-				height="210px"
-			>
-			</p-skeleton>
+				height="24px"
+				width="88px"
+				borderRadius="6px"
+				styleClass="mb-2"
+			/>
+			<p-skeleton height="210px"> </p-skeleton>
 		</div>
 	} @else if (loading && singleValue && initialLoading) {
 		<div style="width: 100%">
 			<p-skeleton
 				height="24px"
-        width="88px"
-        borderRadius="6px"
-        styleClass="mb-2"
+				width="88px"
+				borderRadius="6px"
+				styleClass="mb-2"
 			/>
 		</div>
 	} @else {
@@ -41,6 +40,7 @@
 			[uxValue]="uxString"
 			[percentageOfValueAtRisk]="percentageOfValueAtRisk"
 			[hasSingleValue]="singleValue"
+			[varValue]="varValue"
 		></lib-distribution-plot>
 	}
 	@if (!singleValue) {
