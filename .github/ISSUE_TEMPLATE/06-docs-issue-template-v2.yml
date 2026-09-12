@@ -1,0 +1,123 @@
+name: 📖 Internal Documentation Issue Template
+description: Use this for creating or updating internal documents, READMEs, and technical guides.
+type: "docs"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new document issue.  Use this template to document internal processes, technical architectures, or system setups.
+        Please assign it to a relevant co-worker (or team lead if that is uncertain), so it can be triaged efficiently.
+  
+  - type: markdown
+    attributes:
+      value: "## Overview"
+      
+  - type: textarea
+    id: doc-objective
+    attributes:
+      label: Objective
+      description: What is the goal of this documentation? What problem does it solve for the team?
+      placeholder: e.g., Documenting the local FPGA toolchain setup.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: document-type
+    attributes:
+      label: Document Type
+      options:
+        - How-to Guide / Tutorial
+        - System Architecture Design
+        - Workflow Process
+        - API / Internal Library Reference
+        - Troubleshooting / FAQ
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Intended Location
+      placeholder: This repository
+      description: Where will this documentation live? (e.g., this repo, a GDrive folder, or other)
+    validations:
+      required: true
+
+  - type: textarea
+    id: content-outline
+    attributes:
+      label: Content Outline
+      description: Briefly list the sections or key information to be covered.
+      placeholder: |
+        1. Prerequisites
+        2. Installation Steps
+        3. Known issues
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## Maintenance and Ownership"
+
+  - type: input
+    id: owner
+    attributes:
+      label: Document Owner/Maintainer
+      description: Who is responsible for keeping this information up to date?
+      placeholder: "@username or @team"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: update-frequency
+    attributes:
+      label: Expected Update Frequency
+      description: How often does this information change?
+      options:
+        - Low (Static technical principle)
+        - Medium (Changes with major releases)
+        - High (Active development/Frequent changes)
+    validations:
+      required: false
+
+  - type: textarea
+    id: doc_acceptance_criteria
+    attributes:
+      label: Documentation Acceptance Criteria
+      value: |
+        - Meets the Signaloid organization [coding and file naming conventions](https://github.com/signaloid/signaloid-conventions).
+        - Meets the Signaloid writing and style guidelines.
+        - Tested the instructions.
+        - Documentation contains clear links to related code or external tools.
+        - Images/Diagrams are hosted in a sustainable way (not temporary links).
+        - Reviewed for technical accuracy by at least one other employee.
+
+  - type: markdown
+    attributes:
+      value: "## Extra Context"
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues
+      placeholder: "- #123"
+      description: List, and link to, all existing issues that impact this document.
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagrams_screenshots
+    attributes:
+      label: Diagrams and Screenshots
+      description: If applicable, drag and drop images here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Add any other context about the document here.
+    validations:
+      required: false

@@ -1,0 +1,94 @@
+name: ✨ Enhancement Issue Template
+description: A default template for issues that propose a new feature
+type: "enhancement"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new feature or enhancement issue.  
+        Please assign it to an employee (or team lead if that is uncertain), so it can be triaged efficiently.
+  
+  - type: markdown
+    attributes:
+      value: "## Overview"
+      
+  - type: textarea
+    id: objectives
+    attributes:
+      label: Objectives
+      description: Please provide a clear and concise description of the feature/improvement required.
+      placeholder: |
+        e.g., XXX is required because it will enable...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: Please provide a clear and concise proposed solution to implementing this, perferrably in a checked list.
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: measurable_result
+    attributes:
+      label: Measurable Result
+      placeholder: e.g., The reduction in compilation time
+      description: The quantitative impact this new feature will implement.
+    validations:
+      required: false
+
+  - type: input
+    id: numeric_target_value
+    attributes:
+      label: Numeric Target Value
+      placeholder: e.g., Reduction by 50% or <1 hour
+      description: The value of this target quantity
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Items that must be completed for this task to be considered resolved.
+      value: |
+        - Meets the Signaloid organization [coding and file naming conventions](https://github.com/signaloid/signaloid-conventions).
+        - Passes standalone/unit test (only applicable to code/RTL).
+        - Passes integration test when integrated into system (only applicable to code/RTL).
+        - Passes end-to-end integration test (for cloud-based signup/billing issues)
+        - Meets Signaloid's UI/UX quality standards (for product issues).
+        - Confirmed with the original person who raised/filed the issue that the implementation addresses its spirit.
+
+  - type: markdown
+    attributes:
+      value: "## Extra Context"
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues
+      placeholder: "- #123"
+      description: List, and link to, all existing issues that impact this feature.
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagrams_screenshots
+    attributes:
+      label: Diagrams and Screenshots
+      description: If applicable, drag and drop images here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Add any other context about the feature here.
+    validations:
+      required: false

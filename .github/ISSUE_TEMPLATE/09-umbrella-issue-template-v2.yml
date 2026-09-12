@@ -1,0 +1,123 @@
+name: "☂️ Umbrella Issue Template"
+description: Use this to track a high-level goal or theme that spans multiple sub-issues and tasks.
+type: "umbrella"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new Umbrella issue.
+        Use this space to coordinate multiple sub-tasks and provide a bird's-eye view of progress toward a major objective.
+        Please assign it to an employee (or team lead if that is uncertain), so it can be triaged efficiently.
+
+  - type: markdown
+    attributes:
+      value: "## Overview"
+
+  - type: textarea
+    id: mission-statement
+    attributes:
+      label: Mission Statement
+      description: What is the overarching goal of this Umbrella?
+      placeholder: e.g., Modernizing the Signaloid Web Portal UI for Release XXX
+    validations:
+      required: true
+
+  - type: textarea
+    id: success-definition
+    attributes:
+      label: Definition of Success
+      description: What is the minimum viable outcome? Which parts are "must-haves" versus "nice-to-haves"?
+      placeholder: |
+        - Must-have: User can upload SCDP files via the new dashboard.
+        - Nice-to-have: Real-time progress bar (can be descoped if core logic is delivered).
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## Sub-Issues & Task Tracking"
+
+  - type: textarea
+    id: prep-sub-tasks
+    attributes:
+      label: "Phase 1: Preparation"
+      description: List the issues here that pertain to the preparation of systems for this goal.
+      placeholder: |
+        - [ ] #
+        - [ ] #
+    validations:
+      required: false
+
+  - type: textarea
+    id: implement-sub-tasks
+    attributes:
+      label: "Phase 2: Implementation"
+      description: List the issues here that pertain to the new implementations required for this goal.
+      placeholder: |
+        - [ ] #
+        - [ ] #
+    validations:
+      required: false
+
+  - type: textarea
+    id: validate-sub-tasks
+    attributes:
+      label: "Phase 3: Validation"
+      description: List the issues here that pertain to validating the functionality of this goal.
+      placeholder: |
+        - [ ] #
+        - [ ] #
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Management
+        Status updates are to be made in the comment thread.
+
+  - type: input
+    id: estimated_effort
+    attributes:
+      label: Total Estimated Effort (Aggregated)
+      placeholder: e.g., 1 month
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Umbrella Acceptance Criteria
+      value: |
+        - This issue is for tracking and will remain open until the core objective is met.
+        - Update the "Status" comments periodically to reflect the current reality.
+        - Identify the critical path (the issues that *must* be completed).
+
+  - type: markdown
+    attributes:
+      value: "## Extra Context"
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues
+      placeholder: "- #123"
+      description: List, and link to, all existing issues that impact this topic.
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagrams_screenshots
+    attributes:
+      label: Diagrams and Screenshots
+      description: If applicable, drag and drop images here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Add any other context about the problem here.
+    validations:
+      required: false

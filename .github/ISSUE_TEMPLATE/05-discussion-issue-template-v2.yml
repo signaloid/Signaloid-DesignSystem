@@ -1,0 +1,106 @@
+name: 💡 Discussion Issue Template
+description: Use this for developing ideas, requesting feedback, or long-term topical evaluations.
+type: "discussion"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this issue as a dedicated space for collaboration and evaluation. 
+        Unlike task-based issues, these are intended to remain open as a 'living document' for future reference.  
+        Please assign all relevant employees (or team leads if that is uncertain), so it can be triaged efficiently.
+
+  - type: markdown
+    attributes:
+      value: "## Overview"
+
+  - type: textarea
+    id: abstract
+    attributes:
+      label: Abstract / Summary
+      description: A high-level overview of the topic or idea being discussed.
+      placeholder: e.g., Exploring the migration of our CI/CD pipeline to a more modular architecture.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: initial-status
+    attributes:
+      label: Initial Discussion Status
+      description: What is the current state of this topic (at the time of the issue being opened)?
+      options:
+        - 🟢 Active / Seeking Feedback
+        - 🟡 Evaluation in Progress
+        - 🔵 Implementation / Action Taken
+        - ⚪ Reference Only (Superseded/Legacy)
+    validations:
+      required: false
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation and Goals
+      description: Why are we discussing this now? What is the short-term goal of this discussion?
+      placeholder: |
+        - Address current bottleneck in...
+        - Evaluate the cost-benefit of...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-concepts
+    attributes:
+      label: Proposed Concepts / Ideas
+      description: Detail the specific ideas or workflows being evaluated.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Evaluation Framework"
+
+  - type: textarea
+    id: pros-cons
+    attributes:
+      label: Pros and Cons
+      description: Use this section to weight different approaches.
+      placeholder: |
+        **Approach A:**
+        - Pros: ...
+        - Cons: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: Requested Reviewers / Stakeholders
+      description: Who specifically are we requesting comments from?
+      placeholder: "@username, @engineering-team, etc."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Reference and History"
+
+  - type: textarea
+    id: references
+    attributes:
+      label: External References
+      description: Links to papers, competitors, previous discussions, or internal docs.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Issue Management"
+
+  - type: textarea
+    id: discussion_conventions
+    attributes:
+      label: Discussion Guidelines
+      value: |
+        - This issue will remain open after its initial goal is met for historical context.
+        - Major decisions made here will be summarized in a pinned comment.
+        - Comments should remain focused on the core abstract to maintain reference value.
+    

@@ -1,0 +1,134 @@
+name: "🎨 Collateral Issue Template"
+description: Use this for documents, images, and marketing materials intended for external use.
+type: "collateral"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new collateral issue. 
+        Collateral is defined as any materials that are intended for an external audience.
+        Please assign it to an employee (or team lead if that is uncertain), so it can be triaged efficiently.
+
+  - type: markdown
+    attributes:
+      value: "## Overview"
+
+  - type: textarea
+    id: collateral-description
+    attributes:
+      label: Description of Material
+      description: What is being created? (e.g., Technical Whitepaper, Website Graphic, LinkedIn Banner)
+      placeholder: e.g., A 2-page technical brief
+    validations:
+      required: true
+
+  - type: input
+    id: target-audience
+    attributes:
+      label: Target Audience
+      description: Who is the primary reader or viewer?
+      placeholder: e.g., Embedded Systems Engineers, Potential Investors, General Audience
+    validations:
+      required: true
+
+  - type: dropdown
+    id: distribution-channel
+    attributes:
+      label: Distribution Channel
+      description: Where will this be published?
+      multiple: true
+      options:
+        - Signaloid Website
+        - LinkedIn / Social Media
+        - Newsletter
+        - Trade Show
+        - Developer Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: key-messaging
+    attributes:
+      label: Key Messaging and Goals
+      description: What are the 2-3 main points this collateral must communicate?
+      placeholder: |
+        1. Highlight the speed of the new core.
+        2. Drive signups for the SCDP.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Specifications/Requirements"
+
+  - type: dropdown
+    id: asset-type
+    attributes:
+      label: Asset Type
+      options:
+        - Vector/PDF
+        - Image
+        - Text-only (Markdown/Doc)
+        - Video / Animation
+        - Audio
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: dimensions
+    attributes:
+      label: Dimensions or Word Count
+      placeholder: e.g., 1200x627px (LinkedIn) or ~1000 words
+    validations:
+      required: false
+
+  - type: textarea
+    id: reference-materials
+    attributes:
+      label: Reference Materials and Inspiration
+      description: Link to existing assets, or draft text.
+      placeholder: "e.g., See draft here: [Google Doc Link]"
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      value: |
+        - Meets Signaloid Branding Style Guidelines (Colors, Fonts, Tone).
+        - Reviewed for technical accuracy.
+        - Proofread for grammar and spelling.
+        - Exported in the required final formats (e.g., PDF, SVG).
+        - Approved by Product Lead for external release.
+
+  - type: markdown
+    attributes:
+      value: "## Extra Context"
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues
+      placeholder: "- #123"
+      description: List, and link to, all existing issues that impact this.
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagrams_screenshots
+    attributes:
+      label: Diagrams and Screenshots
+      description: If applicable, drag and drop images here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Add any other context about the collateral here.
+    validations:
+      required: false

@@ -1,0 +1,119 @@
+name: 📜 Contractual/Client Delivery Issue Template
+description: Use this for tasks mandated by external contracts, or client-specific agreements.
+type: "deliverable"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit this new issue to track a formal delivery requirement.
+        Please assign it to an employee (or team lead if that is uncertain), so it can be triaged efficiently.
+
+  - type: markdown
+    attributes:
+      value: "## Overview"
+      
+  - type: input
+    id: client-name
+    attributes:
+      label: Client / Partner Name
+    validations:
+      required: true
+
+  - type: input
+    id: contract-reference
+    attributes:
+      label: Contract or Project Reference
+      description: Specific clause or document ID this delivery satisfies.
+      placeholder: e.g., Section 4.2
+    validations:
+      required: true
+
+  - type: textarea
+    id: delivery-description
+    attributes:
+      label: Description of Deliverable
+      description: What exactly must be delivered to satisfy the requirement?
+      placeholder: e.g., Custom RTL IP core with integration documentation.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: delivery-method
+    attributes:
+      label: Delivery Method
+      description: How will the client receive this?
+      options:
+        - Secure Portal Upload
+        - Encrypted Email
+        - Shared Private Repository
+        - Physical Media
+        - Direct API Deployment
+        - Other
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "## Compliance and Quality Requirements"
+
+  - type: dropdown
+    id: data-sensitivity
+    attributes:
+      label: Data Sensitivity
+      options:
+        - Public
+        - Internal Only
+        - Confidential (Client-Eyes Only)
+        - Restricted / IP-Sensitive
+    validations:
+      required: true
+
+  - type: input
+    id: client-stakeholder
+    attributes:
+      label: Primary Client Contact
+      description: Who on the client side is responsible for accepting this?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acceptance_criteria
+    attributes:
+      label: Contractual Acceptance Criteria
+      description: Final checks before the client is notified.
+      options: 
+        - label: Fully meets the technical specifications defined.
+        - label: Documentation matches the current implementation.
+        - label: Security review/Sanitization performed (no internal Signaloid keys/secrets included).
+        - label: Legal/Compliance sign-off for external transfer.
+        - label: Formal receipt or "Proof of Delivery" prepared.
+
+  - type: markdown
+    attributes:
+      value: "## Extra Context"
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues
+      placeholder: "- #123"
+      description: List, and link to, all existing issues that impact this deliverable.
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagrams_screenshots
+    attributes:
+      label: Diagrams and Screenshots
+      description: If applicable, drag and drop images here.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Add any other context about the deliverable here.
+    validations:
+      required: false
+
